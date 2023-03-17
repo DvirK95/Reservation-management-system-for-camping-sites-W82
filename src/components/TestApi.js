@@ -3,7 +3,7 @@ import React from "react";
 function TestApi() {
   return (
     <div>
-      <h1>Hello Word</h1>
+      <h1>פאקינג עובד</h1>
     </div>
   );
 }
