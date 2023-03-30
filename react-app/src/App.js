@@ -1,18 +1,23 @@
-import React from "react";
-
-// import TestApi from "./components/Tests/TestApi.js";
+import { Route, Switch } from "react-router-dom";
 import Header from "./components/UI/Header";
 // import Body from "./components/UI/Body";
-import IsraelMap from './components/Tests/IsraelMap';
-
+import IsraelMap from "./components/Tests/IsraelMap";
+import Sites from "./components/Sites/Sites";
 function App() {
   return (
-    <div>
-      {/* <h1>Let's get start!!!!!</h1> */}
+    <>
       <Header />
-      {/* <Body /> */}
-      <IsraelMap />
-    </div>
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <IsraelMap />
+          </Route>
+          <Route path="/sites/:siteId" exact>
+            <Sites />
+          </Route>
+        </Switch>
+      </main>
+    </>
   );
 }
 
