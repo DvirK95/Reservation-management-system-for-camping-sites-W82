@@ -3,10 +3,15 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: calibri;
   margin: 0px;
 }
 
 body {
   margin: 0;
+}
+
+:root {
+  --main-dark-color: #004b3f;
+  --main-light-color: #ddede3;
 }

@@ -32,7 +32,7 @@ function IsraelMap() {
     })
       .addTo(map)
       .bindPopup(
-        '<div><b> גן לאומי אכזיב </b> <br> <a href="https://www.telaviv.gov.il/"> פרטים נוספים</a></div> '
+        '<div><b> גן לאומי אכזיב </b> <br> <a href="/sites/2"> פרטים נוספים</a></div> '
       );
     const horshatTal = L.marker([31.95241067223935, 35.23398196582406], {
       icon: markerIcon,

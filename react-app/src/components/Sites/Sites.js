@@ -1,82 +1,64 @@
-/*
-import { useParams } from "react-router-dom";
+// Sites.js
+import { useState, useEffect } from "react";
+import map from "./maps/2.png";
+import "./Sites.css";
+import FindSitesByDate from "./FindSitesByDate.js";
+import Place from "./Place";
+
 function Sites() {
-  // TODO: connect here api from backend. now just working with dummy
+  const Camp_name = "פארק נחל אכזיב";
+  const [activePlace, setActivePlace] = useState(null);
+  const [placesData, setPlacesData] = useState([]);
 
-  let sites = {
-    2: {
-      category_id: 2,
-      name: "גן לאומי אכזיב",
-      description: "בלה",
-    },
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/places/2`
+        );
+        // Log the response text to see what the server returns
+        //const responseText = await response.text();
+        //console.log("Server response:", responseText);
+        const data = await response.json();
+        setPlacesData(data);
+        console.log("Fetched data:", data);
+
+        /*const data = JSON.parse(responseText);
+        setPlacesData(data);
+        console.log("Fetched data:", data);*/
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchPlaces();
+  }, []);
+
+  const handlePlaceClick = (number) => {
+    setActivePlace(number);
   };
 
-  const params = useParams();
   return (
-    <section>
-      <h1>Site: {params.siteId}</h1>
-    </section>
-  );
-}
-
-export default Sites;
-*/
-
-import React, { useState } from "react";
-import stadium from "./maps/2.png";
-
-function Stadium() {
-  const [selectedSeats, setSelectedSeats] = useState([]);
-
-  const handleSeatClick = (event) => {
-    const { id, x, y } = event.target.dataset;
-    const seat = { id, x, y };
-    setSelectedSeats((prevSelectedSeats) => [...prevSelectedSeats, seat]);
-  };
-
-  return (
-    <div className="stadium">
-      <img
-        src={stadium}
-        alt="Stadium map"
-        useMap="#seatsMap"
-        onClick={handleSeatClick}
-      />
-      <map name="seatsMap">
-        <area
-          id="seat1"
-          data-x="100"
-          data-y="150"
-          shape="circle"
-          coords="100,150,10"
-        />
-        <area
-          id="seat2"
-          data-x="200"
-          data-y="200"
-          shape="circle"
-          coords="200,200,10"
-        />
-        <area
-          id="seat3"
-          data-x="300"
-          data-y="250"
-          shape="circle"
-          coords="300,250,10"
-        />
-      </map>
-      <div className="selected-seats">
-        <h2>Selected seats:</h2>
-        <ul>
-          {selectedSeats.map((seat) => (
-            <li key={seat.id}>
-              Seat {seat.id} - x: {seat.x}, y: {seat.y}
-            </li>
+    <div className="sites" dir="rtl">
+      <h1 className="title">{Camp_name}</h1>
+      <FindSitesByDate />
+      <div className="innerWrap">
+        <img src={map} alt="Campground Map" className="campground-map" />
+        <div className="places">
+          {placesData.map((placeObj) => (
+            <Place
+              key={placeObj["id"]}
+              top={placeObj["top"]}
+              left={placeObj["left"]}
+              number={placeObj["id"]}
+              onClick={() => handlePlaceClick(placeObj["id"])}
+              active={activePlace === placeObj["id"]}
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Stadium;
+export default Sites;
