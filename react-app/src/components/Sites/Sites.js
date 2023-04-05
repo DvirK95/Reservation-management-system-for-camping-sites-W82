@@ -6,53 +6,68 @@ import FindSitesByDate from "./FindSitesByDate.js";
 import Place from "./Place";
 
 function Sites() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const Camp_name = "פארק נחל אכזיב";
-  const [activePlace, setActivePlace] = useState(null);
+  const [activePlace, setActivePlace] = useState([]);
   const [placesData, setPlacesData] = useState([]);
+  const [startDate, setStartDate] = useState(today.toISOString().substr(0, 10));
+  const [endDate, setEndDate] = useState(tomorrow.toISOString().substr(0, 10));
+
+  const handleDateSubmission = (arrival, departure) => {
+    setStartDate(arrival);
+    setEndDate(departure);
+  };
 
   useEffect(() => {
+    if (!startDate || !endDate) return;
     const fetchPlaces = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/places/2`
+          `${process.env.REACT_APP_API_URL}/places?startDate=${startDate}&endDate=${endDate}&siteId=2`
         );
-        // Log the response text to see what the server returns
-        //const responseText = await response.text();
-        //console.log("Server response:", responseText);
+
         const data = await response.json();
         setPlacesData(data);
-        console.log("Fetched data:", data);
-
-        /*const data = JSON.parse(responseText);
-        setPlacesData(data);
-        console.log("Fetched data:", data);*/
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchPlaces();
-  }, []);
+  }, [startDate, endDate]);
 
-  const handlePlaceClick = (number) => {
-    setActivePlace(number);
+  const handlePlaceClick = (placeObj) => {
+    setActivePlace((prevActivePlace) => {
+      if (prevActivePlace.includes(placeObj.id)) {
+        // Remove the placeObj.id from the activePlace array
+        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
+      } else {
+        // Add the placeObj.id to the activePlace array
+        return [...prevActivePlace, placeObj.id];
+      }
+    });
   };
 
   return (
     <div className="sites" dir="rtl">
       <h1 className="title">{Camp_name}</h1>
-      <FindSitesByDate />
+      <FindSitesByDate
+        onDateSubmit={handleDateSubmission}
+        initialArrivalDate={startDate}
+        initialDepartureDate={endDate}
+      />
       <div className="innerWrap">
         <img src={map} alt="Campground Map" className="campground-map" />
         <div className="places">
           {placesData.map((placeObj) => (
             <Place
               key={placeObj["id"]}
-              top={placeObj["top"]}
-              left={placeObj["left"]}
-              number={placeObj["id"]}
-              onClick={() => handlePlaceClick(placeObj["id"])}
-              active={activePlace === placeObj["id"]}
+              placeObj={placeObj}
+              onClick={handlePlaceClick}
+              active={activePlace.includes(placeObj["id"])}
             />
           ))}
         </div>

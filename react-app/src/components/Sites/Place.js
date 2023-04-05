@@ -1,16 +1,24 @@
 import "./Sites.css";
 
-function Place(prop) {
+function Place({ placeObj, onClick, active }) {
+  const handleClick = () => {
+    if (placeObj.stock !== 0) {
+      onClick(placeObj);
+    }
+  };
+
   return (
     <span
       style={{
-        top: `${prop.top}%`,
-        left: `${prop.left}%`,
+        top: `${placeObj.top}%`,
+        left: `${placeObj.left}%`,
       }}
-      className={`place place-${prop.number} ${prop.active ? "active" : ""}`}
-      onClick={prop.onClick}
+      className={`place place-${placeObj.id} ${active ? "active" : ""} ${
+        placeObj.stock === 0 ? "unavailable" : ""
+      }`}
+      onClick={handleClick}
     >
-      {prop.number}
+      {placeObj.number}
     </span>
   );
 }

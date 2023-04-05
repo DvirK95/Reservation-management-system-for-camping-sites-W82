@@ -55,6 +55,10 @@ span {
   font-weight: 600;
 }
 
+.place.unavailable {
+  background-color: gray;
+}
+
 @media screen and (max-width: 1750px) {
   span {
     font-size: 22px;
