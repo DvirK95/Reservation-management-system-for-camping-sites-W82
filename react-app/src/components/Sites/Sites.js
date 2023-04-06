@@ -1,9 +1,8 @@
-// Sites.js
 import { useState, useEffect } from "react";
-import map from "./maps/2.png";
 import "./Sites.css";
 import FindSitesByDate from "./FindSitesByDate.js";
-import Place from "./Place";
+import MapWithPlaces from "./MapWithPlaces";
+import { Spinner } from "react-bootstrap";
 
 function Sites() {
   const today = new Date();
@@ -15,6 +14,7 @@ function Sites() {
   const [placesData, setPlacesData] = useState([]);
   const [startDate, setStartDate] = useState(today.toISOString().substr(0, 10));
   const [endDate, setEndDate] = useState(tomorrow.toISOString().substr(0, 10));
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleDateSubmission = (arrival, departure) => {
     setStartDate(arrival);
@@ -23,8 +23,10 @@ function Sites() {
 
   useEffect(() => {
     if (!startDate || !endDate) return;
+
     const fetchPlaces = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(
           `${process.env.REACT_APP_API_URL}/places?startDate=${startDate}&endDate=${endDate}&siteId=2`
         );
@@ -33,6 +35,8 @@ function Sites() {
         setPlacesData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -59,18 +63,17 @@ function Sites() {
         initialArrivalDate={startDate}
         initialDepartureDate={endDate}
       />
-      <div className="innerWrap">
-        <img src={map} alt="Campground Map" className="campground-map" />
-        <div className="places">
-          {placesData.map((placeObj) => (
-            <Place
-              key={placeObj["id"]}
-              placeObj={placeObj}
-              onClick={handlePlaceClick}
-              active={activePlace.includes(placeObj["id"])}
-            />
-          ))}
-        </div>
+      <div className={`innerWrap ${isLoading ? "loading" : ""}`}>
+        {isLoading && (
+          <div className="spinner-container">
+            <Spinner animation="border" />
+          </div>
+        )}
+        <MapWithPlaces
+          placesData={placesData}
+          handlePlaceClick={handlePlaceClick}
+          activePlace={activePlace}
+        />
       </div>
     </div>
   );

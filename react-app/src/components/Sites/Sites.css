@@ -3,6 +3,18 @@
   text-align: center;
 }
 
+.innerWrap.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .sites {
   position: relative;
   display: block;

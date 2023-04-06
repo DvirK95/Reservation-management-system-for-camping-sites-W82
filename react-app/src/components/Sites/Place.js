@@ -2,10 +2,19 @@ import "./Sites.css";
 
 function Place({ placeObj, onClick, active }) {
   const handleClick = () => {
-    if (placeObj.stock !== 0) {
+    if (placeObj.status === "AVAILABLE") {
       onClick(placeObj);
     }
   };
+
+  const placeClassNames = [
+    "place",
+    `place-${placeObj.id}`,
+    active ? "active" : "",
+    placeObj.status !== "AVAILABLE" ? "unavailable" : "",
+  ]
+    .join(" ")
+    .trim();
 
   return (
     <span
@@ -13,9 +22,7 @@ function Place({ placeObj, onClick, active }) {
         top: `${placeObj.top}%`,
         left: `${placeObj.left}%`,
       }}
-      className={`place place-${placeObj.id} ${active ? "active" : ""} ${
-        placeObj.stock === 0 ? "unavailable" : ""
-      }`}
+      className={placeClassNames}
       onClick={handleClick}
     >
       {placeObj.number}

@@ -7,8 +7,10 @@ const PlaceSchema = new mongoose.Schema(
       {
         id: { type: String, required: true },
         number: { type: String, required: true },
-        left: Number,
         top: Number,
+        left: Number,
+        shape: { type: String, default: "circle" },
+        size: { type: Number, default: 1 },
       },
     ],
   },

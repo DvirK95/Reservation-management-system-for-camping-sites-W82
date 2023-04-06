@@ -61,7 +61,9 @@ router.get("/", async (req, res, next) => {
     for (let placeObjDb of dbData) {
       // add the values
       placeObjDb["name"] = externalData.items[placeObjDb.id].name;
-      placeObjDb["stock"] = externalData.items[placeObjDb.id].name;
+      placeObjDb["status"] = externalData.items[placeObjDb.id].rate.status;
+      placeObjDb["available"] =
+        externalData.items[placeObjDb.id].rate.available;
     }
     // Send combined data array to the frontend
     res.json(dbData);
