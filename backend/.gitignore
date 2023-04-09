@@ -37,3 +37,6 @@ build/Release
 ##### 
 package-lock.json
 routes/dummyData.json
+
+.env.production
+.env.development

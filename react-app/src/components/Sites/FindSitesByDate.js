@@ -2,37 +2,26 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import CustomButton from "../UI/CustomButton";
 import "./FindSitesByDate.css";
+import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
 
-function FindSitesByDate({
-  onDateSubmit,
-  initialArrivalDate,
-  initialDepartureDate,
-}) {
-  const [arrivalDate, setArrivalDate] = useState(initialArrivalDate);
-  const [departureDate, setDepartureDate] = useState(initialDepartureDate);
-  const [endDateMin, setEndDateMin] = useState(
-    calculateTommorowDate(initialArrivalDate)
-  );
+function FindSitesByDate({ setDates }) {
+  const today = pullTodayDate();
+  const tomorrow = calculateTommorowDate(today);
 
-  function calculateTommorowDate(dateStr) {
-    let date = new Date(dateStr);
-    date.setDate(date.getDate() + 1);
-    return date.toISOString().slice(0, 10);
-  }
+  const [arrivalDate, setArrivalDate] = useState(today);
+  const [departureDate, setDepartureDate] = useState(tomorrow);
 
   const handleSubmit = () => {
-    onDateSubmit(arrivalDate, departureDate);
+    setDates({ startDate: arrivalDate, endDate: departureDate });
   };
 
   const handleReset = () => {
-    setArrivalDate(initialArrivalDate);
-    setDepartureDate(initialDepartureDate);
+    setArrivalDate(today);
+    setDepartureDate(tomorrow);
   };
-
-  const startDateChangeHandler = (e) => {
+  const startDateOnChange = (e) => {
     setArrivalDate(e.target.value);
     setDepartureDate(calculateTommorowDate(e.target.value));
-    setEndDateMin(calculateTommorowDate(e.target.value));
   };
   return (
     <Container className="wrapper">
@@ -48,8 +37,8 @@ function FindSitesByDate({
               type="date"
               id="arrival"
               value={arrivalDate}
-              min={initialArrivalDate}
-              onChange={startDateChangeHandler}
+              min={today}
+              onChange={startDateOnChange}
             />
           </div>
           <div className="datesLabel">
@@ -59,7 +48,7 @@ function FindSitesByDate({
               type="date"
               id="departure"
               value={departureDate}
-              min={endDateMin}
+              min={tomorrow}
               onChange={(e) => setDepartureDate(e.target.value)}
             />
           </div>

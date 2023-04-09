@@ -3,34 +3,39 @@ import "./Sites.css";
 import FindSitesByDate from "./FindSitesByDate.js";
 import MapWithPlaces from "./MapWithPlaces";
 import { Spinner } from "react-bootstrap";
+import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
+import CheckfrontWidget from "./CheckfrontWidget";
 
 function Sites() {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
   const Camp_name = "פארק נחל אכזיב";
   const [activePlace, setActivePlace] = useState([]);
   const [placesData, setPlacesData] = useState([]);
-  const [startDate, setStartDate] = useState(today.toISOString().substr(0, 10));
-  const [endDate, setEndDate] = useState(tomorrow.toISOString().substr(0, 10));
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dates, setDates] = useState({
+    startDate: pullTodayDate(),
+    endDate: calculateTommorowDate(pullTodayDate()),
+  });
 
-  const handleDateSubmission = (arrival, departure) => {
-    setStartDate(arrival);
-    setEndDate(departure);
+  // We need to consider move this method to Place.js
+  const handlePlaceClick = (placeObj) => {
+    setActivePlace((prevActivePlace) => {
+      if (prevActivePlace.includes(placeObj.id)) {
+        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
+      } else {
+        return [...prevActivePlace, placeObj.id];
+      }
+    });
   };
 
   useEffect(() => {
-    if (!startDate || !endDate) return;
+    if (!dates.startDate || !dates.endDate) return;
 
     const fetchPlaces = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/places?startDate=${startDate}&endDate=${endDate}&siteId=2`
+          `${process.env.REACT_APP_API_URL}/places?startDate=${dates.startDate}&endDate=${dates.endDate}&siteId=2`
         );
-
         const data = await response.json();
         setPlacesData(data);
       } catch (error) {
@@ -41,28 +46,15 @@ function Sites() {
     };
 
     fetchPlaces();
-  }, [startDate, endDate]);
-
-  const handlePlaceClick = (placeObj) => {
-    setActivePlace((prevActivePlace) => {
-      if (prevActivePlace.includes(placeObj.id)) {
-        // Remove the placeObj.id from the activePlace array
-        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
-      } else {
-        // Add the placeObj.id to the activePlace array
-        return [...prevActivePlace, placeObj.id];
-      }
-    });
-  };
+  }, [dates]);
 
   return (
     <div className="sites" dir="rtl">
       <h1 className="title">{Camp_name}</h1>
-      <FindSitesByDate
-        onDateSubmit={handleDateSubmission}
-        initialArrivalDate={startDate}
-        initialDepartureDate={endDate}
-      />
+      <FindSitesByDate setDates={setDates} />
+      {activePlace.length > 0 && (
+        <CheckfrontWidget activePlace={activePlace} dates={dates} />
+      )}
       <div className={`innerWrap ${isLoading ? "loading" : ""}`}>
         {isLoading && (
           <div className="spinner-container">
