@@ -1,6 +1,6 @@
 import "./Place.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import Popover from "react-bootstrap/Popover";
 
 function Place({ placeObj, onClick, active }) {
   const handleClick = () => {
@@ -17,22 +17,28 @@ function Place({ placeObj, onClick, active }) {
   ]
     .join(" ")
     .trim();
-  const renderTooltip = (props) => (
-    <Tooltip id={`tooltip-${placeObj.id}`} {...props}>
-      <h5>{placeObj.name}</h5>
-      <h6>
-        &rlm; {placeObj.available}
-        {` מקומות פנויים`}
-      </h6>
-      <h6>
-        &rlm;{placeObj.price.title}
-        {` ללילה`}
-      </h6>
-    </Tooltip>
+
+  const popover = (props) => (
+    <Popover id={`tooltip-${placeObj.id}`} {...props}>
+      <Popover.Header as="h3">{placeObj.name}</Popover.Header>
+      <Popover.Body>
+        <h6>
+          &rlm; {placeObj.available}
+          {` מקומות פנויים`}
+        </h6>
+        <h6>
+          &rlm;{placeObj.price.title}
+          {` ללילה`}
+        </h6>
+      </Popover.Body>
+    </Popover>
   );
 
   return (
-    <OverlayTrigger placement="top" overlay={renderTooltip}>
+    <OverlayTrigger
+      placement={placeObj.label === "חושות" ? "top" : "auto"}
+      overlay={popover}
+    >
       <span
         style={{
           top: `${placeObj.top}%`,
