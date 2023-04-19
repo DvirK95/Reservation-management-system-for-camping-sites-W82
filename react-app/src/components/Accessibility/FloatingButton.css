@@ -25,13 +25,18 @@
 }
 
 .offcanvas.offcanvas-start {
-  max-width: 11rem;
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  text-align: right;
 }
 .offcanvas-header {
   text-align: center;
   flex-direction: row-reverse;
+  background-color: #00c0f3;
+  color: white;
+}
+.btn-close {
+  font-weight: 600;
+  color: white;
 }
 @media screen and (max-width: 768px) {
   .floating-button {

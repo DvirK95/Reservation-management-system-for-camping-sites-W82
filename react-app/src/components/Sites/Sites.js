@@ -16,7 +16,6 @@ function Sites() {
     endDate: calculateTommorowDate(pullTodayDate()),
   });
 
-  // We need to consider move this method to Place.js
   const handlePlaceClick = (placeObj) => {
     setActivePlace((prevActivePlace) => {
       if (prevActivePlace.includes(placeObj.id)) {

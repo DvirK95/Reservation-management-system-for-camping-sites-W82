@@ -100,7 +100,7 @@ const FloatingButton = () => {
         scroll={true}
         backdrop={false}
       >
-        <Offcanvas.Header closeButton>
+        <Offcanvas.Header closeButton closeVariant="white">
           <Offcanvas.Title>נגישות</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>

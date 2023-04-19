@@ -25,9 +25,10 @@
 .innerWrap {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 90%;
   height: 100%;
   border-style: solid;
+  margin: auto;
 }
 
 .campground-map {
@@ -35,4 +36,10 @@
   max-width: 100%;
   width: 100%;
   height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .innerWrap {
+    width: 100%;
+  }
 }

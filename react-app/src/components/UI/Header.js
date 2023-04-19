@@ -6,7 +6,7 @@ function Header() {
     <header className="header-border">
       <div className="header-top"></div>
       <nav className="nav">
-        <a className="custom-logo-link" href="#Home">
+        <a className="custom-logo-link" href="/">
           <img className="logo" src={logo} alt="רשות הטבע והגנים" />
         </a>
         <ul>
