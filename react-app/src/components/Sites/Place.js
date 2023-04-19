@@ -1,6 +1,7 @@
 import "./Place.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+import { Col, Row } from "react-bootstrap";
 
 function Place({ placeObj, onClick, active }) {
   const handleClick = () => {
@@ -20,16 +21,23 @@ function Place({ placeObj, onClick, active }) {
 
   const popover = (props) => (
     <Popover id={`tooltip-${placeObj.id}`} {...props}>
-      <Popover.Header as="h3">{placeObj.name}</Popover.Header>
+      {/*<Popover.Header as="h3">{placeObj.name}</Popover.Header>*/}
       <Popover.Body>
-        <h6>
-          &rlm; {placeObj.available}
-          {` מקומות פנויים`}
-        </h6>
-        <h6>
-          &rlm;{placeObj.price.title}
-          {` ללילה`}
-        </h6>
+        <Row>
+          <Col className="col" sm={7}>
+            <h6>
+              &rlm; {placeObj.available}
+              {` מקומות פנויים`}
+            </h6>
+            <p>
+              &rlm;{placeObj.price.title}
+              {/*` ללילה`*/}
+            </p>
+          </Col>
+          <Col className="col" sm={5}>
+            <img src={placeObj.smallImg} alt="small" />
+          </Col>
+        </Row>
       </Popover.Body>
     </Popover>
   );

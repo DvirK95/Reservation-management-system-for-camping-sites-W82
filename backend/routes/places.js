@@ -60,6 +60,15 @@ const fetchDatabaseData = (siteId) => {
   }
 };
 
+// check if there is an image in checkfront
+function smallImg(imgObj) {
+  try {
+    return imgObj["1"].url_small;
+  } catch (TypeError) {
+    return null;
+  }
+}
+
 router.get("/", async (req, res, next) => {
   try {
     const { startDate, endDate, siteId } = req.query;
@@ -80,7 +89,7 @@ router.get("/", async (req, res, next) => {
 
       placeObjDb["price"] =
         externalData.items[placeObjDb.id].rate.summary.price;
-      // local date not working for some reason
+
       placeObjDb["localStartDate"] =
         externalData.items[placeObjDb.id].local_start_date;
 
@@ -90,6 +99,11 @@ router.get("/", async (req, res, next) => {
       placeObjDb["nights"] = externalData.items[placeObjDb.id].days;
 
       placeObjDb["label"] = externalData.items[placeObjDb.id].meta.productLabel;
+
+      // return null if there is not img found
+      placeObjDb["smallImg"] = smallImg(
+        externalData.items[placeObjDb.id].image
+      );
     }
     // Send combined data array to the frontend
     res.json(dbData);
