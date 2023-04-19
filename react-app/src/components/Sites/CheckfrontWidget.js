@@ -14,7 +14,8 @@ function CheckfrontWidget({ activePlace, dates }) {
         item_id: activePlace.join(","), // the marked place ids
         category_id: "2",
         lang_id: "he",
-        options: "tabs,hidesearh,hidedates",
+        options: "tabs,hidesearh,hidedates", // settings manage -> integrations -> booking widget -> כל פעם לעשות -> generate code -> כדי לראות מה לשנות
+
         date: dates.startDate.split("-").join(""), // start date from user input search
         end_date: dates.endDate.split("-").join(""), // end date from user search
         provider: "droplet",

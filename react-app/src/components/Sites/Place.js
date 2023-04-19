@@ -21,7 +21,6 @@ function Place({ placeObj, onClick, active }) {
 
   const popover = (props) => (
     <Popover id={`tooltip-${placeObj.id}`} {...props}>
-      {/*<Popover.Header as="h3">{placeObj.name}</Popover.Header>*/}
       <Popover.Body>
         <Row>
           <Col className="col" sm={7}>
