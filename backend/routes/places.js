@@ -26,7 +26,7 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
     return null;
   }
 };
-
+/* remove uncommet it
 const fetchDatabaseData = async (siteId) => {
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/sites/${siteId}`, {
@@ -47,6 +47,27 @@ const fetchDatabaseData = async (siteId) => {
     return null;
   }
 };
+*/
+// toDo - replace to the MongoDb
+const DUMMY_PLACES = require("./dummyData.json");
+// Fetch all additional data from your database
+const fetchDatabaseData = (siteId) => {
+  try {
+    return DUMMY_PLACES[siteId];
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+// check if there is an image in checkfront
+function smallImg(imgObj) {
+  try {
+    return imgObj["1"].url_small;
+  } catch (TypeError) {
+    return null;
+  }
+}
 
 router.get("/", async (req, res, next) => {
   try {
@@ -62,8 +83,27 @@ router.get("/", async (req, res, next) => {
       // add the values
       placeObjDb["name"] = externalData.items[placeObjDb.id].name;
       placeObjDb["status"] = externalData.items[placeObjDb.id].rate.status;
+
       placeObjDb["available"] =
         externalData.items[placeObjDb.id].rate.available;
+
+      placeObjDb["price"] =
+        externalData.items[placeObjDb.id].rate.summary.price;
+
+      placeObjDb["localStartDate"] =
+        externalData.items[placeObjDb.id].local_start_date;
+
+      placeObjDb["localEndDate"] =
+        externalData.items[placeObjDb.id].local_end_date;
+
+      placeObjDb["nights"] = externalData.items[placeObjDb.id].days;
+
+      placeObjDb["label"] = externalData.items[placeObjDb.id].meta.productLabel;
+
+      // return null if there is not img found
+      placeObjDb["smallImg"] = smallImg(
+        externalData.items[placeObjDb.id].image
+      );
     }
     // Send combined data array to the frontend
     res.json(dbData);

@@ -6,7 +6,6 @@
   display: inline-block;
   background-color: var(--main-dark-color);
   color: var(--main-light-color);
-  border: none;
   cursor: pointer;
   font-family: inherit;
   user-select: none;

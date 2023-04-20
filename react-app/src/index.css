@@ -1,17 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
+
+:root {
+  --main-dark-color: #004b3f;
+  --main-light-color: #ddede3;
+  --text-size: 100%;
+  --text-color: inherit;
+  --background-color: inherit;
+  --theme-text-color: inherit;
+  --theme-background-color: inherit;
+}
+
 * {
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+body,
+html {
+  overflow-x: hidden;
 }
 
 html {
-  font-family: calibri;
   margin: 0px;
 }
 
 body {
   margin: 0;
-}
-
-:root {
-  --main-dark-color: #004b3f;
-  --main-light-color: #ddede3;
+  font-size: var(--text-size);
+  color: var(--text-color, var(--theme-text-color));
+  background-color: var(--background-color, var(--theme-background-color));
 }

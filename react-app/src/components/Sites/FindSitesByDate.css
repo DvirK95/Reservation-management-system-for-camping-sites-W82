@@ -21,7 +21,7 @@
   color: #555;
 }
 .datesLabel {
-  display: inline;
+  display: inline-block;
   margin-right: 15px;
 }
 

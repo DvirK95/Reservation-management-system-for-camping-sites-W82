@@ -1,5 +1,5 @@
 import React from "react";
-import map from "./maps/2.png";
+import map from "../../maps/2.png";
 import Place from "./Place";
 
 function MapWithPlaces({ placesData, handlePlaceClick, activePlace }) {
