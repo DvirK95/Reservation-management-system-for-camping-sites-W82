@@ -75,7 +75,11 @@ function IsraelMap() {
   return (
     <div>
       <div ref={mapRef} style={{ height: "500px", width: "70%" }} />
-      <Link to={`/sites/2`} />
+      <div>
+        <button>
+          <Link to={`/sites/2`} />
+        </button>
+      </div>
     </div>
   );
 }
