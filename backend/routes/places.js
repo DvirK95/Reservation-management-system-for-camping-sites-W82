@@ -1,30 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const fetch = require("node-fetch");
+const axios = require("axios");
 
 // geting data from external api
 const fetchExternalData = async (startDate, endDate, siteId) => {
   try {
-    const response = await fetch(
-      //`${process.env.API_DIR}/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
-      `https://workshop-82-dvir.checkfront.com/api/3.0/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
+    const response = await axios.get(
+      `https://workshop-82-dvir.checkfront.com/api/3.0/item`,
       {
+        params: {
+          start_date: startDate,
+          end_date: endDate,
+          category_id: siteId,
+        },
         headers: {
           Accept: "application/json",
           //Authorization: process.env.API_TOKEN,
           Authorization:
             "Basic ZDllYmJjZTA5MWY4NWRkMzZlZTM4OGQwYzE5NGI0YmZlYmQyYTE2ZDpmZGY4MzhlNzE5NDNjNDkyODVlZmM1NDgzOWU1ZjY0ZmIyMTYyZTRjNDA5ODZjNDQ3OWFmYmVjODJkMGQzMmJl",
         },
-        method: "get",
       }
     );
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("Failed to fetch data from the external API");
     }
 
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;
@@ -33,19 +35,15 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
 
 const fetchDatabaseData = async (siteId) => {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/sites/${siteId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/sites/${siteId}`
+    );
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("Failed to fetch data from /sites mongoDB");
     }
 
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;

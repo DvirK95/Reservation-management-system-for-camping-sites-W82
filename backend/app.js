@@ -1,6 +1,5 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-const fetch = require("node-fetch");
 const path = require("path");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
