@@ -81,8 +81,10 @@ router.get("/", async (req, res, next) => {
 
     // Fetch data from the external API
     const externalData = await fetchExternalData(startDate, endDate, siteId);
+    console.log("fetched externaldata");
     // Fetch all additional data from your database
     const dbData = await fetchDatabaseData(siteId);
+    console.log("fetched mongo database data");
 
     // Combine CheckFront values into the database array of objects
     for (let placeObjDb of dbData) {
