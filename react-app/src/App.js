@@ -7,7 +7,7 @@ import FloatingButton from "./components/Accessibility/FloatingButton";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <FloatingButton />
       <main>
@@ -20,7 +20,7 @@ function App() {
           </Route>
         </Switch>
       </main>
-    </div>
+    </>
   );
 }
 
