@@ -1,59 +1,44 @@
 const express = require("express");
 const router = express.Router();
+const axios = require("axios");
 
 // geting data from external api
 const fetchExternalData = async (startDate, endDate, siteId) => {
   try {
-    const response = await fetch(
-      `${process.env.API_DIR}/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: process.env.API_TOKEN,
-        },
-        method: "get",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch data from the external API");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-/* remove uncommet it
-const fetchDatabaseData = async (siteId) => {
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/sites/${siteId}`, {
-      method: "GET",
+    const response = await axios.get(`${proccess.env.API_DIR}/item`, {
+      params: {
+        start_date: startDate,
+        end_date: endDate,
+        category_id: siteId,
+      },
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `${proccess.env.API_TOKEN}`,
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch data from /sites mongoDB");
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch data from the external API");
     }
 
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;
   }
 };
-*/
-// toDo - replace to the MongoDb
-const DUMMY_PLACES = require("./dummyData.json");
-// Fetch all additional data from your database
-const fetchDatabaseData = (siteId) => {
+
+const fetchDatabaseData = async (siteId) => {
   try {
-    return DUMMY_PLACES[siteId];
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/sites/${siteId}`
+    );
+
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch data from /sites mongoDB");
+    }
+
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;
@@ -75,8 +60,10 @@ router.get("/", async (req, res, next) => {
 
     // Fetch data from the external API
     const externalData = await fetchExternalData(startDate, endDate, siteId);
+    console.log("fetched externaldata");
     // Fetch all additional data from your database
     const dbData = await fetchDatabaseData(siteId);
+    console.log("fetched mongo database data");
 
     // Combine CheckFront values into the database array of objects
     for (let placeObjDb of dbData) {
