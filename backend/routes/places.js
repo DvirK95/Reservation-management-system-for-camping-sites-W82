@@ -5,18 +5,23 @@ const axios = require("axios");
 // geting data from external api
 const fetchExternalData = async (startDate, endDate, siteId) => {
   try {
-    const response = await axios.get(`${proccess.env.API_DIR}/item`, {
-      params: {
-        start_date: startDate,
-        end_date: endDate,
-        category_id: siteId,
-      },
-      headers: {
-        Accept: "application/json",
-        //Authorization: process.env.API_TOKEN,
-        Authorization: `${proccess.env.API_TOKEN}`,
-      },
-    });
+    //const response = await axios.get(`${proccess.env.API_DIR}/item`, {
+    const response = await axios.get(
+      "https://workshop-82-dvir.checkfront.com/api/3.0/item",
+      {
+        params: {
+          start_date: startDate,
+          end_date: endDate,
+          category_id: siteId,
+        },
+        headers: {
+          Accept: "application/json",
+          //Authorization: process.env.API_TOKEN,
+          Authorization:
+            "Basic ZDllYmJjZTA5MWY4NWRkMzZlZTM4OGQwYzE5NGI0YmZlYmQyYTE2ZDpmZGY4MzhlNzE5NDNjNDkyODVlZmM1NDgzOWU1ZjY0ZmIyMTYyZTRjNDA5ODZjNDQ3OWFmYmVjODJkMGQzMmJl",
+        },
+      }
+    );
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch data from the external API");
