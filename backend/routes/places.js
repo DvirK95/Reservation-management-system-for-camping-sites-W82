@@ -37,7 +37,8 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
 const fetchDatabaseData = async (siteId) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/sites/${siteId}`
+      //`${process.env.BACKEND_URL}/sites/${siteId}`
+      `https://reservation-management-system-for.onrender.com/api/sites/${siteId}`
     );
 
     if (response.status !== 200) {
