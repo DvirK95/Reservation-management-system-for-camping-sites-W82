@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import marker from "./marker.jpg";
+import { Link } from "react-router-dom";
 
 import "./IsraelMap.css";
 
@@ -71,7 +72,12 @@ function IsraelMap() {
     });
   }, []);
 
-  return <div ref={mapRef} style={{ height: "500px", width: "70%" }} />;
+  return (
+    <div>
+      <div ref={mapRef} style={{ height: "500px", width: "70%" }} />
+      <Link to={`/sites/2`} />
+    </div>
+  );
 }
 
 export default IsraelMap;
