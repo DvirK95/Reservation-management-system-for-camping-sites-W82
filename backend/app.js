@@ -15,9 +15,10 @@ if (process.env.NODE_ENV === "production") {
 const app = express();
 app.use(express.json());
 
+/*
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../react-app/build")));
-
+*/
 // change it on production
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
-
+/*
 // Serve the index.html file for all other requests
 app.get("*", (req, res, next) => {
   if (req.path.startsWith("/api")) {
@@ -39,7 +40,7 @@ app.get("*", (req, res, next) => {
     );
   }
 });
-
+*/
 /*
 const apiToken = process.env.API_TOKEN;
 const apiURL = process.env.API_DIR;
