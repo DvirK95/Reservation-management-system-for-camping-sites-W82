@@ -26,7 +26,7 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
     return null;
   }
 };
-/* remove uncommet it
+
 const fetchDatabaseData = async (siteId) => {
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/sites/${siteId}`, {
@@ -47,7 +47,8 @@ const fetchDatabaseData = async (siteId) => {
     return null;
   }
 };
-*/
+
+/*
 // toDo - replace to the MongoDb
 const DUMMY_PLACES = require("./dummyData.json");
 // Fetch all additional data from your database
@@ -59,6 +60,7 @@ const fetchDatabaseData = (siteId) => {
     return null;
   }
 };
+*/
 
 // check if there is an image in checkfront
 function smallImg(imgObj) {
