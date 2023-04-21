@@ -1,15 +1,13 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-//const path = require("path");
-//const placesRoutes = require("./routes/places");
-//const siteSRoutes = require("./routes/sites");
 const dotenv = require("dotenv").config();
+const postData = require("./routes/postData");
+const placeRoutes = require("./routes/places-routes");
+const siteRoutes = require("./routes/site-routes");
+
 const app = express();
 app.use(express.json());
-/*
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../react-app/build")));
-*/
+
 // change it on production
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -20,24 +18,12 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
-/*
-// Serve the index.html file for all other requests
-app.get("*", (req, res, next) => {
-  if (req.path.startsWith("/api")) {
-    next();
-  } else {
-    res.sendFile(
-      path.resolve(__dirname, "../", "react-app", "build", "index.html")
-    );
-  }
-});
-*/
 
-//app.use("/api/places", placesRoutes);
-//app.use("/api/sites", siteSRoutes);
 // toRemove in production
-const postData = require("./routes/postData");
 app.use("/api", postData);
+
+app.use("/places", placeRoutes);
+app.use("/sites", siteRoutes);
 
 mongoose
   .connect(process.env.MONGO_DB_PASSWORD, {
