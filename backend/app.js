@@ -4,12 +4,6 @@ const path = require("path");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 
-if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.production" });
-} else {
-  dotenv.config({ path: ".env.development" });
-}
-
 const app = express();
 app.use(express.json());
 
