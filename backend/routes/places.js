@@ -5,7 +5,8 @@ const router = express.Router();
 const fetchExternalData = async (startDate, endDate, siteId) => {
   try {
     const response = await fetch(
-      `${process.env.API_DIR}/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
+      //`${process.env.API_DIR}/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
+      `https://workshop-82-dvir.checkfront.com/api/3.0/item?start_date=${startDate}&end_date=${endDate}&category_id=${siteId}`,
       {
         headers: {
           Accept: "application/json",
