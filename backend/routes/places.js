@@ -9,7 +9,9 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
       {
         headers: {
           Accept: "application/json",
-          Authorization: process.env.API_TOKEN,
+          //Authorization: process.env.API_TOKEN,
+          Authorization:
+            "Basic ZDllYmJjZTA5MWY4NWRkMzZlZTM4OGQwYzE5NGI0YmZlYmQyYTE2ZDpmZGY4MzhlNzE5NDNjNDkyODVlZmM1NDgzOWU1ZjY0ZmIyMTYyZTRjNDA5ODZjNDQ3OWFmYmVjODJkMGQzMmJl",
         },
         method: "get",
       }
