@@ -1,4 +1,4 @@
-const express = require("express");
+/*const express = require("express");
 const Place = require("../models/place");
 const router = express.Router();
 
@@ -48,3 +48,4 @@ router.get("/:siteId", async (req, res, next) => {
 });
 
 module.exports = router;
+*/

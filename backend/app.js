@@ -1,23 +1,15 @@
 const express = require("express");
-//const mongoose = require("mongoose");
 const { default: mongoose } = require("mongoose");
-const fetch = require("node-fetch");
-const path = require("path");
-const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
-
-if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.production" });
-} else {
-  dotenv.config({ path: ".env.development" });
-}
-
+//const path = require("path");
+//const placesRoutes = require("./routes/places");
+//const siteSRoutes = require("./routes/sites");
+const dotenv = require("dotenv").config();
 const app = express();
 app.use(express.json());
-
+/*
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../react-app/build")));
-
+*/
 // change it on production
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +20,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
-
+/*
 // Serve the index.html file for all other requests
 app.get("*", (req, res, next) => {
   if (req.path.startsWith("/api")) {
@@ -39,36 +31,13 @@ app.get("*", (req, res, next) => {
     );
   }
 });
-
-/*
-const apiToken = process.env.API_TOKEN;
-const apiURL = process.env.API_DIR;
-
-app.get("/data/api/*", async (req, res, next) => {
-  try {
-    const apiPath = req.path.replace("/api", "");
-    const response = await fetch(`${apiURL}/api/3.0${apiPath}`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: apiToken,
-      },
-      //method: "get",
-    });
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-  // try this
-  next();
-});
 */
-const placesRoutes = require("./routes/places");
-app.use("/api/places", placesRoutes);
 
-const siteSRoutes = require("./routes/sites");
-app.use("/api/sites", siteSRoutes);
+//app.use("/api/places", placesRoutes);
+//app.use("/api/sites", siteSRoutes);
+// toRemove in production
+const postData = require("./routes/postData");
+app.use("/api", postData);
 
 mongoose
   .connect(process.env.MONGO_DB_PASSWORD, {
