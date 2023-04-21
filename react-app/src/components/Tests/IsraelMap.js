@@ -76,9 +76,9 @@ function IsraelMap() {
     <div>
       <div ref={mapRef} style={{ height: "500px", width: "70%" }} />
       <div>
-        <button>
-          <Link to={`/sites/2`} />
-        </button>
+        <Link to={`/sites/2`}>
+          <button />
+        </Link>
       </div>
     </div>
   );
