@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // toRemove in production
-app.use("/api", postData);
+app.use("/post", postData);
 
 app.use("/places", placeRoutes);
 app.use("/sites", siteRoutes);

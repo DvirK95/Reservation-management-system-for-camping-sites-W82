@@ -9,10 +9,10 @@ function MapWithPlaces({ placesData, handlePlaceClick, activePlace }) {
       <div className="places">
         {placesData.map((placeObj) => (
           <Place
-            key={placeObj["id"]}
+            key={placeObj["_id"]}
             placeObj={placeObj}
             onClick={handlePlaceClick}
-            active={activePlace.includes(placeObj["id"])}
+            active={activePlace.includes(placeObj["_id"])}
           />
         ))}
       </div>

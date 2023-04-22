@@ -2,6 +2,15 @@ const axios = require("axios");
 const Place = require("../models/placeSchema");
 const Relation = require("../models/sitePlaceRelationSchema");
 
+// get the small img in checkfront
+function smallImg(imgObj) {
+  try {
+    return imgObj["1"].url_small;
+  } catch (TypeError) {
+    return null;
+  }
+}
+
 const fetchExternalData = async (startDate, endDate, siteId) => {
   try {
     const response = await axios.get(`${process.env.API_DIR}/item`, {
@@ -45,7 +54,7 @@ exports.getPlacesBySiteId = async (req, res) => {
       if (externalData.items && externalData.items[placeId]) {
         return {
           ...placeObjDb.toObject(),
-          name: externalData.items[placeId].name,
+          title: externalData.items[placeId].name,
           status: externalData.items[placeId].rate.status,
           available: externalData.items[placeId].rate.available,
           price: externalData.items[placeId].rate.summary.price,
@@ -53,6 +62,8 @@ exports.getPlacesBySiteId = async (req, res) => {
           localEndDate: externalData.items[placeId].local_end_date,
           nights: externalData.items[placeId].days,
           label: externalData.items[placeId].meta.productLabel,
+          // return null if there is not img found
+          smallImg: smallImg(externalData.items[placeObjDb.id].image),
         };
       } else {
         return placeObjDb;

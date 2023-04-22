@@ -54,7 +54,7 @@ function Place({ placeObj, onClick, active }) {
         className={placeClassNames}
         onClick={handleClick}
       >
-        {placeObj.number}
+        {placeObj.name}
       </span>
     </OverlayTrigger>
   );

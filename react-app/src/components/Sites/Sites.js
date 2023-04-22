@@ -6,8 +6,7 @@ import { Spinner } from "react-bootstrap";
 import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
 import CheckfrontWidget from "./CheckfrontWidget";
 
-function Sites() {
-  const Camp_name = "פארק נחל אכזיב";
+function Sites({ campName = "פארק נחל אכזיב", siteId = "2" }) {
   const [activePlace, setActivePlace] = useState([]);
   const [placesData, setPlacesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +17,10 @@ function Sites() {
 
   const handlePlaceClick = (placeObj) => {
     setActivePlace((prevActivePlace) => {
-      if (prevActivePlace.includes(placeObj.id)) {
-        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
+      if (prevActivePlace.includes(placeObj._id)) {
+        return prevActivePlace.filter((placeId) => placeId !== placeObj._id);
       } else {
-        return [...prevActivePlace, placeObj.id];
+        return [...prevActivePlace, placeObj._id];
       }
     });
   };
@@ -33,7 +32,7 @@ function Sites() {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/places?startDate=${dates.startDate}&endDate=${dates.endDate}&siteId=2`
+          `${process.env.REACT_APP_API_URL}/places/${siteId}?startDate=${dates.startDate}&endDate=${dates.endDate}`
         );
         const data = await response.json();
         setPlacesData(data);
@@ -49,7 +48,7 @@ function Sites() {
 
   return (
     <div className="sites" dir="rtl">
-      <h1 className="title">{Camp_name}</h1>
+      <h1 className="title">{campName}</h1>
       <FindSitesByDate setDates={setDates} />
       {activePlace.length > 0 && (
         <CheckfrontWidget activePlace={activePlace} dates={dates} />
