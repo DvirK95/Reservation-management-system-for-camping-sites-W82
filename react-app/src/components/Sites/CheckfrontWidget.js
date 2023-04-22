@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-function CheckfrontWidget({ activePlace, dates }) {
+function CheckfrontWidget({ activePlace, dates, siteId }) {
   useEffect(() => {
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -12,7 +12,7 @@ function CheckfrontWidget({ activePlace, dates }) {
         pipe: `${process.env.REACT_APP_Link}/checkfront-helper.html`,
         target: "CHECKFRONT_WIDGET_01",
         item_id: activePlace.join(","), // the marked place ids
-        category_id: "2",
+        category_id: siteId,
         lang_id: "he",
         options: "tabs,hidesearh,hidedates", // settings manage -> integrations -> booking widget -> כל פעם לעשות -> generate code -> כדי לראות מה לשנות
 
@@ -25,7 +25,7 @@ function CheckfrontWidget({ activePlace, dates }) {
     return () => {
       document.body.removeChild(script);
     };
-  }, [activePlace, dates]);
+  }, [activePlace, dates, siteId]);
 
   return (
     <div id="CHECKFRONT_WIDGET_01">

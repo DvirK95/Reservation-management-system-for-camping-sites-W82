@@ -6,7 +6,11 @@ import { Spinner } from "react-bootstrap";
 import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
 import CheckfrontWidget from "./CheckfrontWidget";
 
-function Sites({ campName = "פארק נחל אכזיב", siteId = "2" }) {
+function Sites({
+  campName = "פארק נחל אכזיב",
+  siteId = "2",
+  mapName = "Akhziv",
+}) {
   const [activePlace, setActivePlace] = useState([]);
   const [placesData, setPlacesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,14 +48,18 @@ function Sites({ campName = "פארק נחל אכזיב", siteId = "2" }) {
     };
 
     fetchPlaces();
-  }, [dates]);
+  }, [dates, siteId]);
 
   return (
     <div className="sites" dir="rtl">
       <h1 className="title">{campName}</h1>
       <FindSitesByDate setDates={setDates} />
       {activePlace.length > 0 && (
-        <CheckfrontWidget activePlace={activePlace} dates={dates} />
+        <CheckfrontWidget
+          activePlace={activePlace}
+          dates={dates}
+          siteId={siteId}
+        />
       )}
       <div className={`innerWrap ${isLoading ? "loading" : ""}`}>
         {isLoading && (
@@ -60,6 +68,7 @@ function Sites({ campName = "פארק נחל אכזיב", siteId = "2" }) {
           </div>
         )}
         <MapWithPlaces
+          mapName={mapName}
           placesData={placesData}
           handlePlaceClick={handlePlaceClick}
           activePlace={activePlace}

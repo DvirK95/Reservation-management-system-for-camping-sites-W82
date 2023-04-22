@@ -1,11 +1,15 @@
 import React from "react";
-import map from "../../maps/2.png";
 import Place from "./Place";
 
-function MapWithPlaces({ placesData, handlePlaceClick, activePlace }) {
+function MapWithPlaces({ placesData, handlePlaceClick, activePlace, mapName }) {
+  const mapPath = `../../maps/${mapName}.png`;
   return (
     <>
-      <img src={map} alt="Campground Map" className="campground-map" />
+      <img
+        src={/*todo*/ mapPath}
+        alt="Campground Map"
+        className="campground-map"
+      />
       <div className="places">
         {placesData.map((placeObj) => (
           <Place

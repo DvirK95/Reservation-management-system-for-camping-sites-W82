@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Header from "./components/UI/Header";
 // import Body from "./components/UI/Body";
 import IsraelMap from "./components/Tests/IsraelMap";
