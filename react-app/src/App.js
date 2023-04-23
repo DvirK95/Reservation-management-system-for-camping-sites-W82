@@ -4,6 +4,7 @@ import Header from "./components/UI/Header";
 import IsraelMap from "./components/Tests/IsraelMap";
 import Sites from "./components/Sites/Sites";
 import FloatingButton from "./components/Accessibility/FloatingButton";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path="/sites/:siteId" exact>
             <Sites />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </main>

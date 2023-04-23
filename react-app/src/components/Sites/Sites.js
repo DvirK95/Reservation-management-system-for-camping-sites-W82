@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"; // Add this import
 import "./Sites.css";
 import FindSitesByDate from "./FindSitesByDate.js";
 import MapWithPlaces from "./MapWithPlaces";
 import { Spinner } from "react-bootstrap";
 import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
-import CheckfrontWidget from "./CheckfrontWidget";
+import CheckfrontWidget from "../../pages/CheckfrontWidget";
 
 function Sites({
   campName = "פארק נחל אכזיב",
@@ -18,6 +19,8 @@ function Sites({
     startDate: pullTodayDate(),
     endDate: calculateTommorowDate(pullTodayDate()),
   });
+
+  const history = useHistory();
 
   const handlePlaceClick = (placeObj) => {
     setActivePlace((prevActivePlace) => {
@@ -39,16 +42,21 @@ function Sites({
           `${process.env.REACT_APP_API_URL}/places/${siteId}?startDate=${dates.startDate}&endDate=${dates.endDate}`
         );
         const data = await response.json();
-        setPlacesData(data);
+        if (data.length === 0) {
+          throw new Error("No data found");
+        } else {
+          setPlacesData(data);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
+        history.push(`/notfound?res=${error.message}`);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchPlaces();
-  }, [dates, siteId]);
+  }, [dates, siteId, history]);
 
   return (
     <div className="sites" dir="rtl">
