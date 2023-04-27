@@ -1,10 +1,11 @@
-import { Route, Switch } from "react-router-dom";
-import Header from "./components/UI/Header";
+import { Route, Switch } from 'react-router-dom';
+import Header from './components/UI/Header';
 // import Body from "./components/UI/Body";
-import IsraelMap from "./components/Tests/IsraelMap";
-import Sites from "./components/Sites/Sites";
-import FloatingButton from "./components/Accessibility/FloatingButton";
-import NotFound from "./pages/NotFound";
+import IsraelMap from './components/Tests/IsraelMap';
+import Sites from './components/Sites/Sites';
+import FloatingButton from './components/Accessibility/FloatingButton';
+import NotFound from './pages/NotFound';
+import Test from './components/Sites/Test';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path="/sites/:siteId" exact>
             <Sites />
+          </Route>
+          <Route path="/test" exact>
+            <Test />
           </Route>
           <Route path="*">
             <NotFound />

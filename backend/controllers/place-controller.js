@@ -55,15 +55,19 @@ exports.getPlacesBySiteId = async (req, res) => {
         return {
           ...placeObjDb.toObject(),
           title: externalData.items[placeId].name,
+          summary: externalData.items[placeId].summary,
           status: externalData.items[placeId].rate.status,
           available: externalData.items[placeId].rate.available,
+          slip: externalData.items[placeId].rate.slip,
           price: externalData.items[placeId].rate.summary.price,
           localStartDate: externalData.items[placeId].local_start_date,
           localEndDate: externalData.items[placeId].local_end_date,
           nights: externalData.items[placeId].days,
           label: externalData.items[placeId].meta.productLabel,
+
           // return null if there is not img found
           smallImg: smallImg(externalData.items[placeObjDb.id].image),
+          imgMedium: externalData.items[placeObjDb.id].image["1"].url_medium,
         };
       } else {
         return placeObjDb;

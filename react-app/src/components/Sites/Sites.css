@@ -25,9 +25,8 @@
 .innerWrap {
   position: relative;
   overflow: hidden;
-  width: 90%;
+  width: 60%;
   height: 100%;
-  border-style: solid;
   margin: auto;
 }
 
