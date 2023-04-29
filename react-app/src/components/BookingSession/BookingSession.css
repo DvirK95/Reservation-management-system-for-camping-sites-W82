@@ -67,6 +67,10 @@
   cursor: pointer;
 }
 
+.custom-button-inverse {
+  text-decoration: none;
+  margin: 1rem 0;
+}
 @media screen and (max-width: 768px) {
   #title {
     margin-top: 2rem;

@@ -35,8 +35,20 @@
   max-width: 100%;
   width: 100%;
   height: auto;
+  cursor: grab;
 }
 
+.icon-btn {
+  display: contents;
+}
+table {
+  border-collapse: collapse;
+}
+td {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 @media screen and (max-width: 768px) {
   .innerWrap {
     width: 100%;

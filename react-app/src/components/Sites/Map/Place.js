@@ -1,22 +1,23 @@
-import "./Place.css";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
-import { Col, Row } from "react-bootstrap";
+import './Place.css';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import { Col, Row } from 'react-bootstrap';
+import { translateErrorStatus } from '../../../utils/hebrew';
 
 function Place({ placeObj, onClick, active }) {
   const handleClick = () => {
-    if (placeObj.status === "AVAILABLE") {
+    if (placeObj.status === 'AVAILABLE') {
       onClick(placeObj);
     }
   };
 
   const placeClassNames = [
-    "place",
-    placeObj.status !== "AVAILABLE" ? "unavailable" : "",
+    'place',
+    placeObj.status !== 'AVAILABLE' ? 'unavailable' : '',
     placeObj.shape,
-    active ? "active" : "",
+    active ? 'active' : '',
   ]
-    .join(" ")
+    .join(' ')
     .trim();
 
   const popover = (props) => (
@@ -24,7 +25,7 @@ function Place({ placeObj, onClick, active }) {
       <Popover.Body>
         <Row>
           <Col className="col" sm={7}>
-            <h6>
+            <h6 style={{ color: placeObj.available === 0 ? 'red' : '' }}>
               &rlm; {placeObj.available}
               {` מקומות פנויים`}
             </h6>
@@ -37,13 +38,18 @@ function Place({ placeObj, onClick, active }) {
             <img src={placeObj.smallImg} alt="small" />
           </Col>
         </Row>
+        {placeObj.error && (
+          <span className="error-status">
+            {translateErrorStatus(placeObj.error.title)}
+          </span>
+        )}
       </Popover.Body>
     </Popover>
   );
 
   return (
     <OverlayTrigger
-      placement={placeObj.label === "חושות" ? "top" : "auto"}
+      placement={placeObj.label === 'חושות' ? 'top' : 'auto'}
       overlay={popover}
     >
       <span

@@ -6,6 +6,7 @@ import Sites from './components/Sites/Sites';
 import FloatingButton from './components/Accessibility/FloatingButton';
 import NotFound from './pages/NotFound';
 import Test from './components/Sites/Test';
+import Cart from './components/BookingSession/Cart';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/test" exact>
             <Test />
+          </Route>
+          <Route path="/Cart" exact>
+            <Cart />
           </Route>
           <Route path="*">
             <NotFound />

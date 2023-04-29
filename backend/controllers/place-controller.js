@@ -1,32 +1,42 @@
-const axios = require("axios");
-const Place = require("../models/placeSchema");
-const Relation = require("../models/sitePlaceRelationSchema");
+const axios = require('axios');
+const Place = require('../models/placeSchema');
+const Relation = require('../models/sitePlaceRelationSchema');
 
 // get the small img in checkfront
 function smallImg(imgObj) {
   try {
-    return imgObj["1"].url_small;
+    return imgObj['1'].url_small;
   } catch (TypeError) {
     return null;
   }
 }
 
-const fetchExternalData = async (startDate, endDate, siteId) => {
+const fetchExternalData = async (
+  startDate,
+  endDate,
+  siteId,
+  adult = 1,
+  child = null,
+  toddler = null
+) => {
   try {
     const response = await axios.get(`${process.env.API_DIR}/item`, {
       params: {
         start_date: startDate,
         end_date: endDate,
         category_id: siteId,
+        'param[adult]': adult,
+        'param[child]': child,
+        'param[toddler]': toddler,
       },
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `${process.env.API_TOKEN}`,
       },
     });
 
     if (response.status !== 200) {
-      throw new Error("Failed to fetch data from the external API");
+      throw new Error('Failed to fetch data from the external API');
     }
 
     return response.data;
@@ -38,14 +48,21 @@ const fetchExternalData = async (startDate, endDate, siteId) => {
 
 exports.getPlacesBySiteId = async (req, res) => {
   try {
-    const { startDate, endDate } = req.query;
+    const { startDate, endDate, adult, child, toddler } = req.query;
     const siteId = req.params.siteId;
 
-    const relations = await Relation.find({ siteId }).populate("placeId");
+    const relations = await Relation.find({ siteId }).populate('placeId');
     const places = relations.map((relation) => relation.placeId);
 
     // Fetch additional data from the external API
-    const externalData = await fetchExternalData(startDate, endDate, siteId);
+    const externalData = await fetchExternalData(
+      startDate,
+      endDate,
+      siteId,
+      adult,
+      child,
+      toddler
+    );
 
     // Add the values from the external API data to the database data
     const updatedPlaces = places.map((placeObjDb) => {
@@ -64,10 +81,14 @@ exports.getPlacesBySiteId = async (req, res) => {
           localEndDate: externalData.items[placeId].local_end_date,
           nights: externalData.items[placeId].days,
           label: externalData.items[placeId].meta.productLabel,
+          error:
+            externalData.items[placeId].rate.status === 'ERROR'
+              ? externalData.items[placeId].rate.error
+              : null,
 
           // return null if there is not img found
           smallImg: smallImg(externalData.items[placeObjDb.id].image),
-          imgMedium: externalData.items[placeObjDb.id].image["1"].url_medium,
+          imgMedium: externalData.items[placeObjDb.id].image['1'].url_medium,
         };
       } else {
         return placeObjDb;
@@ -76,6 +97,6 @@ exports.getPlacesBySiteId = async (req, res) => {
 
     res.status(200).send(updatedPlaces);
   } catch (error) {
-    res.status(500).send({ error: "Failed to fetch places" });
+    res.status(500).send({ error: 'Failed to fetch places' });
   }
 };

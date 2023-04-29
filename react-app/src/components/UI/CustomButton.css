@@ -21,6 +21,7 @@
 .custom-button-inverse {
   background-color: var(--main-light-color);
   color: var(--main-dark-color);
+  border-color: var(--main-dark-color);
 }
 
 .custom-button:hover {

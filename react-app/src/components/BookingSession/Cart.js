@@ -1,23 +1,17 @@
-import './BookingSession.css';
 import { Container, Col, Row, Image } from 'react-bootstrap';
-import { strDate } from '../../utils/dateUtils';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function BookingCards({ places, dates, handlePlaceClick, placesData }) {
-  const isPlaces = places.length > 0;
-  return (
-    <Container id="bookingWrapper">
-      {isPlaces ? (
-        <h5>
-          {'הזמנה חדשה: '}
-          {strDate(dates.startDate)} - {strDate(dates.endDate)}
-        </h5>
-      ) : (
-        <></>
-      )}
+function Cart(places, handlePlaceClick, placesData) {
+  const xCircleIcon = (
+    <FontAwesomeIcon className="icon" icon={faCircleXmark} size="xl" />
+  );
+  const squareCheck = <FontAwesomeIcon icon={faSquareCheck} />;
 
+  return (
+    <Container dir="rtl">
+      <h1>סיכום הזמנה</h1>
       {places.map((placeObj) => (
         <Row key={placeObj._id} className="Card">
           <Col md={4} className="mx-auto text-center">
@@ -45,11 +39,7 @@ function BookingCards({ places, dates, handlePlaceClick, placesData }) {
                       if (place._id === placeObj._id) handlePlaceClick(place);
                   }}
                 >
-                  <FontAwesomeIcon
-                    className="icon"
-                    icon={faCircleXmark}
-                    size="xl"
-                  />
+                  {xCircleIcon}
                 </button>
               </Col>
               <Col md={12} sm={4}>
@@ -57,12 +47,12 @@ function BookingCards({ places, dates, handlePlaceClick, placesData }) {
                   {'נותרו '}
                   {placeObj.available}
                   {' מקומות '}
-                  <FontAwesomeIcon icon={faSquareCheck} />
+                  {squareCheck}
                 </p>
               </Col>
               <Col md={12} sm={4} className="price">
-                <div className="bubble">{placeObj.price.title}</div>
-                <p>ללילה</p>
+                <div className="bubble">{placeObj.price.total}</div>
+                <p>סה"כ</p>
               </Col>
             </Row>
           </Col>
@@ -72,4 +62,4 @@ function BookingCards({ places, dates, handlePlaceClick, placesData }) {
   );
 }
 
-export default BookingCards;
+export default Cart;
