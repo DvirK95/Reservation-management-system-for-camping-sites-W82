@@ -2,6 +2,7 @@ import { Container, Col, Row, Image } from 'react-bootstrap';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useSitesData from '../../utils/useSitesData';
 
 function Cart(places, handlePlaceClick, placesData) {
   const xCircleIcon = (

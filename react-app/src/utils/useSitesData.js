@@ -46,11 +46,13 @@ const useSitesData = (siteId, dates, peoples) => {
     }
   };
 
+  // get place id and slip obj
   const handlePlaceClick = (placeObj) => {
+    console.log(placeObj);
     setActivePlaceIds((prevActivePlace) => {
-      if (prevActivePlace.includes(placeObj._id)) {
+      if (prevActivePlace.includes(placeObj.id)) {
         const keyToRemove = Object.keys(sessionPlace).find(
-          (key) => String(sessionPlace[key].item_id) === placeObj._id
+          (key) => String(sessionPlace[key].item_id) === placeObj.id
         );
 
         const remove = {
@@ -60,12 +62,12 @@ const useSitesData = (siteId, dates, peoples) => {
         };
         fetchBookingSession(remove);
 
-        return prevActivePlace.filter((placeId) => placeId !== placeObj._id);
+        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
       } else {
         fetchBookingSession({
           slip: placeObj.slip,
         });
-        return [...prevActivePlace, placeObj._id];
+        return [...prevActivePlace, placeObj.id];
       }
     });
   };
@@ -98,6 +100,7 @@ const useSitesData = (siteId, dates, peoples) => {
     };
 
     fetchPlaces();
+    fetchBookingSession();
   }, [
     dates,
     siteId,

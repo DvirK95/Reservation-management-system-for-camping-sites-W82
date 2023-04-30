@@ -3,7 +3,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function BookingCardMini({ placeObj, handlePlaceClick, placesData }) {
+function BookingCardMini({ placeObj, handlePlaceClick }) {
   const xCircleIcon = (
     <FontAwesomeIcon className="icon" icon={faCircleXmark} size="xl" />
   );
@@ -32,8 +32,7 @@ function BookingCardMini({ placeObj, handlePlaceClick, placesData }) {
             <button
               className="x-button"
               onClick={() => {
-                for (let place of placesData)
-                  if (place._id === placeObj._id) handlePlaceClick(place);
+                handlePlaceClick({ id: placeObj._id, slip: placeObj.slip });
               }}
             >
               {xCircleIcon}

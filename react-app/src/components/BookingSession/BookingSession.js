@@ -1,7 +1,7 @@
 import './BookingSession.css';
 import { Container } from 'react-bootstrap';
 import { strDate } from '../../utils/dateUtils';
-import BookingCardMini from './BookingCard';
+import BookingCardMini from './BookingCardMini';
 import '../UI/CustomButton.css';
 import { Link } from 'react-router-dom';
 
@@ -16,9 +16,9 @@ function BookingSession({ places, dates, handlePlaceClick, placesData }) {
 
         {places.map((placeObj) => (
           <BookingCardMini
+            key={placeObj._id}
             placeObj={placeObj}
             handlePlaceClick={handlePlaceClick}
-            placesData={placesData}
           />
         ))}
         <Link to={'/Cart'} className="custom-button-inverse">

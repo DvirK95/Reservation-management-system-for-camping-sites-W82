@@ -7,7 +7,7 @@ import { translateErrorStatus } from '../../../utils/hebrew';
 function Place({ placeObj, onClick, active }) {
   const handleClick = () => {
     if (placeObj.status === 'AVAILABLE') {
-      onClick(placeObj);
+      onClick({ id: placeObj._id, slip: placeObj.slip });
     }
   };
 
