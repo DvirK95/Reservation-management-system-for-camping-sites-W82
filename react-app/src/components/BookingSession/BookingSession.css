@@ -1,0 +1,78 @@
+#bookingWrapper {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.Card {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid;
+}
+.icon {
+  color: var(--main-dark-color);
+  cursor: pointer;
+}
+.icon:hover {
+  color: var(--main-light-color);
+  background-color: var(--main-dark-color);
+  border-radius: 100%;
+}
+
+#title {
+  color: var(--main-dark-color);
+  margin-bottom: 0;
+}
+
+.par-light {
+  color: rgba(128, 128, 128, 0.6);
+  font-size: 0.9rem;
+}
+
+.remove-item {
+  margin-bottom: 1rem;
+}
+
+#availability {
+  color: var(--main-dark-color);
+}
+
+.bubble {
+  max-width: fit-content;
+  background: #e7e7e7;
+  position: relative;
+  color: black;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 0.3rem;
+}
+
+.bubble::after {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: #e7e7e7;
+  position: absolute;
+  bottom: -1rem;
+  left: calc(50% - 0.5rem);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.price p {
+  display: inline;
+  color: var(--main-dark-color);
+  font-size: small;
+}
+.x-button {
+  display: contents;
+  cursor: pointer;
+}
+
+.custom-button-inverse {
+  text-decoration: none;
+  margin: 1rem 0;
+}
+@media screen and (max-width: 768px) {
+  #title {
+    margin-top: 2rem;
+  }
+}

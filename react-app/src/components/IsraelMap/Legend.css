@@ -1,0 +1,37 @@
+.top-legend{
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    padding: 5%;
+    background-color: #004b3f;
+    color: white;
+    height: 10%;
+}
+
+.background{
+    background-color: #fefffe;
+    border: 1px solid #c7c4da;
+    font-family: calibri;
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+    height: 600px;
+}
+
+@media (max-width: 1200px) {
+    .background {
+      flex: 100%;
+      height: 600px;
+    }
+}
+
+
+
+
+/* .bottom-legend {
+    font-weight: 900;
+    text-align: center;
+    background-color: #B3DD4F;
+    color: #004b3f;
+    height: 15%;
+} */

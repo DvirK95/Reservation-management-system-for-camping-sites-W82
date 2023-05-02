@@ -1,69 +1,60 @@
-import { useState, useEffect } from "react";
-import "./Sites.css";
-import FindSitesByDate from "./FindSitesByDate.js";
-import MapWithPlaces from "./MapWithPlaces";
-import { Spinner } from "react-bootstrap";
-import { calculateTommorowDate, pullTodayDate } from "../utils/dateUtils";
-import CheckfrontWidget from "./CheckfrontWidget";
+// src/components/Sites/Sites.js
+import { useState } from 'react';
+import './Sites.css';
+import FindSitesByDate from './FindSitesByDate/FindSitesByDate';
+import MapWithPlaces from './Map/MapWithPlaces';
+import { Spinner } from 'react-bootstrap';
+import { calculateTommorowDate, pullTodayDate } from '../../utils/dateUtils';
+import BookingSession from '../BookingSession/BookingSession';
+//import useSitesData from '../../utils/useSitesData';
+import fetchPlacesApi from '../../utils/fetchPlacesApi';
+import { useParams } from 'react-router-dom';
+import useBookingApi from '../../utils/bookingApi';
 
-function Sites() {
-  const Camp_name = "פארק נחל אכזיב";
-  const [activePlace, setActivePlace] = useState([]);
-  const [placesData, setPlacesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) {
+  const { siteId } = useParams();
   const [dates, setDates] = useState({
     startDate: pullTodayDate(),
     endDate: calculateTommorowDate(pullTodayDate()),
   });
 
-  const handlePlaceClick = (placeObj) => {
-    setActivePlace((prevActivePlace) => {
-      if (prevActivePlace.includes(placeObj.id)) {
-        return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
-      } else {
-        return [...prevActivePlace, placeObj.id];
-      }
-    });
-  };
+  const [peoples, setPeoples] = useState({
+    adults: 1,
+    children: 0,
+    toddlers: 0,
+  });
 
-  useEffect(() => {
-    if (!dates.startDate || !dates.endDate) return;
+  const { activePlaceIds, handlePlaceClick } = useBookingApi();
 
-    const fetchPlaces = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/places?startDate=${dates.startDate}&endDate=${dates.endDate}&siteId=2`
-        );
-        const data = await response.json();
-        setPlacesData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPlaces();
-  }, [dates]);
-
+  const { placesData, isLoading } = fetchPlacesApi(siteId, dates, peoples);
+  const activePlaces = placesData.filter((obj) =>
+    activePlaceIds.includes(obj._id)
+  );
   return (
     <div className="sites" dir="rtl">
-      <h1 className="title">{Camp_name}</h1>
-      <FindSitesByDate setDates={setDates} />
-      {activePlace.length > 0 && (
-        <CheckfrontWidget activePlace={activePlace} dates={dates} />
+      <h1 className="title">{campName}</h1>
+      <FindSitesByDate
+        setDates={setDates}
+        peoplesProps={{ peoples, setPeoples }}
+      />
+      {activePlaceIds.length > 0 && (
+        <BookingSession
+          places={activePlaces}
+          dates={dates}
+          handlePlaceClick={handlePlaceClick}
+        />
       )}
-      <div className={`innerWrap ${isLoading ? "loading" : ""}`}>
+      <div className={`innerWrap ${isLoading ? 'loading' : ''}`}>
         {isLoading && (
           <div className="spinner-container">
             <Spinner animation="border" />
           </div>
         )}
         <MapWithPlaces
+          mapName={mapName}
           placesData={placesData}
           handlePlaceClick={handlePlaceClick}
-          activePlace={activePlace}
+          activePlaceIds={activePlaceIds}
         />
       </div>
     </div>
