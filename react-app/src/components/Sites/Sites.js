@@ -6,13 +6,13 @@ import MapWithPlaces from './Map/MapWithPlaces';
 import { Spinner } from 'react-bootstrap';
 import { calculateTommorowDate, pullTodayDate } from '../../utils/dateUtils';
 import BookingSession from '../BookingSession/BookingSession';
-import useSitesData from '../../utils/useSitesData'; // Update the import path
+//import useSitesData from '../../utils/useSitesData';
+import fetchPlacesApi from '../../utils/fetchPlacesApi';
+import { useParams } from 'react-router-dom';
+import useBookingApi from '../../utils/bookingApi';
 
-function Sites({
-  campName = 'פארק נחל אכזיב',
-  siteId = '2',
-  mapName = 'Akhziv',
-}) {
+function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) {
+  const { siteId } = useParams();
   const [dates, setDates] = useState({
     startDate: pullTodayDate(),
     endDate: calculateTommorowDate(pullTodayDate()),
@@ -24,14 +24,12 @@ function Sites({
     toddlers: 0,
   });
 
-  const {
-    activePlaceIds,
-    placesData,
-    isLoading,
-    handlePlaceClick,
-    activePlaces,
-  } = useSitesData(siteId, dates, peoples);
+  const { activePlaceIds, handlePlaceClick } = useBookingApi();
 
+  const { placesData, isLoading } = fetchPlacesApi(siteId, dates, peoples);
+  const activePlaces = placesData.filter((obj) =>
+    activePlaceIds.includes(obj._id)
+  );
   return (
     <div className="sites" dir="rtl">
       <h1 className="title">{campName}</h1>
@@ -44,7 +42,6 @@ function Sites({
           places={activePlaces}
           dates={dates}
           handlePlaceClick={handlePlaceClick}
-          placesData={placesData}
         />
       )}
       <div className={`innerWrap ${isLoading ? 'loading' : ''}`}>

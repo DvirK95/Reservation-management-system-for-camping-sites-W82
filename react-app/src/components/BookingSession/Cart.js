@@ -2,9 +2,11 @@ import { Container, Col, Row, Image } from 'react-bootstrap';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSitesData from '../../utils/useSitesData';
+import useBookingApi from '../../utils/bookingApi';
 
-function Cart(places, handlePlaceClick, placesData) {
+function Cart() {
+  const { sessionPlace, handlePlaceClick } = useBookingApi();
+  console.log(sessionPlace);
   const xCircleIcon = (
     <FontAwesomeIcon className="icon" icon={faCircleXmark} size="xl" />
   );
@@ -13,15 +15,15 @@ function Cart(places, handlePlaceClick, placesData) {
   return (
     <Container dir="rtl">
       <h1>סיכום הזמנה</h1>
-      {places.map((placeObj) => (
-        <Row key={placeObj._id} className="Card">
+      {sessionPlace.map((placeObj) => (
+        <Row key={placeObj.item_id} className="Card">
           <Col md={4} className="mx-auto text-center">
-            {<Image src={placeObj.imgMedium} rounded />}
+            {<Image src={placeObj.image[1].url_medium} rounded />}
           </Col>
           <Col md={6}>
-            <h5 id="title">{placeObj.title}</h5>
+            <h5 id="title">{placeObj.name}</h5>
             <p className="par-light">
-              {placeObj.localEndDate} - {placeObj.localStartDate}
+              {placeObj.startDate} - {placeObj.startDate}
             </p>
             <div dangerouslySetInnerHTML={{ __html: placeObj.summary }}></div>
           </Col>
@@ -36,8 +38,10 @@ function Cart(places, handlePlaceClick, placesData) {
                 <button
                   className="x-button"
                   onClick={() => {
-                    for (let place of placesData)
-                      if (place._id === placeObj._id) handlePlaceClick(place);
+                    handlePlaceClick({
+                      id: placeObj.item_id,
+                      slip: placeObj.slip,
+                    });
                   }}
                 >
                   {xCircleIcon}
@@ -52,7 +56,7 @@ function Cart(places, handlePlaceClick, placesData) {
                 </p>
               </Col>
               <Col md={12} sm={4} className="price">
-                <div className="bubble">{placeObj.price.total}</div>
+                <div className="bubble">{placeObj.rate.total}</div>
                 <p>סה"כ</p>
               </Col>
             </Row>

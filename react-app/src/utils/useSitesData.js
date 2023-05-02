@@ -1,12 +1,13 @@
+// maybe delete this file
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const useSitesData = (siteId, dates, peoples) => {
   const [activePlaceIds, setActivePlaceIds] = useState([]);
   const [sessionPlace, setSessionPlace] = useState({});
   const [placesData, setPlacesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fetchBookingSession = async (body = null) => {
     const sessionId = localStorage.getItem('SessionId');
@@ -93,7 +94,7 @@ const useSitesData = (siteId, dates, peoples) => {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        history.push(`/notfound?res=${error.message}`);
+        navigate(`/notfound?res=${error.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -104,7 +105,7 @@ const useSitesData = (siteId, dates, peoples) => {
   }, [
     dates,
     siteId,
-    history,
+    navigate,
     peoples.adults,
     peoples.children,
     peoples.toddlers,

@@ -1,0 +1,15 @@
+.mapStyles-width{
+    flex: 70%;
+    height: 600px;
+}
+
+.title{
+    font-weight: bold;
+    font-family: calibri;
+}
+
+@media (max-width: 800px) {
+    .mapStyles-width {
+      flex: 100%;
+    }
+}

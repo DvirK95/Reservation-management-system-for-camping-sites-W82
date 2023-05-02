@@ -1,0 +1,12 @@
+.footer{ 
+	background-color: #004b3f; 
+    /* background-color: #6b8b85; */
+}
+
+.logo{
+    width: 200px;
+}
+
+.under-footer{
+    background-color: rgba(0, 0, 0, 0.2);
+}
