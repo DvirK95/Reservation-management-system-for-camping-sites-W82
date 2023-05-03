@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import marker from "./marker.jpg";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import marker from './marker.jpg';
 
-import "./IsraelMap.css";
+import './IsraelMap.css';
 
 const markerIcon = L.icon({
   iconUrl: marker,
@@ -22,7 +21,7 @@ function IsraelMap() {
     );
 
     // Add the OpenStreetMap tile layer
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     }).addTo(map);
@@ -34,46 +33,45 @@ function IsraelMap() {
       .addTo(map)
       .bindPopup(
         '<div className="title"> גן לאומי אכזיב <br> <a href="/sites/2"> פרטים נוספים</a></div> ',
-        {offset: [300, -180],
-        closeButton: false}
+        { offset: [300, -180], closeButton: false }
       )
-      .on('click', () => map.flyTo([33.048389982995154, 35.10218061433166], 12))
-      ;
-
+      .on('click', () =>
+        map.flyTo([33.048389982995154, 35.10218061433166], 12)
+      );
     const horshatTal = L.marker([31.95241067223935, 35.23398196582406], {
       icon: markerIcon,
     })
       .addTo(map)
-      .bindPopup("חורשת טל");
+      .bindPopup('חורשת טל');
 
     const maayanHarod = L.marker([32.551642197662204, 35.3580790895354], {
       icon: markerIcon,
     })
       .addTo(map)
-      .bindPopup("גן לאומי מעיין חרוד");
+      .bindPopup('גן לאומי מעיין חרוד');
 
     const masada = L.marker([31.3108835632776, 35.363791494431055], {
       icon: markerIcon,
     })
       .addTo(map)
-      .bindPopup("גן לאומי מצדה");
+      .bindPopup('גן לאומי מצדה');
 
     const ashkelon = L.marker([31.662610619304587, 34.54792041062232], {
       icon: markerIcon,
     })
       .addTo(map)
-      .bindPopup("גן לאומי תל אשקלון");
+      .bindPopup('גן לאומי תל אשקלון');
 
     console.log(akhziv, horshatTal, ashkelon, maayanHarod, masada);
     // Add click event listener to popup content elements
     const popupContentElements = document.querySelectorAll(
-      ".leaflet-popup-content"
+      '.leaflet-popup-content'
     );
 
     popupContentElements.forEach((popupContentElement) => {
-      popupContentElement.addEventListener("click", (event) => {
+      popupContentElement.addEventListener('click', (event) => {
         event.preventDefault(); // Prevent default link behavior
-        const link = popupContentElement.querySelector("a");
+        const link = popupContentElement.querySelector('a');
         if (link) {
           window.location.href = link.href; // Redirect to link URL
         }
@@ -81,20 +79,7 @@ function IsraelMap() {
     });
   }, []);
 
-<<<<<<< HEAD:react-app/src/components/Tests/IsraelMap.js
-  return (
-    <div>
-      <div ref={mapRef} style={{ height: "500px", width: "70%" }} />
-      <div>
-        <Link to={`/sites/2`}>
-          <button />
-        </Link>
-      </div>
-    </div>
-  );
-=======
   return <div ref={mapRef} className="mapStyles-width" />;
->>>>>>> preparebackend2:react-app/src/components/IsraelMap/IsraelMap.js
 }
 
 export default IsraelMap;
