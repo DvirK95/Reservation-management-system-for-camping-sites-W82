@@ -2,6 +2,7 @@
   position: fixed;
   z-index: 1000;
   top: 50%;
+  left: 0;
 }
 
 .floating-button {

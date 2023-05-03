@@ -1,0 +1,31 @@
+.Body{
+    font-weight: bold;
+    font-family: calibri;
+    font-size: 20px;  
+    text-align: center;
+    margin: auto;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+}
+
+.green-title{
+    color: #004b3f;
+    font-weight: bold;
+    font-family: calibri;
+}
+
+.nature-img{
+    background-image: url("nature.png");
+    height: 500px;
+}
+
+.nature-img{
+    background-image: url("nature.png");
+    height: 500px;
+}

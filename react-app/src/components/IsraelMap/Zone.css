@@ -1,0 +1,60 @@
+@media (max-width: 1200px) {
+    .scroll-list{
+        height: 450px;
+        overflow-y: scroll;
+    }
+}
+
+.scroll-list{
+    height: 490px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.list-item {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+    text-align: right;
+    border-bottom: 1px solid #cfc8c6;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    height: 150px;
+    font-size: 17px;
+}
+  
+.list-item:hover {
+    background-color: #e7d2d2;
+}
+
+.list-item a {
+    color: #004b3f;
+    text-decoration: none; /* Remove the underline */
+    display: block; /* Make the link fill the entire list item */
+    padding: 0px 10px; /* Add padding to create space between link and list item borders */
+}
+
+.active, .list-item:hover {
+    background-color: #f0eeed;
+}
+
+.list-item .text {
+    font-family: Calibri;
+    text-align: right;
+    font-size: 15px;
+    color: gray;
+}
+
+.item-image {
+    width: 100px; 
+    height: 100px;  
+    margin-right: 5px;
+}
+
+.item-image img {
+    max-width: 100%;
+}
+
+.item-details {
+    flex: 1;
+}
