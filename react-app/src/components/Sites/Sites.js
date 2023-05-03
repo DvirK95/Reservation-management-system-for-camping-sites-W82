@@ -31,7 +31,7 @@ function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) 
     activePlaceIds.includes(obj._id)
   );
   return (
-    <div className="sites" dir="rtl">
+    <div className="sites">
       <h1 className="title">{campName}</h1>
       <FindSitesByDate
         setDates={setDates}

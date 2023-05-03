@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 function useBookingApi() {
   const [activePlaceIds, setActivePlaceIds] = useState([]);
   const [sessionPlace, setSessionPlace] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const fetchBookingSession = async (body = null) => {
+    setIsLoading(true);
     const sessionId = localStorage.getItem('SessionId');
     try {
       const response = await fetch(
@@ -20,21 +24,14 @@ function useBookingApi() {
       const data = await response.json();
       const newSession_id = data.session.id;
       console.log(`session from checkfront: ${newSession_id}`);
+
+      // set session from checkfront if its not valid
       if (sessionId !== newSession_id) {
         localStorage.setItem('SessionId', newSession_id);
       }
+
+      // map the current items session
       const items = data.session.items;
-      /*if (Object.keys(items).length !== 0) {
-        const itemIds = Object.keys(items).map((key) => {
-          if (!key.includes('.')) {
-            return String(items[key].item_id);
-          } else {
-            return null;
-          }
-        });
-        setActivePlaceIds(itemIds);
-        setSessionPlace(items);
-      }*/
       if (items.length > 0) {
         const itemIds = items.map((item) => {
           return String(item.item_id);
@@ -42,21 +39,30 @@ function useBookingApi() {
         setSessionPlace(items);
         setActivePlaceIds(itemIds);
       }
-      console.log(`second session: ${localStorage.getItem('SessionId')}`);
+
+      // set totalprice
+      setTotalPrice(data.session.total);
     } catch (error) {
       console.error('Error fetching booking session:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // get place id and slip obj
   const handlePlaceClick = (placeObj) => {
-    console.log(`handlePlaceClick: ${placeObj}`);
     setActivePlaceIds((prevActivePlace) => {
       if (prevActivePlace.includes(placeObj.id)) {
         const remove = {
           remove: placeObj.id,
         };
         fetchBookingSession(remove);
+
+        setSessionPlace((prevSessionPlace) => {
+          return prevSessionPlace.filter(
+            (place) => String(place.item_id) !== placeObj.id
+          );
+        });
 
         return prevActivePlace.filter((placeId) => placeId !== placeObj.id);
       } else {
@@ -79,6 +85,8 @@ function useBookingApi() {
     setSessionPlace,
     fetchBookingSession,
     handlePlaceClick,
+    isLoading,
+    totalPrice,
   };
 }
 

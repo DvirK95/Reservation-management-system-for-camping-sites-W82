@@ -22,7 +22,7 @@ async function extractValues(str) {
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 
   return {
-    id: parseInt(id),
+    id: id,
     startDate: startDate.toLocaleDateString('en-US', options),
     endDate: endDate.toLocaleDateString('en-US', options),
     adults: adults ? parseInt(adults) : 0,
@@ -73,7 +73,8 @@ async function getExtraDataItem(slip) {
       }
     );
     const item = response.data.item;
-    // what to return
+    delete slipValues.id;
+
     return {
       startDate: slipValues.startDate,
       endDate: slipValues.endDate,

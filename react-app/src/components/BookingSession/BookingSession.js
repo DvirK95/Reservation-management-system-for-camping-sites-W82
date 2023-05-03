@@ -5,7 +5,12 @@ import BookingCardMini from './BookingCardMini';
 import '../UI/CustomButton.css';
 import { Link, Outlet } from 'react-router-dom';
 
-function BookingSession({ places, dates, handlePlaceClick }) {
+function BookingSession({
+  places,
+  dates,
+  handlePlaceClick,
+  handleCustomButtonClick,
+}) {
   if (places.length > 0) {
     return (
       <Container id="bookingWrapper">
