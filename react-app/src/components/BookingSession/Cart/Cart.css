@@ -68,7 +68,8 @@
   cursor: pointer;
 }
 
-.custom-button-inverse {
+.custom-button-inverse,
+.custom-button {
   text-decoration: none;
   margin: 1rem 0;
 }

@@ -9,7 +9,7 @@ import BookingSession from '../BookingSession/BookingSession';
 //import useSitesData from '../../utils/useSitesData';
 import fetchPlacesApi from '../../utils/fetchPlacesApi';
 import { useParams } from 'react-router-dom';
-import useBookingApi from '../../utils/bookingApi';
+import useSessionApi from '../../utils/useSessionApi';
 
 function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) {
   const { siteId } = useParams();
@@ -24,7 +24,7 @@ function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) 
     toddlers: 0,
   });
 
-  const { activePlaceIds, handlePlaceClick } = useBookingApi();
+  const { activePlaceIds, handlePlaceClick } = useSessionApi();
 
   const { placesData, isLoading } = fetchPlacesApi(siteId, dates, peoples);
   const activePlaces = placesData.filter((obj) =>

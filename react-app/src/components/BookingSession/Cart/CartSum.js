@@ -1,6 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import { Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function CartSum({
   totalPrice,
@@ -36,9 +37,9 @@ function CartSum({
       <Row className="justify-content-md-center">
         <Col md="auto">
           <br />
-          <button className="custom-button" onClick={handleCustomButtonClick}>
+          <Link to="/checkout" className="custom-button">
             להשלמת ההזמנה ולתשלום
-          </button>
+          </Link>
         </Col>
       </Row>
     </>

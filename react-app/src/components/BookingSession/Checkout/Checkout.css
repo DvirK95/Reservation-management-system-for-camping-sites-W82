@@ -1,0 +1,9 @@
+label {
+  color: #30313d !important;
+  line-height: 1.15 !important;
+  font-weight: 400 !important;
+}
+
+.is-invalid {
+  border-width: 2px !important;
+}
