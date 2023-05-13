@@ -1,5 +1,5 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { createBooking } from '../../../utils/useBookingApi';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,6 +29,7 @@ function CheckoutForm({ bookingId, setBookingId }) {
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [customerDetails, setCustomerDetails] = useState({});
 
   useEffect(() => {
     if (!stripe) {
@@ -47,7 +48,6 @@ function CheckoutForm({ bookingId, setBookingId }) {
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage('Payment succeeded!');
-          // bookingId
           break;
         case 'processing':
           setMessage('Your payment is processing.');
@@ -60,7 +60,8 @@ function CheckoutForm({ bookingId, setBookingId }) {
           break;
       }
     });
-  }, [stripe]);
+  }, [stripe, bookingId]);
+
   const {
     register,
     handleSubmit,
@@ -71,30 +72,47 @@ function CheckoutForm({ bookingId, setBookingId }) {
   });
 
   const onSubmit = async (data) => {
+    setBookingId(null);
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-
     setIsProcessing(true);
+    const bookingIdApi = await createBooking(data);
+    setBookingId(bookingIdApi);
+    setCustomerDetails(data);
+  };
 
-    const booking = createBooking(data);
-    setBookingId(booking.id);
+  const execute = useCallback(async () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/checkout/invoice?booking_id=${bookingId}`,
+        return_url: `${window.location.origin}/invoice/${bookingId}`,
+        payment_method_data: {
+          billing_details: {
+            name: `${customerDetails.firstName} ${customerDetails.lastName}`,
+            email: `${customerDetails.email}`,
+            phone: `${customerDetails.phoneNumber}`,
+          },
+          metadata: {
+            booking_id: bookingId,
+          },
+        },
       },
     });
 
     if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message);
     } else {
-      setMessage('An unexpected error occured.');
+      setMessage('An unexpected error occurred.');
     }
-    setIsProcessing(false);
-  };
+  }, [stripe, elements, bookingId, setMessage, customerDetails]);
+
+  useEffect(() => {
+    if (bookingId !== null && isProcessing) {
+      execute();
+    }
+  }, [execute, bookingId, isProcessing]);
 
   return (
     <form id="checkout-form" onSubmit={handleSubmit(onSubmit)}>

@@ -7,5 +7,6 @@ router.post('/session', sessionController.createBookingSession);
 router.post('/session/clear', sessionController.clearBookingSession);
 //router.get('/session', bookingController.getBookingSession);
 router.post('/:sessionId/create', bookingCortroller.createBooking);
+router.post('/update', bookingCortroller.updateBookingPayment);
 
 module.exports = router;

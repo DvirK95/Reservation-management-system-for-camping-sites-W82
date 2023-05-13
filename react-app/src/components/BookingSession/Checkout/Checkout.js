@@ -11,7 +11,7 @@ import './Checkout';
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState('');
-  const [bookingId, setBookingId] = useState('');
+  const [bookingId, setBookingId] = useState(null);
 
   const {
     sessionPlace,
@@ -21,13 +21,6 @@ function Checkout() {
     totalPrice,
   } = useSessionApi();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/payment/config`).then(async (r) => {
-      const { publishableKey } = await r.json();
-      setStripePromise(loadStripe(publishableKey));
-    });
-  }, []);
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -50,6 +43,13 @@ function Checkout() {
     }
   }, [navigate, totalPrice]);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/payment/config`).then(async (r) => {
+      const { publishableKey } = await r.json();
+      setStripePromise(loadStripe(publishableKey));
+    });
+  }, []);
+
   const options = {
     clientSecret,
     // אפשר לראות באתר הרשמי את ההגדרות
@@ -59,10 +59,10 @@ function Checkout() {
   };
 
   useEffect(() => {
-    if (!isLoading && activePlaceIds.length < 1) {
+    if (!isLoading && activePlaceIds.length < 1 && bookingId !== null) {
       navigate('/cart');
     }
-  }, [activePlaceIds, navigate, isLoading]);
+  }, [activePlaceIds, navigate, isLoading, bookingId]);
 
   return clientSecret ? (
     <Container className="cart-wrapper">
