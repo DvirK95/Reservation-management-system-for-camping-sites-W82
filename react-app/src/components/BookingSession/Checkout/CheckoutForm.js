@@ -1,12 +1,13 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState, useEffect, useCallback } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { createBooking } from '../../../utils/useBookingApi';
+import { createBooking, updateBooking } from '../../../utils/useBookingApi';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import FormFields from './FormFields';
 import Card from 'react-bootstrap/Card';
+import { useNavigate } from 'react-router-dom';
 
 const requiredFieldMessage = 'שדה חובה';
 const schema = yup.object().shape({
@@ -30,6 +31,8 @@ function CheckoutForm({ bookingId, setBookingId }) {
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [customerDetails, setCustomerDetails] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -84,10 +87,11 @@ function CheckoutForm({ bookingId, setBookingId }) {
   };
 
   const execute = useCallback(async () => {
-    const { error } = await stripe.confirmPayment({
+    const response = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/invoice/${bookingId}`,
+        //return_url: `${window.location.origin}/invoice/${bookingId}`,
+
         payment_method_data: {
           billing_details: {
             name: `${customerDetails.firstName} ${customerDetails.lastName}`,
@@ -99,14 +103,38 @@ function CheckoutForm({ bookingId, setBookingId }) {
           },
         },
       },
+      redirect: 'if_required',
     });
-
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      setMessage(error.message);
+    if (response.error) {
+      if (
+        response.error.type === 'card_error' ||
+        response.error.type === 'validation_error'
+      ) {
+        setMessage(response.error.message);
+      } else {
+        setMessage('An unexpected error occurred.');
+      }
     } else {
-      setMessage('An unexpected error occurred.');
+      await updateBooking(bookingId, 'PAID');
+
+      await fetch(`${process.env.REACT_APP_API_URL}/payment/${bookingId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentIntentId: response.paymentIntent.id }),
+      })
+        /*.then(async (result) => {
+          const response = await result.json();
+        })*/
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+      setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
+      navigate(`/checkout/confirm/${bookingId}`);
     }
-  }, [stripe, elements, bookingId, setMessage, customerDetails]);
+  }, [stripe, elements, bookingId, setMessage, customerDetails, navigate]);
 
   useEffect(() => {
     if (bookingId !== null && isProcessing) {
@@ -129,6 +157,7 @@ function CheckoutForm({ bookingId, setBookingId }) {
           <PaymentElement
             id="payment-element"
             options={{
+              location: 'he',
               layout: 'tabs',
               paymentMethodOrder: ['apple_pay', 'google_pay', 'card'],
             }}

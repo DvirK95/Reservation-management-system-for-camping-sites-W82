@@ -14,7 +14,6 @@ export async function createBooking(dataSend) {
     if (data.request.status === 'OK') {
       localStorage.removeItem('SessionId');
     }
-    console.log('asd', data.booking.id);
     return data.booking.id;
   } catch (error) {
     console.error('Error creating booking:', error);
@@ -26,7 +25,7 @@ export async function updateBooking(bookingId, status = 'PAID') {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/booking/update`,
       {
-        method: 'POST',
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           bookingId,
@@ -36,6 +35,23 @@ export async function updateBooking(bookingId, status = 'PAID') {
     );
     const data = await response.json();
     return data;
+  } catch (error) {
+    console.error('Error update booking:', error);
+    return 'error';
+  }
+}
+
+export async function getBookingDetails(bookingId) {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/booking/${bookingId}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    return data.booking;
   } catch (error) {
     console.error('Error update booking:', error);
   }

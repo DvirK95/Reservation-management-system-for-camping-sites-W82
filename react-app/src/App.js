@@ -7,7 +7,7 @@ import Home from './components/UI/Home';
 import Header from './components/UI/Header';
 import Footer from './components/UI/Footer';
 import Checkout from './components/BookingSession/Checkout/Checkout';
-import Invoice from './components/BookingSession/Checkout/Invoice';
+import Confirm from './components/BookingSession/Checkout/Confirm';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/sites/:siteId/" element={<Sites />} />
           <Route path="Cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
-          <Route path="invoice/:bookingId" element={<Invoice />} />
+          <Route path="checkout/confirm/:bookingId" element={<Confirm />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

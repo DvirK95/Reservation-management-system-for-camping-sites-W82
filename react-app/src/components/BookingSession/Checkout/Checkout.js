@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Spinner } from 'react-bootstrap';
 import useSessionApi from '../../../utils/useSessionApi';
 import '../../UI/CustomButton.css';
 import { loadStripe } from '@stripe/stripe-js';
@@ -24,7 +24,6 @@ function Checkout() {
 
   useEffect(() => {
     if (totalPrice > 0) {
-      console.log('totalPrice', totalPrice);
       fetch(`${process.env.REACT_APP_API_URL}/payment/create-payment-intent`, {
         method: 'POST',
         headers: {
@@ -46,7 +45,7 @@ function Checkout() {
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/payment/config`).then(async (r) => {
       const { publishableKey } = await r.json();
-      setStripePromise(loadStripe(publishableKey));
+      setStripePromise(loadStripe(publishableKey, { locale: 'he' }));
     });
   }, []);
 
@@ -64,34 +63,40 @@ function Checkout() {
     }
   }, [activePlaceIds, navigate, isLoading, bookingId]);
 
-  return clientSecret ? (
+  return (
     <Container className="cart-wrapper">
-      <Row>
-        <Col md={8}>
-          <Col md={6}>
-            {clientSecret && (
-              <Elements stripe={stripePromise} options={options}>
-                <CheckoutForm
-                  bookingId={bookingId}
-                  setBookingId={setBookingId}
-                />
-              </Elements>
-            )}
+      {isLoading ? (
+        <div className="spinner-container">
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <Row>
+          <Col md={8}>
+            <Col md={6}>
+              {clientSecret && (
+                <Elements stripe={stripePromise} options={options}>
+                  <CheckoutForm
+                    bookingId={bookingId}
+                    setBookingId={setBookingId}
+                  />
+                </Elements>
+              )}
+            </Col>
           </Col>
-        </Col>
-        <Col md={4}>
-          <h1>סיכום הזמנה</h1>
-          {sessionPlace.map((placeObj) => (
-            <div key={placeObj.item_id}>
-              {'שם: '}
-              {placeObj.name}
-            </div>
-          ))}
-          <div>total price: {totalPrice}</div>
-        </Col>
-      </Row>
+          <Col md={4}>
+            <h1>סיכום הזמנה</h1>
+            {sessionPlace.map((placeObj) => (
+              <div key={placeObj.item_id}>
+                {'שם: '}
+                {placeObj.name}
+              </div>
+            ))}
+            <div>total price: {totalPrice}</div>
+          </Col>
+        </Row>
+      )}
     </Container>
-  ) : null;
+  );
 }
 
 export default Checkout;

@@ -66,7 +66,31 @@ const updateBookingPayment = async (req, res) => {
   }
 };
 
+const getBookingDetails = async (req, res) => {
+  try {
+    const bookingId = req.params.bookingId;
+    const config = {
+      method: 'GET',
+      maxBodyLength: Infinity,
+      url: `${process.env.API_DIR}/booking/${bookingId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: process.env.API_TOKEN,
+      },
+    };
+    const response = await axios.request(config);
+    if (response.data.request.status === 'OK') {
+      res.json(response.data);
+    } else {
+      throw new Error(`Error title: ${response.data.request.error.title}`);
+    }
+  } catch (error) {
+    res.status(500).json({ request: { status: 'not found' }, error: error });
+  }
+};
+
 module.exports = {
   createBooking,
   updateBookingPayment,
+  getBookingDetails,
 };

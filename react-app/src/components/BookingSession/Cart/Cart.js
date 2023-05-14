@@ -24,20 +24,22 @@ function Cart() {
     handlePlaceClick(placeObj);
   };
 
-  if (activePlaceIds.length < 1) {
-    return (
-      <Container className="cart-wrapper">
-        {isLoading && (
-          <div className="spinner-container">
-            <Spinner animation="border" />
-          </div>
-        )}
-        {!isLoading && <h1>הסל ריק</h1>}
-      </Container>
-    );
-  } else {
-    return (
-      <Container className="cart-wrapper">
+  const emptyCart = (
+    <>
+      {isLoading && (
+        <div className="spinner-container">
+          <Spinner animation="border" />
+        </div>
+      )}
+      {!isLoading && <h1>הסל ריק</h1>}
+    </>
+  );
+
+  return (
+    <Container className="cart-wrapper">
+      {activePlaceIds.length < 1 ? (
+        emptyCart
+      ) : (
         <Row>
           <Col md={8}>
             <h1>עכשיו בסל שלך</h1>
@@ -57,9 +59,9 @@ function Cart() {
             />
           </Col>
         </Row>
-      </Container>
-    );
-  }
+      )}
+    </Container>
+  );
 }
 
 export default Cart;

@@ -15,6 +15,9 @@ router.post('/create-payment-intent', async (req, res) => {
       currency: 'ILS',
       amount: 100 * totalPrice,
       automatic_payment_methods: { enabled: true },
+      /*metadata: {
+        booking_id: 'try',
+      },*/
     });
 
     // Send publishable key and PaymentIntent details to client
@@ -49,6 +52,27 @@ router.post('/', async (req, res) => {
     res.json({
       message: 'Payment failed',
       success: false,
+    });
+  }
+});
+
+router.patch('/:bookingId', async (req, res) => {
+  try {
+    const { paymentIntentId } = req.body;
+    const { bookingId } = req.params;
+    const paymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
+      metadata: {
+        booking_id: bookingId,
+      },
+    });
+
+    // Send publishable key and PaymentIntent details to client
+    res.send(paymentIntent);
+  } catch (e) {
+    return res.status(400).send({
+      error: {
+        message: e.message,
+      },
     });
   }
 });

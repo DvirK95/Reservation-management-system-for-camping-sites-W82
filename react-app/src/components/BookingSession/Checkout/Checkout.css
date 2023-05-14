@@ -1,3 +1,9 @@
+.cart-wrapper {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  min-height: 20rem;
+}
+
 label {
   color: #30313d !important;
   line-height: 1.15 !important;
