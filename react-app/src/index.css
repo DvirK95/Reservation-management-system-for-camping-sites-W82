@@ -30,3 +30,17 @@ body {
   color: var(--text-color, var(--theme-text-color));
   background-color: var(--background-color, var(--theme-background-color));
 }
+
+/* customize scrollbar */
+::-webkit-scrollbar {
+  width: 15px; /* adjust to your liking */
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(150, 182, 160); 
+  border-radius: 10px;
+}

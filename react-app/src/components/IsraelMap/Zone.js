@@ -9,14 +9,14 @@ function Zone(props) {
     <div className="scroll-list">
       {filteredList.map((item, index) => (
         <div key={index} className="list-item">
-          <a href={item.link} className="item-link">
+          <a href={item._id} className="item-link">
             <div className="item-image">
-              <img src={item.image} alt={item.title} />
+              <img src={item.image_url} alt={item.map} />
             </div>
           </a>
           <div className="item-details">
             {item.title}
-            <p className="text">{item.text}</p>
+            <p className="text">{item.description}</p>
           </div>
         </div>
       ))}
