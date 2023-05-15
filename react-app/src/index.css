@@ -31,13 +31,12 @@ body {
   background-color: var(--background-color, var(--theme-background-color));
 }
 
-<<<<<<< HEAD
 .cart-wrapper {
   margin-top: 3rem;
   margin-bottom: 3rem;
   min-height: 20rem;
 }
-=======
+
 /* customize scrollbar */
 ::-webkit-scrollbar {
   width: 15px; /* adjust to your liking */
@@ -51,4 +50,3 @@ body {
   background: rgb(150, 182, 160); 
   border-radius: 10px;
 }
->>>>>>> origin/legend
