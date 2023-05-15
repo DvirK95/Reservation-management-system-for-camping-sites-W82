@@ -11,14 +11,26 @@ function FindSitesByDate({ setDates, peoplesProps }) {
 
   const [arrivalDate, setArrivalDate] = useState(today);
   const [departureDate, setDepartureDate] = useState(tomorrow);
+  const [peoples, setPeoples] = useState(peoplesProps.peoples);
 
   const handleSubmit = () => {
     setDates({ startDate: arrivalDate, endDate: departureDate });
+    peoplesProps.setPeoples({
+      adults: peoples.adults,
+      children: peoples.children,
+      toddlers: peoples.toddlers,
+    });
   };
 
   const handleReset = () => {
     setArrivalDate(today);
     setDepartureDate(tomorrow);
+    setPeoples({
+      adults: 1,
+      children: 0,
+      toddlers: 0,
+    });
+    peoplesProps.setPeoples(peoples);
   };
   const startDateOnChange = (e) => {
     setArrivalDate(e.target.value);
@@ -55,7 +67,7 @@ function FindSitesByDate({ setDates, peoplesProps }) {
           </div>
         </Col>
         <Col>
-          <FindSitesPeopleCount peoplesProps={peoplesProps} />
+          <FindSitesPeopleCount peoplesProps={{ peoples, setPeoples }} />
         </Col>
         <Col sm="12" md="auto">
           <CustomButton onClick={handleSubmit}>מצא זמינות</CustomButton>

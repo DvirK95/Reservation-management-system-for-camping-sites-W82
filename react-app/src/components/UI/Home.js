@@ -1,4 +1,5 @@
-import React from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,6 +9,25 @@ import marker from '../IsraelMap/marker.jpg';
 // import nature from "./nature.png";
 
 function Body() {
+  const [sites, setSites] = useState([]);
+  const navigate = useNavigate();
+
+  const fetchSites = useCallback(async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/sites`);
+
+      const data = await response.json();
+      setSites(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      navigate(`/notfound?res=${error.message}`);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchSites();
+  }, [fetchSites]);
+
   const list = [
     {
       title: 'חניון לילה גן לאומי מעיין חרוד',
@@ -40,7 +60,10 @@ function Body() {
       image: marker,
     },
   ];
-
+  // toREMOVE
+  for (let i of sites) {
+    console.log(i);
+  }
   return (
     <div className="Body">
       <div className="nature-img" />
@@ -53,7 +76,7 @@ function Body() {
       </h3>
       <div className="flex-container">
         <Legend list={list} />
-        <IsraelMap />
+        <IsraelMap sites={sites} />
       </div>
     </div>
   );

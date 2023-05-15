@@ -63,11 +63,9 @@ exports.getPlacesBySiteId = async (req, res) => {
       child,
       toddler
     );
-
     // Add the values from the external API data to the database data
     const updatedPlaces = places.map((placeObjDb) => {
       const placeId = placeObjDb._id.toString();
-
       if (externalData.items && externalData.items[placeId]) {
         return {
           ...placeObjDb.toObject(),
@@ -88,7 +86,8 @@ exports.getPlacesBySiteId = async (req, res) => {
 
           // return null if there is not img found
           smallImg: smallImg(externalData.items[placeObjDb.id].image),
-          imgMedium: externalData.items[placeObjDb.id].image['1'].url_medium,
+          imgMedium:
+            externalData.items[placeObjDb.id]?.image?.['1']?.url_medium ?? null,
         };
       } else {
         return placeObjDb;
