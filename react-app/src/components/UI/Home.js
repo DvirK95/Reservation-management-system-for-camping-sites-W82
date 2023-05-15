@@ -1,33 +1,57 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+
+import React from 'react';
+>>>>>>> origin/legend
 
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
 import Legend from '../IsraelMap/Legend';
-import marker from '../IsraelMap/marker.jpg';
-// import nature from "./nature.png";
 
+<<<<<<< HEAD
 function Body() {
   const [sites, setSites] = useState([]);
   const navigate = useNavigate();
 
   const fetchSites = useCallback(async () => {
+=======
+
+function Home() {
+  const [sites, setSites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchSites = useCallback(async () => {
+    setIsLoading(true);
+>>>>>>> origin/legend
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/sites`);
 
       const data = await response.json();
       setSites(data);
+<<<<<<< HEAD
     } catch (error) {
       console.error('Error fetching data:', error);
       navigate(`/notfound?res=${error.message}`);
     }
+=======
+    } 
+    catch (error) {
+      console.error('Error fetching data:', error);
+      navigate(`/notfound?res=${error.message}`);
+    }
+    finally {setIsLoading(false)};
+>>>>>>> origin/legend
   }, [navigate]);
 
   useEffect(() => {
     fetchSites();
   }, [fetchSites]);
 
+<<<<<<< HEAD
   const list = [
     {
       title: 'חניון לילה גן לאומי מעיין חרוד',
@@ -64,22 +88,28 @@ function Body() {
   for (let i of sites) {
     console.log(i);
   }
+=======
+>>>>>>> origin/legend
   return (
     <div className="Body">
       <div className="nature-img" />
       <h1 className="green-title">
-        {' '}
         נשמח לארח אתכם ברשת חניוני הלילה של רשות הטבע והגנים !
       </h1>
       <h3>
-        <b> לחצו על חניון הלילה המבוקש - </b>להזמנת לינה בחניוני הלילה👇🏼{' '}
+        <b> לחצו על חניון הלילה המבוקש - </b>להזמנת לינה בחניוני הלילה👇🏼
       </h3>
       <div className="flex-container">
+<<<<<<< HEAD
         <Legend list={list} />
         <IsraelMap sites={sites} />
+=======
+        <Legend sites={sites} />
+        <IsraelMap sites={sites} isLoading={isLoading}/>
+>>>>>>> origin/legend
       </div>
     </div>
   );
 }
 
-export default Body;
+export default Home;
