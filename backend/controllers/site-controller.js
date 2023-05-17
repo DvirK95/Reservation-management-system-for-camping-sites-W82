@@ -1,7 +1,8 @@
 const axios = require('axios');
 const Site = require('../models/siteSchema');
+const Relation = require('../models/sitePlaceRelationSchema');
 
-exports.getAllSites = async (req, res) => {
+const getAllSites = async (req, res) => {
   try {
     const sites = await Site.find({});
 
@@ -30,3 +31,28 @@ exports.getAllSites = async (req, res) => {
     res.status(500).send({ error: 'Failed to fetch sites' });
   }
 };
+
+const getSiteRelationPlace = async (req, res) => {
+  let relations;
+  try {
+    if (req.query.siteId) {
+      const siteId = req.query.siteId;
+      relations = await Relation.find({ siteId });
+    } else if (req.query.placeId) {
+      const placeId = req.query.placeId;
+      relations = await Relation.find({ placeId });
+    } else {
+      relations = await Relation.find({});
+    }
+
+    if (!relations || relations.length === 0) {
+      return res.status(404).json({ message: 'Not found' });
+    }
+
+    res.status(200).send(relations);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+module.exports = { getAllSites, getSiteRelationPlace };
