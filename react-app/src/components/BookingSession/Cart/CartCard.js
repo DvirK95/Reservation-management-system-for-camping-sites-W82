@@ -17,7 +17,7 @@ function CartCard({ placeObj, handleXButtonClick }) {
       <Col md={6}>
         <h5 id="title">{placeObj.name}</h5>
         <p className="par-light">
-          {placeObj.startDate} - {placeObj.startDate}
+          {placeObj.startDate} - {placeObj.endDate}
         </p>
         <div dangerouslySetInnerHTML={{ __html: placeObj.summary }}></div>
       </Col>

@@ -44,6 +44,7 @@ function Sites() {
           handlePlaceClick={handlePlaceClick}
         />
       )}
+
       <div className={`innerWrap ${isLoading ? 'loading' : ''}`}>
         {isLoading && isLoadingSiteDetails && (
           <div className="spinner-container">

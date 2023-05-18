@@ -9,12 +9,14 @@ import Header from './components/UI/Header';
 import Footer from './components/UI/Footer';
 import Checkout from './components/BookingSession/Checkout/Checkout';
 import Confirm from './components/BookingSession/Checkout/Confirm';
-
+import MiniCart from './components/BookingSession/Cart/MiniCart';
+import Test from './Test';
 function App() {
   return (
     <>
       <Header />
       <FloatingButton />
+      <MiniCart />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,7 +24,7 @@ function App() {
           <Route path="Cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="checkout/confirm/:bookingId" element={<Confirm />} />
-
+          <Route path="test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
