@@ -1,62 +1,50 @@
-import { useState } from 'react';
 import { Row, Col, ListGroup, Image } from 'react-bootstrap';
 import './Cart.css';
-import useBookingApi from '../../../utils/useSessionApi';
 import { Spinner } from 'react-bootstrap';
-import '../../UI/CustomButton.css';
+import '../UI/CustomButton.css';
 import './MiniCart.css';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
+import { removeItemFromCart, fetchCartData } from '../../store/cart-actions';
+import { useEffect } from 'react';
 
 function MiniCart() {
-  const {
-    sessionPlace,
-    handlePlaceClick,
-    activePlaceIds,
-    isLoading,
-    totalPrice,
-  } = useBookingApi();
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
-  // Add a new localTotalPrice state variable
-  const [priceIsLoading, setPriceIsLoading] = useState(false);
-  const [boxOption, setBoxOption] = useState({
-    isOpen: true,
-  });
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
   const handleMouseEnter = () => {
-    setBoxOption((prevBoxOption) => ({
-      ...prevBoxOption,
-      isOpen: true,
-    }));
+    dispatch(cartActions.showCart(true));
   };
 
   const handleMouseLeave = () => {
-    setBoxOption((prevBoxOption) => ({
-      ...prevBoxOption,
-      isOpen: false,
-    }));
+    dispatch(cartActions.showCart(false));
   };
 
-  const handleXButtonClick = (placeObj) => {
-    setPriceIsLoading(true);
-    handlePlaceClick(placeObj);
+  const handleRemoveItem = (id) => {
+    dispatch(removeItemFromCart(id));
   };
 
   const emptyCart = (
     <>
-      {isLoading && (
-        <div className="spinner-container">
+      {cart.isDataLoad && (
+        <div>
           <Spinner animation="border" />
         </div>
       )}
-      {!isLoading && <h1>הסל ריק</h1>}
+      {!cart.isDataLoad && <h1>הסל ריק</h1>}
     </>
   );
 
   return (
     <div
-      className={`cart-box ${boxOption.isOpen ? 'open' : ''}`}
+      className={`cart-box ${cart.showCart ? 'open' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -68,16 +56,12 @@ function MiniCart() {
           <h5 id="box-title">סל הקניות שלי </h5>
         </ListGroup.Item>
 
-        {activePlaceIds.length < 1 ? (
+        {cart.items.length < 1 ? (
           emptyCart
         ) : (
           <>
-            {sessionPlace.map((placeObj) => (
-              <div
-                key={placeObj.item_id}
-                //placeObj={placeObj}
-                //handleXButtonClick={handleXButtonClick}
-              >
+            {cart.items.map((placeObj) => (
+              <div key={placeObj.item_id}>
                 <ListGroup.Item>
                   <Row>
                     <span className="date">
@@ -86,7 +70,13 @@ function MiniCart() {
                   </Row>
                   <Row>
                     <Col xxl={5}>
-                      <Image src={placeObj.image['1'].url_small} rounded />
+                      {
+                        <Image
+                          src={placeObj.image['1'].url_small}
+                          rounded
+                          alt="small"
+                        />
+                      }
                     </Col>
                     <Col xxl={6}>
                       <Row>₪{placeObj.rate.total}</Row>
@@ -106,7 +96,7 @@ function MiniCart() {
                     <Col xxl={1} dir="ltr">
                       <button
                         style={{ display: 'contents' }}
-                        onClick={handleXButtonClick}
+                        onClick={() => handleRemoveItem(placeObj.item_id)}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} className="icon" />
                       </button>
@@ -120,7 +110,15 @@ function MiniCart() {
         <ListGroup.Item>
           <Row>
             <Col>סה"כ:</Col>
-            {!priceIsLoading && <Col dir="ltr">₪{totalPrice}</Col>}
+            <Col dir="ltr">
+              {cart.totalPrice === 'loading price' ? (
+                <div className="spinner">
+                  <Spinner animation="border" />
+                </div>
+              ) : (
+                <span>₪{cart.totalPrice}</span>
+              )}
+            </Col>
           </Row>
           <Row>
             <Link to="/checkout" className="custom-button">

@@ -6,6 +6,7 @@ const cartSlice = createSlice({
     items: [],
     totalPrice: 0,
     isDataLoad: false,
+    showCart: false,
     //changed: false,
   },
 
@@ -14,15 +15,20 @@ const cartSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
       state.items = action.payload.items;
     },
-    /*removeItemFromCart(state, action) {
+    removeItemFromCart(state, action) {
       const id = action.payload;
-
       state.items = state.items.filter(
-        (item) => String(item.id) !== String(id)
+        (item) => String(item.item_id) !== String(id)
       );
-    },*/
+      state.totalPrice = 'loading price';
+    },
+    // ליישם את זה בשביל לשפר ביצועים
+    addItemToCart(state) {},
     setIsLoad(state) {
       state.isDataLoad = !state.isDataLoad;
+    },
+    showCart(state, action) {
+      state.showCart = action.payload;
     },
   },
 });

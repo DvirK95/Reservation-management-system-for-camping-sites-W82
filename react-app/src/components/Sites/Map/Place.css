@@ -111,6 +111,15 @@
   color: red;
   text-align: center;
 }
+
+.add-cart {
+  color: var(--main-dark-color);
+}
+
+.add-cart:hover {
+  color: var(--second-color);
+}
+
 @media screen and (max-width: 768px) {
   .place {
     font-size: 9px;

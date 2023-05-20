@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Col, Row, Spinner } from 'react-bootstrap';
-import useSessionApi from '../../../utils/useSessionApi';
-import '../../UI/CustomButton.css';
+import useSessionApi from '../../utils/useSessionApi';
+import '../UI/CustomButton.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';

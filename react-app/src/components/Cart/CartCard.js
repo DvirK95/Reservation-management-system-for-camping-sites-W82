@@ -2,12 +2,19 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
+import { removeItemFromCart } from '../../store/cart-actions';
 
-function CartCard({ placeObj, handleXButtonClick }) {
+function CartCard({ placeObj }) {
+  const dispatch = useDispatch();
   const xCircleIcon = (
     <FontAwesomeIcon className="icon" icon={faCircleXmark} size="xl" />
   );
   const squareCheck = <FontAwesomeIcon icon={faSquareCheck} />;
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItemFromCart(id));
+  };
 
   return (
     <Row key={placeObj.item_id} className="Card">
@@ -32,10 +39,7 @@ function CartCard({ placeObj, handleXButtonClick }) {
             <button
               className="x-button"
               onClick={() => {
-                handleXButtonClick({
-                  id: String(placeObj.item_id),
-                  slip: placeObj.slip,
-                });
+                handleRemoveItem(placeObj.item_id);
               }}
             >
               {xCircleIcon}

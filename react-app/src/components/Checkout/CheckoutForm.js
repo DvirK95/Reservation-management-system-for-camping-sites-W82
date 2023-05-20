@@ -1,7 +1,7 @@
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState, useEffect, useCallback } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { createBooking, updateBooking } from '../../../utils/useBookingApi';
+import { createBooking, updateBooking } from '../../utils/useBookingApi';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';

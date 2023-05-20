@@ -4,8 +4,11 @@ import './Header.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { cartActions } from '../../store/cart-slice';
+import { useDispatch } from 'react-redux';
 
 function Header() {
+  const dispatch = useDispatch();
   return (
     <>
       <div className="header-top"></div>
@@ -25,6 +28,9 @@ function Header() {
               <Nav.Link href="#campingSites"> אתרי קמפינג </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <button onClick={() => dispatch(cartActions.showCart(true))}>
+            cart
+          </button>
         </Container>
       </Navbar>
     </>

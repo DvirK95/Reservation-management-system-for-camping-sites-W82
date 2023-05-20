@@ -31,6 +31,8 @@ const apiCartSession = async (body = null) => {
 
 export function fetchCartData() {
   return async function (dispatch) {
+    dispatch(cartActions.setIsLoad());
+
     try {
       const cartData = await apiCartSession();
       dispatch(
@@ -42,17 +44,17 @@ export function fetchCartData() {
     } catch (error) {
       //todo
       console.log(error);
+    } finally {
+      dispatch(cartActions.setIsLoad());
     }
   };
 }
 
 export function removeItemFromCart(id) {
   return async function (dispatch) {
+    dispatch(cartActions.removeItemFromCart(id));
     try {
-      dispatch(cartActions.setIsLoad());
-
       const data = await apiCartSession({ remove: id });
-
       dispatch(
         cartActions.replaceCart({
           items: data.session.items || [],
@@ -61,8 +63,6 @@ export function removeItemFromCart(id) {
       );
     } catch (error) {
       console.error(error);
-    } finally {
-      dispatch(cartActions.setIsLoad());
     }
   };
 }

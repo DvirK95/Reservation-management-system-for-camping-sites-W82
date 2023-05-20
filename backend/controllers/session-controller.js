@@ -2,15 +2,22 @@ const axios = require('axios');
 
 async function extractValues(str) {
   const matches = str.match(
-    /(\d+)\.(\d{8})X(\d+)(?:-adults\.(\d+))?(?:-children\.(\d+))?(?:-toddler\.(\d+))?/
+    /^(\d+)\.(\d+)X(\d+)(?:-qty\.(\d+))?(?:-adult\.(\d+))?(?:-child\.(\d+))?(?:-toddler\.(\d+))?$/
   );
-
   if (matches === null) {
     // If the string doesn't match the expected pattern, return null or throw an error
     return null;
   }
-  const [fullMatch, id, startDateStr, durationStr, adults, children, toddler] =
-    matches;
+  const [
+    fullMatch,
+    id,
+    startDateStr,
+    durationStr,
+    qty,
+    adults,
+    children,
+    toddler,
+  ] = matches;
   const startDate = new Date(
     startDateStr.substring(0, 4),
     parseInt(startDateStr.substring(4, 6)) - 1,
@@ -20,11 +27,12 @@ async function extractValues(str) {
     startDate.getTime() + parseInt(durationStr) * 86400000
   ); // 86400000 = 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
   return {
     id: id,
+    // זה חשוב להשאיר את התאריך כרגע ככה בשביל צ'קפרונט
     startDate: startDate.toLocaleDateString('en-US', options),
     endDate: endDate.toLocaleDateString('en-US', options),
+    qty: qty ? parseInt(qty) : 0,
     adults: adults ? parseInt(adults) : 0,
     children: children ? parseInt(children) : 0,
     toddler: toddler ? parseInt(toddler) : 0,
@@ -55,6 +63,7 @@ async function getBookingItemKey(sessionId, itemId) {
 
 async function getExtraDataItem(slip) {
   const slipValues = await extractValues(slip);
+  console.log(slipValues);
   try {
     const response = await axios.get(
       `${process.env.API_DIR}/item/${slipValues.id}`,
@@ -75,9 +84,19 @@ async function getExtraDataItem(slip) {
     const item = response.data.item;
     delete slipValues.id;
 
+    // ;
+
     return {
-      startDate: slipValues.startDate,
-      endDate: slipValues.endDate,
+      startDate: new Date(slipValues.startDate).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }),
+      endDate: new Date(slipValues.endDate).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }),
       image: item?.image ?? null,
       summary: item?.summary ?? null,
       ...slipValues,
@@ -113,7 +132,6 @@ const createBookingSession = async (req, res) => {
 
     const response = await axios.request(config);
     const items = response.data.booking.session.item;
-
     const result = {
       items: [],
       package: [],
@@ -125,7 +143,6 @@ const createBookingSession = async (req, res) => {
         ...(await getExtraDataItem(items[key].slip)),
         ...items[key],
       };
-
       if (key.includes('.')) {
         result.package.push(itemObj);
       } else {

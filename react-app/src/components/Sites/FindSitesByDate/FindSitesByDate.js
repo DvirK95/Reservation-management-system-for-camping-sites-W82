@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import CustomButton from '../../UI/CustomButton';
 import './FindSitesByDate.css';
 import { calculateTommorowDate, pullTodayDate } from '../../../utils/dateUtils';
 import FindSitesPeopleCount from './FindSitesPeopleCount';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 function FindSitesByDate({ setDates, peoplesProps }) {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const today = pullTodayDate();
   const tomorrow = calculateTommorowDate(today);
 
-  const [arrivalDate, setArrivalDate] = useState(today);
-  const [departureDate, setDepartureDate] = useState(tomorrow);
+  const [arrivalDate, setArrivalDate] = useState(
+    searchParams.get('start_date') || today
+  );
+  const [departureDate, setDepartureDate] = useState(
+    searchParams.get('end_date') || tomorrow
+  );
   const [peoples, setPeoples] = useState(peoplesProps.peoples);
 
   const handleSubmit = () => {
@@ -20,6 +28,11 @@ function FindSitesByDate({ setDates, peoplesProps }) {
       children: peoples.children,
       toddlers: peoples.toddlers,
     });
+
+    // Update the URL
+    navigate(
+      `${location.pathname}?start_date=${arrivalDate}&end_date=${departureDate}&adults=${peoples.adults}&children=${peoples.children}&toddlers=${peoples.toddlers}`
+    );
   };
 
   const handleReset = () => {
@@ -31,6 +44,7 @@ function FindSitesByDate({ setDates, peoplesProps }) {
       toddlers: 0,
     });
     peoplesProps.setPeoples(peoples);
+    navigate(`${location.pathname}`, { replace: true });
   };
   const startDateOnChange = (e) => {
     setArrivalDate(e.target.value);
