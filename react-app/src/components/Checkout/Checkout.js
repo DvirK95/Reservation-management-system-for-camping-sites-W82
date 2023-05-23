@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Container, Col, Row, Spinner } from 'react-bootstrap';
-import useSessionApi from '../../utils/useSessionApi';
 import '../UI/CustomButton.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { useNavigate } from 'react-router-dom';
-import './Checkout';
+import { useSelector } from 'react-redux';
+import './Checkout.css';
 
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState('');
   const [bookingId, setBookingId] = useState(null);
 
-  const {
-    sessionPlace,
-    //handlePlaceClick,
-    activePlaceIds,
-    isLoading,
-    totalPrice,
-  } = useSessionApi();
+  const items = useSelector((state) => state.cart.items);
+  const isLoading = useSelector((state) => state.isDataLoad);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,10 +55,10 @@ function Checkout() {
   };
 
   useEffect(() => {
-    if (!isLoading && activePlaceIds.length < 1 && bookingId !== null) {
+    if (!isLoading && items.length < 1 && bookingId !== null) {
       navigate('/cart');
     }
-  }, [activePlaceIds, navigate, isLoading, bookingId]);
+  }, [items, navigate, isLoading, bookingId]);
 
   return (
     <Container className="cart-wrapper">
@@ -85,13 +82,19 @@ function Checkout() {
           </Col>
           <Col md={4}>
             <h1>סיכום הזמנה</h1>
-            {sessionPlace.map((placeObj) => (
+            {items.map((placeObj) => (
               <div key={placeObj.item_id}>
                 {'שם: '}
                 {placeObj.name}
               </div>
             ))}
-            <div>total price: {totalPrice}</div>
+            {!totalPrice ? (
+              <div className="spinner">
+                <Spinner animation="border" />
+              </div>
+            ) : (
+              <p>₪{totalPrice}</p>
+            )}
           </Col>
         </Row>
       )}

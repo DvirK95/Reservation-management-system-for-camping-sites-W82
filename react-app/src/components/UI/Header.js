@@ -6,8 +6,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { cartActions } from '../../store/cart-slice';
 import { useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function Header() {
+  const counter = useSelector((state) => state.cart.counter);
+  const cartIcon = <FontAwesomeIcon icon={faCartShopping} />;
   const dispatch = useDispatch();
   return (
     <>
@@ -28,9 +34,14 @@ function Header() {
               <Nav.Link href="#campingSites"> אתרי קמפינג </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <button onClick={() => dispatch(cartActions.showCart(true))}>
-            cart
-          </button>
+          <Link
+            id="cart-button"
+            to="cart"
+            onMouseOver={() => dispatch(cartActions.showCart(true))}
+          >
+            <span id="count">{counter}</span>
+            {cartIcon}
+          </Link>
         </Container>
       </Navbar>
     </>

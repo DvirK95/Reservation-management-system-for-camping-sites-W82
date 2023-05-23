@@ -63,7 +63,6 @@ async function getBookingItemKey(sessionId, itemId) {
 
 async function getExtraDataItem(slip) {
   const slipValues = await extractValues(slip);
-  console.log(slipValues);
   try {
     const response = await axios.get(
       `${process.env.API_DIR}/item/${slipValues.id}`,
@@ -84,22 +83,30 @@ async function getExtraDataItem(slip) {
     const item = response.data.item;
     delete slipValues.id;
 
-    // ;
+    // change it to GB format
+    const startDateGbFormat = new Date(slipValues.startDate).toLocaleDateString(
+      'en-GB',
+      {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }
+    );
+    const endDateGbFormat = new Date(slipValues.endDate).toLocaleDateString(
+      'en-GB',
+      {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }
+    );
 
     return {
-      startDate: new Date(slipValues.startDate).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      }),
-      endDate: new Date(slipValues.endDate).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      }),
+      ...slipValues,
+      startDate: startDateGbFormat,
+      endDate: endDateGbFormat,
       image: item?.image ?? null,
       summary: item?.summary ?? null,
-      ...slipValues,
     };
   } catch (error) {
     console.log(error);
@@ -108,10 +115,10 @@ async function getExtraDataItem(slip) {
 
 const createBookingSession = async (req, res) => {
   try {
-    const { remove, ...restData } = req.body;
+    const { remove, key, opt, ...restData } = req.body;
     let data = { ...restData };
     if (remove) {
-      key = await getBookingItemKey(restData.session_id, remove);
+      const key = await getBookingItemKey(restData.session_id, remove);
       data = {
         ...data,
         alter: {
@@ -119,6 +126,16 @@ const createBookingSession = async (req, res) => {
         },
       };
     }
+
+    if (opt) {
+      data = {
+        ...data,
+        alter: {
+          [key]: opt,
+        },
+      };
+    }
+
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -138,11 +155,13 @@ const createBookingSession = async (req, res) => {
     };
 
     for (const key in items) {
+      const extraData = await getExtraDataItem(items[key].slip);
       const itemObj = {
         key: key,
-        ...(await getExtraDataItem(items[key].slip)),
+        ...extraData,
         ...items[key],
       };
+
       if (key.includes('.')) {
         result.package.push(itemObj);
       } else {

@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 
 function CartSum({ totalPrice }) {
   return (
-    <>
+    <div>
       <h3 style={{ textAlign: 'center' }}>סיכום הזמנה</h3>
       <Row>
         <Col xs={6}>
@@ -28,7 +28,7 @@ function CartSum({ totalPrice }) {
           </Link>
         </Col>
       </Row>
-    </>
+    </div>
   );
 }
 

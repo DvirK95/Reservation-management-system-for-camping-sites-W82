@@ -157,7 +157,6 @@ function CheckoutForm({ bookingId, setBookingId }) {
           <PaymentElement
             id="payment-element"
             options={{
-              location: 'he',
               layout: 'tabs',
               paymentMethodOrder: ['apple_pay', 'google_pay', 'card'],
             }}

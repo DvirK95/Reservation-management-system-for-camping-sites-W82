@@ -55,3 +55,9 @@ img {
   text-align: center;
   font-size: smaller;
 }
+
+@media screen and (max-width: 768px) {
+  .cart-box {
+    display: none;
+  }
+}
