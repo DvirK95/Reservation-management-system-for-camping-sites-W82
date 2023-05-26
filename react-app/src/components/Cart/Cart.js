@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import './Cart.css';
 import { Spinner } from 'react-bootstrap';
-import '../UI/CustomButton.css';
 import CartCard from './CartCard';
 import CartSum from './CartSum';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,6 +1,5 @@
-import React from "react";
+import React from 'react';
 import './Zone.css';
-
 
 function Zone(props) {
   const { filteredList } = props;
@@ -9,7 +8,7 @@ function Zone(props) {
     <div className="scroll-list">
       {filteredList.map((item, index) => (
         <div key={index} className="list-item">
-          <a href={item._id} className="item-link">
+          <a href={`${item.title}/${item._id}`} className="item-link">
             <div className="item-image">
               <img src={item.image_url} alt={item.map} />
             </div>

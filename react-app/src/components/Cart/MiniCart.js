@@ -1,7 +1,6 @@
 import { Row, Col, ListGroup, Image } from 'react-bootstrap';
 import './Cart.css';
 import { Spinner } from 'react-bootstrap';
-import '../UI/CustomButton.css';
 import './MiniCart.css';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import CustomButton from '../../UI/CustomButton';
 import './FindSitesByDate.css';
 import { calculateTommorowDate, pullTodayDate } from '../../../utils/dateUtils';
 import FindSitesPeopleCount from './FindSitesPeopleCount';
@@ -84,8 +83,12 @@ function FindSitesByDate({ setDates, peoplesProps }) {
           <FindSitesPeopleCount peoplesProps={{ peoples, setPeoples }} />
         </Col>
         <Col sm="12" md="auto">
-          <CustomButton onClick={handleSubmit}>מצא זמינות</CustomButton>
-          <CustomButton onClick={handleReset}>איפוס</CustomButton>
+          <button className="custom-button" onClick={handleSubmit}>
+            מצא זמינות
+          </button>
+          <button className="custom-button" onClick={handleReset}>
+            איפוס
+          </button>
         </Col>
       </Row>
     </Container>
