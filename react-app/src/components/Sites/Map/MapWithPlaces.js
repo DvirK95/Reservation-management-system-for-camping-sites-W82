@@ -3,12 +3,7 @@ import Place from './Place';
 import { useState, useRef } from 'react';
 import MapControllers from './MapControllers';
 
-function MapWithPlaces({
-  placesData,
-  handlePlaceClick,
-  activePlaceIds,
-  mapName,
-}) {
+function MapWithPlaces({ placesData, mapName }) {
   const mapPath = `../../maps/${mapName}.png`;
   const [canPan, setCanPan] = useState(true);
   const [scale, setScale] = useState(1);
@@ -44,12 +39,7 @@ function MapWithPlaces({
 
           <div className="places">
             {placesData.map((placeObj) => (
-              <Place
-                key={placeObj['_id']}
-                placeObj={placeObj}
-                onClick={handlePlaceClick}
-                active={activePlaceIds.includes(placeObj['_id'])}
-              />
+              <Place key={placeObj['_id']} placeObj={placeObj} />
             ))}
           </div>
         </div>

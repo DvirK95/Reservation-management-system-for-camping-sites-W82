@@ -13,7 +13,10 @@ app.use((req, res, next) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, PUT'
+  );
   next();
 });
 
@@ -23,6 +26,7 @@ app.use('/post', require('./routes/postData'));
 app.use('/places', require('./routes/places-routes'));
 app.use('/sites', require('./routes/site-routes'));
 app.use('/booking', require('./routes/booking-routes'));
+app.use('/payment', require('./routes/payment-routes'));
 
 mongoose
   .connect(process.env.MONGO_DB_PASSWORD, {

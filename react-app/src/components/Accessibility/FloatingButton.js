@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "./FloatingButton.css";
-import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import React, { useState } from 'react';
+import './FloatingButton.css';
+import { faWheelchair } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 const FloatingButton = () => {
   const [textSize, setTextSize] = useState(100);
   const [highContrast, setHighContrast] = useState(false);
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState('default');
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,25 +31,25 @@ const FloatingButton = () => {
   // Update the styles based on the selected options
   React.useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty("--text-size", `${textSize}%`);
+    root.style.setProperty('--text-size', `${textSize}%`);
 
     if (highContrast) {
-      root.style.setProperty("--text-color", "white");
-      root.style.setProperty("--background-color", "black");
+      root.style.setProperty('--text-color', 'white');
+      root.style.setProperty('--background-color', 'black');
     } else {
-      root.style.setProperty("--text-color", "");
-      root.style.setProperty("--background-color", "");
+      root.style.setProperty('--text-color', '');
+      root.style.setProperty('--background-color', '');
     }
 
-    if (theme === "light") {
-      root.style.setProperty("--theme-text-color", "black");
-      root.style.setProperty("--theme-background-color", "white");
-    } else if (theme === "dark") {
-      root.style.setProperty("--theme-text-color", "white");
-      root.style.setProperty("--theme-background-color", "black");
+    if (theme === 'light') {
+      root.style.setProperty('--theme-text-color', 'black');
+      root.style.setProperty('--theme-background-color', 'white');
+    } else if (theme === 'dark') {
+      root.style.setProperty('--theme-text-color', 'white');
+      root.style.setProperty('--theme-background-color', 'black');
     } else {
-      root.style.setProperty("--theme-text-color", "");
-      root.style.setProperty("--theme-background-color", "");
+      root.style.setProperty('--theme-text-color', '');
+      root.style.setProperty('--theme-background-color', '');
     }
   }, [textSize, highContrast, theme]);
 
@@ -58,7 +58,7 @@ const FloatingButton = () => {
       <button onClick={handleShow} className="floating-button">
         <FontAwesomeIcon icon={faWheelchair} />
         <br />
-        {"נגישות"}
+        {'נגישות'}
       </button>
 
       <Offcanvas

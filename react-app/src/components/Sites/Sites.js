@@ -1,61 +1,49 @@
-// src/components/Sites/Sites.js
 import { useState } from 'react';
 import './Sites.css';
 import FindSitesByDate from './FindSitesByDate/FindSitesByDate';
 import MapWithPlaces from './Map/MapWithPlaces';
 import { Spinner } from 'react-bootstrap';
 import { calculateTommorowDate, pullTodayDate } from '../../utils/dateUtils';
-import BookingSession from '../BookingSession/BookingSession';
-//import useSitesData from '../../utils/useSitesData';
 import fetchPlacesApi from '../../utils/fetchPlacesApi';
-import { useParams } from 'react-router-dom';
-import useBookingApi from '../../utils/bookingApi';
+import { useParams, useSearchParams } from 'react-router-dom';
+import useSiteDetails from '../../utils/useSitesApi';
 
-function Sites({ campName = 'פארק נחל אכזיב', mapName = 'Akhziv' }) {
-  const { siteId } = useParams();
+function Sites() {
+  const [searchParams] = useSearchParams();
+
+  const { campingName, siteId } = useParams();
+  const { siteDetails, isLoadingSiteDetails } = useSiteDetails(siteId);
+
   const [dates, setDates] = useState({
-    startDate: pullTodayDate(),
-    endDate: calculateTommorowDate(pullTodayDate()),
+    startDate: searchParams.get('start_date') || pullTodayDate(),
+    endDate:
+      searchParams.get('end_date') || calculateTommorowDate(pullTodayDate()),
   });
 
   const [peoples, setPeoples] = useState({
-    adults: 1,
-    children: 0,
-    toddlers: 0,
+    adults: Number(searchParams.get('adults')) || 1,
+    children: Number(searchParams.get('children')) || 0,
+    toddlers: Number(searchParams.get('toddlers')) || 0,
   });
 
-  const { activePlaceIds, handlePlaceClick } = useBookingApi();
-
   const { placesData, isLoading } = fetchPlacesApi(siteId, dates, peoples);
-  const activePlaces = placesData.filter((obj) =>
-    activePlaceIds.includes(obj._id)
-  );
+
   return (
     <div className="sites">
-      <h1 className="title">{campName}</h1>
+      <h1 className="title">{siteDetails.title}</h1>
       <FindSitesByDate
         setDates={setDates}
         peoplesProps={{ peoples, setPeoples }}
       />
-      {activePlaceIds.length > 0 && (
-        <BookingSession
-          places={activePlaces}
-          dates={dates}
-          handlePlaceClick={handlePlaceClick}
-        />
-      )}
+
       <div className={`innerWrap ${isLoading ? 'loading' : ''}`}>
-        {isLoading && (
+        {isLoading && isLoadingSiteDetails && (
           <div className="spinner-container">
             <Spinner animation="border" />
           </div>
         )}
-        <MapWithPlaces
-          mapName={mapName}
-          placesData={placesData}
-          handlePlaceClick={handlePlaceClick}
-          activePlaceIds={activePlaceIds}
-        />
+
+        <MapWithPlaces mapName={campingName} placesData={placesData} />
       </div>
     </div>
   );

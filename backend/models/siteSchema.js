@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const siteSchema = new mongoose.Schema({
   _id: {
@@ -13,12 +13,16 @@ const siteSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  map: {
+  mapName: {
     type: String,
     required: true,
     unique: true,
   },
+  title: {
+    type: String,
+    unique: true,
+  },
 });
 
-const Site = mongoose.model("Site", siteSchema);
+const Site = mongoose.model('Site', siteSchema);
 module.exports = Site;

@@ -1,62 +1,52 @@
+import { useCallback, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import React from 'react';
 
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
 import Legend from '../IsraelMap/Legend';
-import marker from '../IsraelMap/marker.jpg';
-// import nature from "./nature.png";
 
-function Body() {
-  const list = [
-    {
-      title: 'חניון לילה גן לאומי מעיין חרוד',
-      link: '#',
-      text: 'קמפינג פלוס טבילה: לינת שטח מפנקת למרגלות הגלבוע',
-      image: marker,
-    },
-    {
-      title: 'חניון לילה גן לאומי חורשת טל',
-      link: '#',
-      text: 'שלווה גלילית: גיבוש משפחתי בלתי נשכח לצד פלגי המים',
-      image: marker,
-    },
-    {
-      title: 'חניון לילה לאומי תל אשקלון',
-      link: '#',
-      text: 'סתלבט מעוצב: לינה מול הים במרחב גדוש הפתעות שיש בו הכל',
-      image: marker,
-    },
-    {
-      title: 'חניון לילה גן לאומי מצדה מערב - מחנה מצדה',
-      link: '#',
-      text: 'בדרך למעלה: מבלים לילה במתחם הקמפינג המאובזר ובבוקר מטפסים אל הזריחה. חוויה של פעם בחיים',
-      image: marker,
-    },
-    {
-      title: 'חניון לילה גן לאומי אכזיב וחוף אכזיב',
-      link: '#',
-      text: 'חוויה ים תיכונית: קמפינג במרחק נגיעה מהמפרצים הציוריים',
-      image: marker,
-    },
-  ];
+function Home() {
+  const [sites, setSites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchSites = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/sites`);
+
+      const data = await response.json();
+      setSites(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      navigate(`/notfound?res=${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchSites();
+  }, [fetchSites]);
 
   return (
     <div className="Body">
       <div className="nature-img" />
       <h1 className="green-title">
-        {' '}
         נשמח לארח אתכם ברשת חניוני הלילה של רשות הטבע והגנים !
       </h1>
       <h3>
-        <b> לחצו על חניון הלילה המבוקש - </b>להזמנת לינה בחניוני הלילה👇🏼{' '}
+        <b> לחצו על חניון הלילה המבוקש - </b>להזמנת לינה בחניוני הלילה👇🏼
       </h3>
       <div className="flex-container">
-        <Legend list={list} />
-        <IsraelMap />
+        <Legend sites={sites} />
+        <IsraelMap sites={sites} isLoading={isLoading} />
       </div>
     </div>
   );
 }
 
-export default Body;
+export default Home;
