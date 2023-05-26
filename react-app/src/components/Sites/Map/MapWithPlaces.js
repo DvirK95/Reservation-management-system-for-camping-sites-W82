@@ -27,6 +27,7 @@ function MapWithPlaces({
   return (
     <>
       <MapControllers scale={scale} panZoomRef={panZoomRef} />
+
       <PanZoom
         style={{ overflow: 'hidden' }}
         ref={panZoomRef}
@@ -39,6 +40,7 @@ function MapWithPlaces({
         preventPan={preventPanCondition}
         onStateChange={handleStateChange}
       >
+
         <div style={{ cursor: 'drag' }}>
           <img src={mapPath} alt="Campground Map" className="campground-map" />
 

@@ -44,7 +44,7 @@ function FindSitesByDate({ setDates, peoplesProps }) {
         </Col>
         <Col xs="12" md="auto" id="datesLabelCol">
           <div className="datesLabel">
-            <label htmlFor="arrival">הגעה:</label>
+            <label htmlFor="arrival">הגעה: &nbsp; </label>
             <input
               className="datePicker"
               type="date"
@@ -55,7 +55,7 @@ function FindSitesByDate({ setDates, peoplesProps }) {
             />
           </div>
           <div className="datesLabel">
-            <label htmlFor="departure">עזיבה:</label>
+            <label htmlFor="departure">עזיבה: &nbsp; </label>
             <input
               className="datePicker"
               type="date"

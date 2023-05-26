@@ -36,8 +36,8 @@ function IsraelMap({sites, isLoading}) {
       sites.forEach((site) => {
         const marker = L.marker([site.xAxis, site.yAxis], { icon: markerIcon })
           .addTo(map)
-          .bindPopup(`<div className="title">${site.name} <br> <a href="${site._id}"> פרטים נוספים</a></div> `, {
-            // offset: [300, -180],
+          .bindPopup(`<div className="title">${site.name} <br> <a href="/sites/${site._id}"> פרטים נוספים</a></div> `, {
+            offset: [0, -5],
             closeButton: false,
           })
           .on('click', () => map.flyTo([site.xAxis, site.yAxis], 12));

@@ -1,21 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faMagnifyingGlassPlus,
-  faMagnifyingGlassMinus,
-  faCircleRight,
-  faCircleLeft,
-  faCircleUp,
-  faCircleDown,
+  faSquareCaretUp,
+  faSquareCaretDown,
+  faSquareCaretLeft,
+  faSquareCaretRight,
+  faSquareMinus,
+  faSquarePlus,
+  faLocationCrosshairs,
 } from '@fortawesome/free-solid-svg-icons';
+import "./MapControllers.css";
 
 function MapControllers({ scale, panZoomRef }) {
   // icons
-  const upIcon = <FontAwesomeIcon icon={faCircleUp} />;
-  const downIcon = <FontAwesomeIcon icon={faCircleDown} />;
-  const leftIcon = <FontAwesomeIcon icon={faCircleLeft} />;
-  const rightIcon = <FontAwesomeIcon icon={faCircleRight} />;
-
-  const scaleToShow = `${Math.round(scale.toFixed(2) * 100)}%`;
+  const upIcon = <FontAwesomeIcon icon={faSquareCaretUp} size="2xl" className='arrow' />;
+  const downIcon = <FontAwesomeIcon icon={faSquareCaretDown} size="2xl" className='arrow' />;
+  const leftIcon = <FontAwesomeIcon icon={faSquareCaretLeft} size="2xl" className='arrow' />;
+  const rightIcon = <FontAwesomeIcon icon={faSquareCaretRight} size="2xl" className='arrow' />;
+  
+  // const scaleToShow = `${Math.round(scale.toFixed(2) * 100)}%`;
 
   const handleZoomReset = () => {
     if (panZoomRef.current) {
@@ -59,19 +61,25 @@ function MapControllers({ scale, panZoomRef }) {
   };
 
   return (
-    <div className="MapControllers">
-      <button className="icon-btn" onClick={handleZoomReset}>
-        איפוס
-      </button>
+    <div className="MapControllers control">
       <div>
-        <button onClick={handleZoomIn} className="icon-btn">
-          <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
+        <button className="icon-btn" onClick={handleZoomReset}>
+          {/* איפוס */}
+          <FontAwesomeIcon icon={faLocationCrosshairs} className='reset'/>
         </button>
-        {scaleToShow}
+        &nbsp;
+
+        <button onClick={handleZoomIn} className="icon-btn">
+          <FontAwesomeIcon icon={faSquarePlus} bounce className='zoom'/>
+        </button>
+        &nbsp;
+        {/* {scaleToShow} */}
+        {/* &nbsp; */}
         <button className="icon-btn" onClick={handleZoomOut}>
-          <FontAwesomeIcon icon={faMagnifyingGlassMinus} />
+          <FontAwesomeIcon icon={faSquareMinus} bounce className='zoom'/>
         </button>
       </div>
+      
       <table>
         <tbody>
           <tr>
