@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBookingDetails } from '../../../utils/useBookingApi';
+import { getBookingDetails } from '../../utils/useBookingApi';
 import { useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 

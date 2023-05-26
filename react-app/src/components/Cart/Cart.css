@@ -68,6 +68,26 @@
   text-decoration: none;
   margin: 1rem 0;
 }
+
+.room-img-name {
+  background-color: rgba(0, 0, 0, 0.575);
+  height: 2rem;
+  position: relative;
+  top: -2rem;
+}
+.room-img-name svg {
+  float: left;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.peoples-text {
+  display: block;
+  color: gray;
+  opacity: 80%;
+  font-size: small;
+}
+
 @media screen and (max-width: 768px) {
   #title {
     margin-top: 2rem;

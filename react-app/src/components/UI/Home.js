@@ -8,6 +8,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
 import Legend from '../IsraelMap/Legend';
 
+<<<<<<< HEAD
+function Body() {
+  const [sites, setSites] = useState([]);
+  const navigate = useNavigate();
+
+  const fetchSites = useCallback(async () => {
+=======
 
 function Home() {
   const [sites, setSites] = useState([]);
@@ -21,12 +28,12 @@ function Home() {
 
       const data = await response.json();
       setSites(data);
-    } 
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching data:', error);
       navigate(`/notfound?res=${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
-    finally {setIsLoading(false)};
   }, [navigate]);
 
   useEffect(() => {
@@ -45,6 +52,7 @@ function Home() {
       <div className="flex-container">
         <Legend sites={sites} />
         <IsraelMap sites={sites} isLoading={isLoading}/>
+>>>>>>> origin/legend
       </div>
     </div>
   );
