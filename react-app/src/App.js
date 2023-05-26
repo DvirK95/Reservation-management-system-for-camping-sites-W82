@@ -20,7 +20,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/sites/:siteId/" element={<Sites />} />
+          <Route path="/:campingName/:siteId" element={<Sites />} />
           <Route path="Cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="checkout/confirm/:bookingId" element={<Confirm />} />

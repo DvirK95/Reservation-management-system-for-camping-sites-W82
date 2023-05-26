@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import marker from './marker.jpg';
 import './IsraelMap.css';
+import { useNavigate } from 'react-router-dom';
 
 const markerIcon = L.icon({
   iconUrl: marker,
@@ -11,6 +13,7 @@ const markerIcon = L.icon({
 });
 
 function IsraelMap({ sites, isLoading }) {
+  const navigate = useNavigate();
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -35,15 +38,29 @@ function IsraelMap({ sites, isLoading }) {
         const marker = L.marker([site.xAxis, site.yAxis], { icon: markerIcon })
           .addTo(map)
           .bindPopup(
-            `<div className="title">${site.name} <br> <a href="${site._id}"> פרטים נוספים</a></div> `,
+            renderToStaticMarkup(
+              <div className="title">
+                {site.name} <br />
+                <button id={site._id}>פרטים נוספים</button>
+              </div>
+            ),
             {
-              // offset: [300, -180],
               closeButton: false,
             }
           )
-          .on('click', () => map.flyTo([site.xAxis, site.yAxis], 12));
+          .on('click', () => {
+            map.flyTo([site.xAxis, site.yAxis], 12);
 
-        // push the marker to the markers array
+            // Add click event listener to button in popup
+            const popupButton = document.getElementById(site._id);
+            if (popupButton) {
+              popupButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                navigate(`${site.title.replace(/ /g, '-')}/${site._id}`);
+              });
+            }
+          });
+
         markers.push(marker);
       });
 
@@ -64,7 +81,7 @@ function IsraelMap({ sites, isLoading }) {
         });
       });
     }
-  }, [isLoading, sites]);
+  }, [isLoading, sites, navigate]);
 
   return <div ref={mapRef} className="mapStyles-width" />;
 }
