@@ -11,7 +11,7 @@ import useSiteDetails from '../../utils/useSitesApi';
 function Sites() {
   const [searchParams] = useSearchParams();
 
-  const { siteId } = useParams();
+  const { campingName, siteId } = useParams();
   const { siteDetails, isLoadingSiteDetails } = useSiteDetails(siteId);
 
   const [dates, setDates] = useState({
@@ -43,7 +43,7 @@ function Sites() {
           </div>
         )}
 
-        <MapWithPlaces mapName={siteDetails.mapName} placesData={placesData} />
+        <MapWithPlaces mapName={campingName} placesData={placesData} />
       </div>
     </div>
   );
