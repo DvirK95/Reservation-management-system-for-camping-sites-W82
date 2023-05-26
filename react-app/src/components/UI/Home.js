@@ -8,14 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
 import Legend from '../IsraelMap/Legend';
 
-<<<<<<< HEAD
-function Body() {
-  const [sites, setSites] = useState([]);
-  const navigate = useNavigate();
-
-  const fetchSites = useCallback(async () => {
-=======
-
 function Home() {
   const [sites, setSites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,8 +43,7 @@ function Home() {
       </h3>
       <div className="flex-container">
         <Legend sites={sites} />
-        <IsraelMap sites={sites} isLoading={isLoading}/>
->>>>>>> origin/legend
+        <IsraelMap sites={sites} isLoading={isLoading} />
       </div>
     </div>
   );
