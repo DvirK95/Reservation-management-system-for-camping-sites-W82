@@ -30,7 +30,14 @@ function Sites() {
 
   return (
     <div className="sites">
-      <h1 className="title">{siteDetails.title}</h1>
+      <div
+        id="siteImg"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${siteDetails.image_url})`,
+        }}
+      >
+        <h1 className="title">{siteDetails.title}</h1>
+      </div>
       <FindSitesByDate
         setDates={setDates}
         peoplesProps={{ peoples, setPeoples }}

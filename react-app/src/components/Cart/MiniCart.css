@@ -1,9 +1,14 @@
+:root {
+  --maincolor: var(--third-color);
+  --seccolor: var(--main-dark-color);
+}
+
 .cart-box {
   display: none;
   position: absolute;
   left: 1rem;
   width: 20rem;
-  background-color: #fff;
+  background-color: var(--maincolor);
   border: 1px solid #ccc;
   padding: 10px;
   z-index: 999;
@@ -29,6 +34,7 @@
 
 #box-title {
   text-align: center;
+  color: var(--seccolor);
 }
 
 img {

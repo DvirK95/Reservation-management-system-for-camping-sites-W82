@@ -1,6 +1,18 @@
 .title {
-  margin: 25px;
+  margin: 0;
   text-align: center;
+}
+
+#siteImg {
+  color: var(--third-color);
+  position: relative;
+  margin: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  padding: 12rem 0;
+  align-items: center;
 }
 
 .innerWrap.loading {
@@ -51,6 +63,7 @@ td {
   margin: 0;
   border: none;
 }
+
 @media screen and (max-width: 768px) {
   .innerWrap {
     width: 100%;

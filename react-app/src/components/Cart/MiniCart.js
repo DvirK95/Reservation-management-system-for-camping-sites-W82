@@ -120,10 +120,10 @@ function MiniCart() {
             </Col>
           </Row>
           <Row>
-            <Link to="/checkout" className="custom-button">
+            <Link to="/checkout" className="primary-button">
               המשך לתשלום
             </Link>
-            <Link to="/cart" className="custom-button-inverse">
+            <Link to="/cart" className="secondary-button">
               לסל הקניות
             </Link>
           </Row>
