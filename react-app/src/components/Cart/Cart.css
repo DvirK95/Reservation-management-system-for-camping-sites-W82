@@ -1,20 +1,32 @@
+:root {
+  --maincolor: var(--third-color);
+  --seccolor: var(--main-dark-color);
+  --thirdcolor: var(--second-color);
+}
+
+body {
+  background-color: rgb(240, 240, 240) !important;
+}
+
+.card-item {
+  border: 1px solid rgba(163, 163, 163, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+  transition: 0.3s;
+  padding: 5px;
+  margin-bottom: 1rem;
+  background-color: var(--maincolor);
+}
+
 .Card {
   padding-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: none;
 }
-.icon {
-  color: var(--main-dark-color);
-  cursor: pointer;
-}
-.icon:hover {
-  color: var(--main-light-color);
-  background-color: var(--main-dark-color);
-  border-radius: 100%;
-}
 
 #title {
-  color: var(--main-dark-color);
+  color: var(--seccolor);
   margin-bottom: 0;
 }
 
@@ -28,7 +40,7 @@
 }
 
 #availability {
-  color: var(--main-dark-color);
+  color: var(--thirdcolor);
 }
 
 .bubble {
@@ -55,18 +67,12 @@
 
 .price p {
   display: inline;
-  color: var(--main-dark-color);
+  color: var(--seccolor);
   font-size: small;
 }
 .x-button {
   display: contents;
   cursor: pointer;
-}
-
-.custom-button-inverse,
-.custom-button {
-  text-decoration: none;
-  margin: 1rem 0;
 }
 
 .room-img-name {

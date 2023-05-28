@@ -49,10 +49,10 @@ function Cart() {
       )}
       <Row>
         <Col md={8}>
-          <h1>עכשיו בסל שלך</h1>
+          <h3>עכשיו בסל שלך</h3>
           {items.length > 0 &&
             items.map((placeObj) => (
-              <div key={placeObj.key}>
+              <div className="card-item" key={placeObj.key}>
                 <CartCard placeObj={placeObj} />
                 {packages &&
                   packages.map(
