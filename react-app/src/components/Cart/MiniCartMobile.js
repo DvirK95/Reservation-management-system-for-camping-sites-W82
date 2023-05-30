@@ -1,4 +1,4 @@
-import { Row, Col } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import './Cart.css';
 import { Spinner } from 'react-bootstrap';
 import './MiniCart.css';
@@ -18,14 +18,7 @@ function MiniCartMobile() {
 
   if (cart.items.length > 0) {
     return (
-      <Row
-        style={{
-          backgroundColor: 'green',
-          position: 'fixed',
-          bottom: '0',
-          zIndex: '999',
-        }}
-      >
+      <Container fluid className="mini-cart-mobile-wrapper">
         <Col>
           <span className="total-price">סה"כ:</span>
         </Col>
@@ -41,7 +34,7 @@ function MiniCartMobile() {
         <Link to="/cart" className="secondary-button button-hover-white">
           לסל הקניות
         </Link>
-      </Row>
+      </Container>
     );
   }
 }

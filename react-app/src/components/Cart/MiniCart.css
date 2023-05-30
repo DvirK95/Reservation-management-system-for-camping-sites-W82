@@ -96,4 +96,16 @@ div.row a {
   .cart-box.open {
     display: none;
   }
+  .mini-cart-mobile-wrapper {
+    background-color: red /*changecolor from root*/;
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mini-cart-mobile-wrapper {
+    display: none !important;
+  }
 }
