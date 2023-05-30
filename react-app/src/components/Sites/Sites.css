@@ -68,4 +68,7 @@ td {
   .innerWrap {
     width: 100%;
   }
+  #siteImg {
+    max-height: 5rem;
+  }
 }

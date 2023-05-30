@@ -93,4 +93,7 @@ div.row a {
   .cart-box {
     display: none;
   }
+  .cart-box.open {
+    display: none;
+  }
 }

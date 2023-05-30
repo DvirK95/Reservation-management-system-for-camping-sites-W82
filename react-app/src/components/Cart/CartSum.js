@@ -8,7 +8,7 @@ function CartSum({ totalPrice }) {
       <h3 style={{ textAlign: 'center' }}>סיכום הזמנה</h3>
       <div
         className="card-item card-item-sum"
-        style={{ padding: '1rem 1.5rem', position: 'sticky' }}
+        style={{ padding: '1rem 1.5rem' }}
       >
         <Row>
           <Col xs={6}>

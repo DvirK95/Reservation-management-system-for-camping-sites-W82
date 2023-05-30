@@ -67,7 +67,7 @@ function MiniCart() {
                   </span>
                 </Row>
                 <Row>
-                  <Col xxl={5}>
+                  <Col md={5}>
                     {
                       <Image
                         src={placeObj.image['1'].url_small}
@@ -76,7 +76,7 @@ function MiniCart() {
                       />
                     }
                   </Col>
-                  <Col xxl={6}>
+                  <Col md={6}>
                     <Row>₪{placeObj.rate.total}</Row>
                     <Row>{placeObj.name}</Row>
                     <Row>
@@ -91,7 +91,7 @@ function MiniCart() {
                       </span>
                     </Row>
                   </Col>
-                  <Col xxl={1} dir="ltr">
+                  <Col md={1} dir="ltr">
                     <button
                       style={{ display: 'contents' }}
                       onClick={() => handleRemoveItem(placeObj.item_id)}
