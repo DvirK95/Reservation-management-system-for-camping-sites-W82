@@ -7,6 +7,7 @@ import { calculateTommorowDate, pullTodayDate } from '../../utils/dateUtils';
 import fetchPlacesApi from '../../utils/fetchPlacesApi';
 import { useParams, useSearchParams } from 'react-router-dom';
 import useSiteDetails from '../../utils/useSitesApi';
+import MiniCartMobile from '../Cart/MiniCartMobile';
 
 function Sites() {
   const [searchParams] = useSearchParams();
@@ -51,6 +52,7 @@ function Sites() {
         )}
 
         <MapWithPlaces mapName={campingName} placesData={placesData} />
+        <MiniCartMobile />
       </div>
     </div>
   );

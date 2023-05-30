@@ -84,15 +84,9 @@ function Cart() {
               </div>
             ))}
         </Col>
-        <div
-          style={{
-            width: `${(3 / 12) * 100}%`,
-            overflow: 'visible',
-            position: 'relative',
-          }}
-        >
+        <Col md={3}>
           <CartSum totalPrice={totalPrice} />
-        </div>
+        </Col>
       </Row>
     </Container>
   );
