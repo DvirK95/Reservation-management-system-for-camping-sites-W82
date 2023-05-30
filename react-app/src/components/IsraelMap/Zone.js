@@ -1,21 +1,22 @@
 import React from 'react';
+
 import './Zone.css';
-import { Link } from 'react-router-dom';
+
 function Zone(props) {
-  const { filteredList } = props;
+  const { filteredList, onClick } = props; 
 
   return (
     <div className="scroll-list">
       {filteredList.map((item, index) => (
-        <div key={index} className="list-item">
-          <Link
-            to={`${item.title.replace(/ /g, '-')}/${item._id}`}
-            className="item-link"
-          >
+        <div key={index} className="list-item" >
+            <div 
+              className="item-link"
+              onClick={() => {onClick(item.xAxis, item.yAxis, item._id)}}
+            >
             <div className="item-image">
               <img src={item.image_url} alt={item.map} />
             </div>
-          </Link>
+            </div>
           <div className="item-details">
             {item.title}
             <p className="text">{item.description}</p>

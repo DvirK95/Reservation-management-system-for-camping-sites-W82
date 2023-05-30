@@ -6,7 +6,7 @@ import Search from "./Search";
 
 
 function Legend(props){
-    const { sites } = props;
+    const { sites, onClick} = props;
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (value) => {
@@ -21,7 +21,7 @@ function Legend(props){
         <div className="background">
             <h5 className="top-legend"> מצאו את חניון הלילה עבורכם </h5>
             <Search sites={sites} onSearch={handleSearch} />
-            <Zone filteredList={filteredList} />
+            <Zone filteredList={filteredList} onClick={onClick} />
         </div>
     );
 }

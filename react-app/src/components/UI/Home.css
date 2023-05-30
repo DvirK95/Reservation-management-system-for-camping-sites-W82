@@ -15,17 +15,7 @@
 }
 
 .green-title{
-    color: #004b3f;
+    color: var(--main-dark-color);
     font-weight: bold;
     font-family: calibri;
-}
-
-.nature-img{
-    background-image: url("nature.png");
-    height: 500px;
-}
-
-.nature-img{
-    background-image: url("nature.png");
-    height: 500px;
 }

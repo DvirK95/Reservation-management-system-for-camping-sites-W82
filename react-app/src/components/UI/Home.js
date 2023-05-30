@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import React from 'react';
@@ -7,11 +7,13 @@ import './Home.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
 import Legend from '../IsraelMap/Legend';
+import nature from "./nature.png";
 
 function Home() {
   const [sites, setSites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const mapRef = useRef();
 
   const fetchSites = useCallback(async () => {
     setIsLoading(true);
@@ -31,19 +33,23 @@ function Home() {
   useEffect(() => {
     fetchSites();
   }, [fetchSites]);
+  
+  const clickHandler = (x, y, id) => {
+    mapRef.current.zoomIn(x, y, id);
+  };
 
   return (
     <div className="Body">
-      <div className="nature-img" />
+      <img src={nature} alt='nature' />
       <h1 className="green-title">
         נשמח לארח אתכם ברשת חניוני הלילה של רשות הטבע והגנים !
       </h1>
       <h3>
-        <b> לחצו על חניון הלילה המבוקש - </b>להזמנת לינה בחניוני הלילה👇🏼
+        להזמנת לינה בחניוני הלילה - <b>לחצו על חניון הלילה המבוקש 👇🏼 </b>
       </h3>
       <div className="flex-container">
-        <Legend sites={sites} />
-        <IsraelMap sites={sites} isLoading={isLoading} />
+        <Legend sites={sites} onClick={clickHandler}/>
+        <IsraelMap sites={sites} isLoading={isLoading} ref={mapRef}/>        
       </div>
     </div>
   );

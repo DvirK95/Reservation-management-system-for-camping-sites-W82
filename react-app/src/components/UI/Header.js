@@ -1,9 +1,11 @@
-import logo from './logo.png';
-// import small_logo from "./logo_mobile_sprites.png";
+import React, {useState} from 'react';
+
+import logo from './logo2.png';
 import './Header.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { cartActions } from '../../store/cart-slice';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,14 +14,21 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const [isCollapseOpen, setIsCollapseOpen] = useState(false); // Added state variable
+
   const counter = useSelector((state) => state.cart.counter);
-  const cartIcon = <FontAwesomeIcon icon={faCartShopping} />;
+  const cartIcon = <FontAwesomeIcon icon={faCartShopping} className='cart-icon'/>;
   const dispatch = useDispatch();
+
   return (
-    <>
-      <div className="header-top"></div>
-      <Navbar collapseOnSelect expand="lg" className="navbar-custom">
-        <Container className="d-flex">
+    <div>
+      <Navbar 
+        collapseOnSelect expand="lg" 
+        className="navbar-custom" 
+        fixed='top' 
+        onToggle={(isOpen) => setIsCollapseOpen(isOpen)}
+      >
+        <Container fluid className="d-flex">
           <Navbar.Brand href="#home" className="ms-auto">
             <img
               className="custom-logo-link"
@@ -31,20 +40,31 @@ function Header() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
               <Nav.Link href="#info"> אודות </Nav.Link>
-              <Nav.Link href="#campingSites"> אתרי קמפינג </Nav.Link>
+              <NavDropdown title="אתרי קמפינג " id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">חניון לילה אכזיב</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">חניון לילה מעיין חרוד</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">חניון לילה נחל עמוד</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">חניון לילה מצדה</NavDropdown.Item>
+              </NavDropdown>
+              {/* <Nav.Link href="#campingSites"> אתרי קמפינג </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
           <Link
             id="cart-button"
             to="cart"
             onMouseOver={() => dispatch(cartActions.showCart(true))}
+            className={isCollapseOpen ? "cart-button-open" : "cart-button"}
           >
-            <span id="count">{counter}</span>
-            {cartIcon}
+            {isCollapseOpen ? null : (
+              <>
+                <span id="count">{counter}</span>
+                {cartIcon}
+              </>
+            )}
           </Link>
         </Container>
       </Navbar>
-    </>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Row, Col, ListGroup, Image } from 'react-bootstrap';
+import { Row, Col, Image } from 'react-bootstrap';
 import './Cart.css';
 import { Spinner } from 'react-bootstrap';
 import './MiniCart.css';
@@ -37,7 +37,7 @@ function MiniCart() {
           <Spinner animation="border" />
         </div>
       )}
-      {!cart.isDataLoad && <h1>הסל ריק</h1>}
+      {!cart.isDataLoad && <h4>הסל ריק</h4>}
     </>
   );
 
@@ -47,88 +47,86 @@ function MiniCart() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <ListGroup variant="flush">
-        <ListGroup.Item>
+      <div className="card-container">
+        <div>
           <button className="close-button" onClick={handleMouseLeave}>
             X
           </button>
-          <h5 id="box-title">סל הקניות שלי </h5>
-        </ListGroup.Item>
+          <h4 id="box-title">סל הקניות שלי </h4>
+        </div>
 
         {cart.items.length < 1 ? (
           emptyCart
         ) : (
           <>
             {cart.items.map((placeObj) => (
-              <div key={placeObj.item_id}>
-                <ListGroup.Item>
-                  <Row>
-                    <span className="date">
-                      {placeObj.startDate} - {placeObj.endDate}
-                    </span>
-                  </Row>
-                  <Row>
-                    <Col xxl={5}>
-                      {
-                        <Image
-                          src={placeObj.image['1'].url_small}
-                          rounded
-                          alt="small"
-                        />
-                      }
-                    </Col>
-                    <Col xxl={6}>
-                      <Row>₪{placeObj.rate.total}</Row>
-                      <Row>{placeObj.name}</Row>
-                      <Row>
-                        <span className="peoples-text">
-                          בוגר: {placeObj.adults}
-                        </span>
-                        <span className="peoples-text">
-                          ילד: {placeObj.children}
-                        </span>
-                        <span className="peoples-text">
-                          פעוט: {placeObj.toddler}
-                        </span>
-                      </Row>
-                    </Col>
-                    <Col xxl={1} dir="ltr">
-                      <button
-                        style={{ display: 'contents' }}
-                        onClick={() => handleRemoveItem(placeObj.item_id)}
-                      >
-                        <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                      </button>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
+              <div key={placeObj.item_id} className="mini-card">
+                <Row>
+                  <span className="date">
+                    {placeObj.startDate} - {placeObj.endDate}
+                  </span>
+                </Row>
+                <Row>
+                  <Col xxl={5}>
+                    {
+                      <Image
+                        src={placeObj.image['1'].url_small}
+                        rounded
+                        alt="small"
+                      />
+                    }
+                  </Col>
+                  <Col xxl={6}>
+                    <Row>₪{placeObj.rate.total}</Row>
+                    <Row>{placeObj.name}</Row>
+                    <Row>
+                      <span className="peoples-text">
+                        בוגר: {placeObj.adults}
+                      </span>
+                      <span className="peoples-text">
+                        ילד: {placeObj.children}
+                      </span>
+                      <span className="peoples-text">
+                        פעוט: {placeObj.toddler}
+                      </span>
+                    </Row>
+                  </Col>
+                  <Col xxl={1} dir="ltr">
+                    <button
+                      style={{ display: 'contents' }}
+                      onClick={() => handleRemoveItem(placeObj.item_id)}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                    </button>
+                  </Col>
+                </Row>
               </div>
             ))}
           </>
         )}
-        <ListGroup.Item>
-          <Row>
-            <Col>סה"כ:</Col>
-            <Col dir="ltr">
-              {cart.totalPrice === 'loading price' ? (
-                <div className="spinner">
-                  <Spinner animation="border" />
-                </div>
-              ) : (
-                <span>₪{cart.totalPrice}</span>
-              )}
-            </Col>
-          </Row>
-          <Row>
-            <Link to="/checkout" className="custom-button">
-              המשך לתשלום
-            </Link>
-            <Link to="/cart" className="custom-button-inverse">
-              לסל הקניות
-            </Link>
-          </Row>
-        </ListGroup.Item>
-      </ListGroup>
+        <Row>
+          <Col>
+            <span className="total-price">סה"כ:</span>
+          </Col>
+          <Col dir="ltr">
+            {cart.totalPrice === 'loading price' ? (
+              <div className="spinner">
+                <Spinner animation="border" />
+              </div>
+            ) : (
+              <span className="total-price">₪{cart.totalPrice}</span>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Link to="/checkout" className="primary-button button-hover-white">
+            המשך לתשלום
+          </Link>
+          <Link to="/cart" className="secondary-button button-hover-white">
+            לסל הקניות
+          </Link>
+        </Row>
+      </div>
     </div>
   );
 }

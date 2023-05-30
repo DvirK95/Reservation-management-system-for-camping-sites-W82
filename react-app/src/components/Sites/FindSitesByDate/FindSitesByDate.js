@@ -83,10 +83,10 @@ function FindSitesByDate({ setDates, peoplesProps }) {
           <FindSitesPeopleCount peoplesProps={{ peoples, setPeoples }} />
         </Col>
         <Col sm="12" md="auto">
-          <button className="custom-button" onClick={handleSubmit}>
+          <button className="primary-button" onClick={handleSubmit}>
             מצא זמינות
           </button>
-          <button className="custom-button" onClick={handleReset}>
+          <button className="primary-button" onClick={handleReset}>
             איפוס
           </button>
         </Col>

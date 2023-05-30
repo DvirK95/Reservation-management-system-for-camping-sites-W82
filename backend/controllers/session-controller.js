@@ -36,6 +36,7 @@ async function extractValues(str) {
     adults: adults ? parseInt(adults) : 0,
     children: children ? parseInt(children) : 0,
     toddler: toddler ? parseInt(toddler) : 0,
+    nights: parseInt(durationStr),
   };
 }
 

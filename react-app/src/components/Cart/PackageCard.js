@@ -14,20 +14,24 @@ function PackageCard({ packageObj }) {
   };
 
   return (
-    <Row>
+    <Row style={{ marginBottom: '1rem' }}>
       <Col>
-        <span>{packageObj.name}</span>
+        <h6 className="item-title">{packageObj.name}</h6>
       </Col>
       <Col>
         <span>₪{packageObj.rate.total}</span>
       </Col>
       <Col>
         <button
+          className={
+            packageObj.opt === 'out' ? 'third-button' : 'fourth-button'
+          }
+          style={{ padding: '2px 4px' }}
           onClick={() => {
             handleChangePacakge(packageObj.key, packageObj.opt);
           }}
         >
-          {packageObj.opt === 'out' ? '+' : '-'}
+          {packageObj.opt === 'out' ? 'הוסף' : 'הסר'}
         </button>
       </Col>
     </Row>
