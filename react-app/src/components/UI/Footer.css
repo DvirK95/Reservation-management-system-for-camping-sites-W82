@@ -1,10 +1,16 @@
-.footer{ 
-	background-color: #004b3f; 
-    /* background-color: #6b8b85; */
+.footer{
+    background-color: var(--main-dark-color);
+    /* position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center; */
+    margin-top: 1%;
 }
 
 .logo{
-    width: 200px;
+    width: 190px;
 }
 
 .under-footer{

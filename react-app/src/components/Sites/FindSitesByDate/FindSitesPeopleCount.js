@@ -45,6 +45,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
       title={`${title} `}
       id="travlers-dropdown"
       drop="down-centered"
+      className="drop-down-margin"
     >
       <div className="travlers-part">
         <span className="mx-2">מבוגר</span>

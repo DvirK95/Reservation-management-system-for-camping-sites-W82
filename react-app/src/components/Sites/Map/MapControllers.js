@@ -8,15 +8,23 @@ import {
   faSquarePlus,
   faLocationCrosshairs,
 } from '@fortawesome/free-solid-svg-icons';
-import "./MapControllers.css";
+import './MapControllers.css';
 
 function MapControllers({ scale, panZoomRef }) {
   // icons
-  const upIcon = <FontAwesomeIcon icon={faSquareCaretUp} size="2xl" className='arrow' />;
-  const downIcon = <FontAwesomeIcon icon={faSquareCaretDown} size="2xl" className='arrow' />;
-  const leftIcon = <FontAwesomeIcon icon={faSquareCaretLeft} size="2xl" className='arrow' />;
-  const rightIcon = <FontAwesomeIcon icon={faSquareCaretRight} size="2xl" className='arrow' />;
-  
+  const upIcon = (
+    <FontAwesomeIcon icon={faSquareCaretUp} size="2xl" className="arrow" />
+  );
+  const downIcon = (
+    <FontAwesomeIcon icon={faSquareCaretDown} size="2xl" className="arrow" />
+  );
+  const leftIcon = (
+    <FontAwesomeIcon icon={faSquareCaretLeft} size="2xl" className="arrow" />
+  );
+  const rightIcon = (
+    <FontAwesomeIcon icon={faSquareCaretRight} size="2xl" className="arrow" />
+  );
+
   // const scaleToShow = `${Math.round(scale.toFixed(2) * 100)}%`;
 
   const handleZoomReset = () => {
@@ -65,21 +73,20 @@ function MapControllers({ scale, panZoomRef }) {
       <div>
         <button className="icon-btn" onClick={handleZoomReset}>
           {/* איפוס */}
-          <FontAwesomeIcon icon={faLocationCrosshairs} className='reset'/>
+          <FontAwesomeIcon icon={faLocationCrosshairs} className="reset" />
         </button>
         &nbsp;
-
         <button onClick={handleZoomIn} className="icon-btn">
-          <FontAwesomeIcon icon={faSquarePlus} bounce className='zoom'/>
+          <FontAwesomeIcon icon={faSquarePlus} className="zoom" />
         </button>
         &nbsp;
         {/* {scaleToShow} */}
         {/* &nbsp; */}
         <button className="icon-btn" onClick={handleZoomOut}>
-          <FontAwesomeIcon icon={faSquareMinus} bounce className='zoom'/>
+          <FontAwesomeIcon icon={faSquareMinus} className="zoom" />
         </button>
       </div>
-      
+
       <table>
         <tbody>
           <tr>

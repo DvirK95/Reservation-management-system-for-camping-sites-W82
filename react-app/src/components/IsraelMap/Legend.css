@@ -1,9 +1,9 @@
 .top-legend{
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
-    padding: 5%;
-    background-color: #004b3f;
+    padding: 3%;
+    background-color: var(--main-dark-color);
     color: white;
     height: 10%;
 }
@@ -14,24 +14,13 @@
     font-family: calibri;
     display: flex;
     flex-direction: column;
-    flex: 30%;
+    flex: 35%;
     height: 600px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
     .background {
       flex: 100%;
       height: 600px;
     }
 }
-
-
-
-
-/* .bottom-legend {
-    font-weight: 900;
-    text-align: center;
-    background-color: #B3DD4F;
-    color: #004b3f;
-    height: 15%;
-} */

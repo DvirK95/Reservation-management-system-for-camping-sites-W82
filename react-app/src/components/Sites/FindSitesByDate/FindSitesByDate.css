@@ -87,3 +87,7 @@ strong {
 .drop-down-margin {
   margin-top: 15px;
 }
+
+.dropdown-menu.show {
+  padding-left: 5px;
+}
