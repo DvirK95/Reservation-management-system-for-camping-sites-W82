@@ -41,7 +41,8 @@ function CartCard({ placeObj }) {
       <Col md={6}>
         <h5 className="item-title">{placeObj.name}</h5>
         <p className="par-light">
-          {placeObj.startDate} - {placeObj.endDate}
+          {placeObj.startDate} - {placeObj.endDate} | &nbsp;
+          {placeObj.nights === 1 ? `לילה 1` : `${placeObj.nights} לילות`}
         </p>
         <div dangerouslySetInnerHTML={{ __html: placeObj.summary }}></div>
       </Col>

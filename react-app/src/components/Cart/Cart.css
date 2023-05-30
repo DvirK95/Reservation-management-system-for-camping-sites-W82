@@ -24,16 +24,7 @@ body {
   width: 100%;
   padding: 1rem;
 }
-.Card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 5%;
-  width: 90%;
-  height: 100%;
-  border-bottom: 1px solid black;
-  box-sizing: border-box;
-}
+
 .item-title {
   color: var(--seccolor);
   margin-bottom: 0;
@@ -110,6 +101,41 @@ body {
 .table-titles {
   color: grey;
   font-weight: lighter;
+}
+
+.final-price {
+  position: relative;
+  right: -15px;
+  font-weight: 500;
+}
+
+.final-price-label {
+  position: relative;
+  left: -15px;
+  font-weight: 400;
+}
+
+#coupon {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--main-dark-color);
+  background-color: var(--seccoler);
+  background-clip: padding-box;
+  border: 1px solid var(--thirdcolor);
+  border-radius: 0.25rem;
+}
+#coupon:focus {
+  outline: none;
+  border-color: var(--thirdcolor);
+  border-width: 2px;
+}
+
+.card-item-sum {
+  background-color: var(--seccolor);
+  color: var(--thirdcolor);
 }
 
 @media screen and (max-width: 768px) {

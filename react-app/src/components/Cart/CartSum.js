@@ -6,10 +6,10 @@ function CartSum({ totalPrice }) {
   return (
     <>
       <h3 style={{ textAlign: 'center' }}>סיכום הזמנה</h3>
-      <div className="card-item">
+      <div className="card-item card-item-sum" style={{ padding: '1rem' }}>
         <Row>
           <Col xs={6}>
-            <p>סה"כ</p>
+            <span className="final-price-label"> סה"כ לתשלום</span>
           </Col>
           <Col xs={6} style={{ textAlign: 'left' }}>
             {totalPrice === 'loading price' ? (
@@ -17,17 +17,22 @@ function CartSum({ totalPrice }) {
                 <Spinner animation="border" />
               </div>
             ) : (
-              <p>₪{totalPrice}</p>
+              <span className="final-price">₪{totalPrice}</span>
             )}
           </Col>
         </Row>
         <Row className="justify-content-md-center">
-          <Col md="auto">
-            <br />
-            <Link to="/checkout" className="primary-button">
-              להשלמת ההזמנה ולתשלום
-            </Link>
-          </Col>
+          <br />
+          <Link
+            to="/checkout"
+            className="primary-button"
+            style={{ width: '98%', margin: '1rem 0' }}
+          >
+            להשלמת ההזמנה ולתשלום
+          </Link>
+        </Row>
+        <Row>
+          <input type="text" id="coupon" placeholder="קוד קופון" />
         </Row>
       </div>
     </>

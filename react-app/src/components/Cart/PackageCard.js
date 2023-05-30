@@ -26,6 +26,7 @@ function PackageCard({ packageObj }) {
           className={
             packageObj.opt === 'out' ? 'third-button' : 'fourth-button'
           }
+          style={{ padding: '2px 4px' }}
           onClick={() => {
             handleChangePacakge(packageObj.key, packageObj.opt);
           }}

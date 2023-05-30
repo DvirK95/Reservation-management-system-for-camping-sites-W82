@@ -48,12 +48,21 @@ function Cart() {
         </div>
       )}
       <Row>
-        <Col md={8}>
+        <Col md={9}>
           <h3>עכשיו בסל שלך</h3>
           {items.length > 0 &&
             items.map((placeObj) => (
               <div className="card-item" key={placeObj.key}>
                 <CartCard placeObj={placeObj} />
+                <Row className="justify-content-md-center">
+                  <div
+                    style={{
+                      borderBottom: '1px solid',
+                      width: '90%',
+                      textAlign: 'center',
+                    }}
+                  />
+                </Row>
                 <Row>
                   <Col>
                     <h6 className="table-titles">{'חבילה'}</h6>
@@ -75,7 +84,7 @@ function Cart() {
               </div>
             ))}
         </Col>
-        <Col md={4}>
+        <Col md={3}>
           <CartSum totalPrice={totalPrice} />
         </Col>
       </Row>
