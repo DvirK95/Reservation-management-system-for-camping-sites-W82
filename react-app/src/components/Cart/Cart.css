@@ -20,12 +20,21 @@ body {
 }
 
 .Card {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: none;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
 }
-
-#title {
+.Card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 100%;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+}
+.item-title {
   color: var(--seccolor);
   margin-bottom: 0;
 }
@@ -92,6 +101,15 @@ body {
   color: gray;
   opacity: 80%;
   font-size: small;
+}
+
+.packages {
+  border-top-style: solid;
+}
+
+.table-titles {
+  color: grey;
+  font-weight: lighter;
 }
 
 @media screen and (max-width: 768px) {

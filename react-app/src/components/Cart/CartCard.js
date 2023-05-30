@@ -39,7 +39,7 @@ function CartCard({ placeObj }) {
         />
       </Col>
       <Col md={6}>
-        <h5 id="title">{placeObj.name}</h5>
+        <h5 className="item-title">{placeObj.name}</h5>
         <p className="par-light">
           {placeObj.startDate} - {placeObj.endDate}
         </p>

@@ -55,7 +55,8 @@ body {
 /*################# buttons ########################*/
 .primary-button,
 .secondary-button,
-.third-button {
+.third-button,
+.fourth-button {
   display: inline-block;
   padding: 8px 16px;
   font-size: 16px;
@@ -87,4 +88,9 @@ body {
   background-color: inherit;
   color: var(--main-dark-color);
   border-color: var(--main-dark-color);
+}
+.fourth-button {
+  background-color: var(--main-dark-color);
+  color: var(--third-color);
+  border-color: var(--third-color);
 }

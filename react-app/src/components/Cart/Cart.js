@@ -54,6 +54,13 @@ function Cart() {
             items.map((placeObj) => (
               <div className="card-item" key={placeObj.key}>
                 <CartCard placeObj={placeObj} />
+                <Row>
+                  <Col>
+                    <h6 className="table-titles">{'חבילה'}</h6>
+                  </Col>
+                  <Col className="table-titles">{'מחיר'}</Col>
+                  <Col></Col>
+                </Row>
                 {packages &&
                   packages.map(
                     (packageObj) =>
