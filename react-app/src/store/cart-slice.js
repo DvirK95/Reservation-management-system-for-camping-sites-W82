@@ -28,7 +28,7 @@ const cartSlice = createSlice({
     },
     // ליישם את זה בשביל לשפר ביצועים
     addItemToCart(state) {
-      state.counter++;
+      //state.counter++;
     },
     setIsLoad(state) {
       state.isDataLoad = !state.isDataLoad;
