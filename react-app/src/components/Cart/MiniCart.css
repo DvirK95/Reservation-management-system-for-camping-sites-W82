@@ -28,6 +28,7 @@
 .cart-box.open {
   display: block;
   position: fixed;
+  width: auto;
 }
 
 .close-button {
@@ -109,4 +110,24 @@ div.row a {
   .mini-cart-mobile-wrapper {
     display: none !important;
   }
+}
+
+.scroll-list{
+  height: 500px;
+  overflow-y: scroll;
+}
+
+/* customize scrollbar */
+.scroll-list::-webkit-scrollbar {
+  width: 15px; 
+}
+
+.scroll-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+.scroll-list::-webkit-scrollbar-thumb {
+  background: rgb(150, 182, 160); 
+  border-radius: 10px;
 }
