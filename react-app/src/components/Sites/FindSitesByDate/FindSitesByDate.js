@@ -52,9 +52,9 @@ function FindSitesByDate({ setDates, peoplesProps }) {
   return (
     <Container className="wrapper">
       <Row>
-        <Col className="find-sites-label" xl="auto" md="12">
+        {/* <Col className="find-sites-label" xl="auto" md="12">
           <strong>מצא תאריכים</strong>
-        </Col>
+        </Col> */}
         <Col xs="12" md="auto" id="datesLabelCol">
           <div className="datesLabel">
             <label htmlFor="arrival">הגעה: &nbsp; </label>
@@ -82,7 +82,7 @@ function FindSitesByDate({ setDates, peoplesProps }) {
         <Col>
           <FindSitesPeopleCount peoplesProps={{ peoples, setPeoples }} />
         </Col>
-        <Col sm="12" md="auto">
+        <Col sm="12" md="auto" className="center-button">
           <button className="primary-button" onClick={handleSubmit}>
             מצא זמינות
           </button>

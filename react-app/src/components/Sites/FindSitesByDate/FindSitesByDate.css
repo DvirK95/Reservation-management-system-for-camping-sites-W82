@@ -28,8 +28,9 @@
 
 .datesLabel {
   display: inline-block;
-  margin: 0px 15px;
+  margin: 5px 15px;
 }
+
 .datesLabel label {
   color: var(--seccoler) !important;
 }
@@ -75,6 +76,10 @@ strong {
   #datesLabelCol {
     margin-bottom: 15px;
   }
+
+  .col{
+    margin-bottom: 15px;
+  }
 }
 
 @media screen and (max-width: 1600px) {
@@ -83,7 +88,17 @@ strong {
   }
 }
 
+@media screen and (max-width: 991px) {
+  .center-button {
+    margin: auto;
+  }
+}
+
 /* CSS for FindSitesPeopleCount.js */
 .drop-down-margin {
   margin-top: 15px;
+}
+
+.position{
+  margin-top: 5px;
 }

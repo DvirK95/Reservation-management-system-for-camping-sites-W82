@@ -39,6 +39,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
 
   return (
     <DropdownButton
+      className='position'
       variant="Warning"
       autoClose="outside"
       as={ButtonGroup}
@@ -58,7 +59,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
       </div>
       <Dropdown.Divider />
       <div className="travlers-part">
-        <span className="mx-2">ילד</span>
+        <span className="mx-2">ילד &nbsp; </span>
         <Button variant="outline-secondary" onClick={decrementChildren}>
           -
         </Button>
