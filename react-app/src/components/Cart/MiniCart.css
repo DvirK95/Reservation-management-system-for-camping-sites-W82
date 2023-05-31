@@ -27,6 +27,7 @@
 
 .cart-box.open {
   display: block;
+  position: fixed;
 }
 
 .close-button {
