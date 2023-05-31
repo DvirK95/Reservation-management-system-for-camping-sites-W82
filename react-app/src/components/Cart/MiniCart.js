@@ -102,6 +102,11 @@ function MiniCart() {
                 </Row>
               </div>
             ))}
+            {cart.isDataLoad && (
+              <div>
+                <Spinner animation="border" />
+              </div>
+            )}
           </>
         )}
         <Row>
