@@ -89,6 +89,7 @@ body {
   color: var(--main-dark-color);
   border-color: var(--main-dark-color);
 }
+
 .fourth-button {
   background-color: var(--main-dark-color);
   color: var(--third-color);

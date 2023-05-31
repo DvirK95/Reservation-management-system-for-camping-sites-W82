@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const markerIcon = L.icon({
   iconUrl: marker,
-  iconSize: [20, 20],
+  iconSize: [30, 30],
 });
 
 const IsraelMap = forwardRef(function IsraelMap(props, ref) {

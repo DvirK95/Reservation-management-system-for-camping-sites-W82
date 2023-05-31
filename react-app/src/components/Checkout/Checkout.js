@@ -68,9 +68,9 @@ function Checkout() {
           <Spinner animation="border" />
         </div>
       ) : (
-        <Row>
+        <Row >
           <Col md={8}>
-            <Col md={6}>
+            <Col md={6} className='center'>
               {clientSecret && (
                 <Elements stripe={stripePromise} options={options}>
                   <CheckoutForm
@@ -83,18 +83,22 @@ function Checkout() {
           </Col>
           <Col md={4}>
             <h1>סיכום הזמנה</h1>
+            <p><b>פירוט:</b></p>
             {items.map((placeObj) => (
               <div key={placeObj.item_id}>
-                {'שם: '}
-                {placeObj.name}
+                  {placeObj.name}
+                <hr/>
               </div>
-            ))}
+            ))} <br/>
             {!totalPrice ? (
               <div className="spinner">
                 <Spinner animation="border" />
               </div>
             ) : (
-              <p>₪{totalPrice}</p>
+              <p>
+                <b> סה"כ: </b>
+                ₪{totalPrice}
+              </p>
             )}
           </Col>
         </Row>
