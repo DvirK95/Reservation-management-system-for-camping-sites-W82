@@ -13,11 +13,11 @@ const requiredFieldMessage = 'שדה חובה';
 const schema = yup.object().shape({
   firstName: yup
     .string()
-    .matches(/^[A-Za-z]+$/, 'השם לא תקין')
+    .matches(/^[\u0590-\u05FF ,.'-]+$/i, 'השם לא תקין')
     .required(requiredFieldMessage),
   lastName: yup
     .string()
-    .matches(/^[A-Za-z]+$/, 'שם המשפחה לא תקין')
+    .matches(/^[\u0590-\u05FF ,.'-]+$/i, 'שם המשפחה לא תקין')
     .required(requiredFieldMessage),
   email: yup
     .string()
