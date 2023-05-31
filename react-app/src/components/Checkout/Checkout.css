@@ -1,5 +1,5 @@
 .cart-wrapper {
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-bottom: 3rem;
   min-height: 20rem;
 }
@@ -12,4 +12,23 @@ label {
 
 .is-invalid {
   border-width: 2px !important;
+}
+
+.center{
+  margin: auto;
+  width: fit-content;
+}
+
+.col-md-4{
+  margin-right: -10%;
+}
+
+@media screen and (max-width: 768px) {
+  .col-md-4 {
+    margin-right: 0%;
+    order: -1;
+  }
+  .center{
+    width:auto;
+  }
 }
