@@ -4,7 +4,7 @@ import {
   faFacebook,
   faTwitter,
   faInstagram,
-  faGithub,
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import logo from './logo_mobile.png';
 import './Footer.css';
@@ -47,7 +47,7 @@ function Footer() {
             href="#!"
             role="button"
           >
-            <FontAwesomeIcon icon={faGithub} />
+            <FontAwesomeIcon icon={faYoutube} />
           </a>
         </section>
       </div>
