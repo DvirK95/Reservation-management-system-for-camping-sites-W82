@@ -6,6 +6,7 @@ import CheckoutForm from './CheckoutForm';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Checkout.css';
+import ProcessStep from '../Sites/ProcessStep';
 
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
@@ -61,6 +62,7 @@ function Checkout() {
 
   return (
     <Container className="cart-wrapper">
+      <ProcessStep currentStep={"2"} />
       {isLoading ? (
         <div className="spinner-container">
           <Spinner animation="border" />

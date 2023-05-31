@@ -21,7 +21,7 @@
     color: white;
 }
 
-.step.active{
+.step.step-active{
     background-color: #ccc;
     color: #000;
 }
@@ -42,17 +42,4 @@
 .step-num.num-active {
     background: linear-gradient( var(--second-color) , rgb(51, 95, 72));
     color: #000;
-}
-
-.test.active.step-0 {
-    background-color: #ccc;
-}
-
-.test.active.step-1 {
-    background-color: #ccc;
-    /* background: linear-gradient(to right, #555, #e1dede ); */
-}
-
-.test.active.step-2 {
-    background-color: #ccc;
 }

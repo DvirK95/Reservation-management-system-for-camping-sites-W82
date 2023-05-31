@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getBookingDetails } from '../../utils/useBookingApi';
 import { useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
+import ProcessStep from '../Sites/ProcessStep';
 
 function Confirm() {
   const [isFirst, setIsFirst] = useState(true);
@@ -10,7 +11,7 @@ function Confirm() {
   const [bookingDetails, setBookingDetails] = useState({});
   const navigate = useNavigate();
 
-  const getDetils = useCallback(async () => {
+  const getDetails = useCallback(async () => {
     const dataDetails = await getBookingDetails(bookingId);
     if (dataDetails) {
       setBookingDetails(dataDetails);
@@ -21,15 +22,16 @@ function Confirm() {
 
   useEffect(() => {
     if (isFirst) {
-      getDetils();
+      getDetails();
       setIsFirst(false);
     }
-  }, [getDetils, isFirst]);
+  }, [getDetails, isFirst]);
 
-  console.log('print it');
+  // console.log('print it');
 
   return (
     <Container className="cart-wrapper">
+      <ProcessStep currentStep={"3"} />
       {isFirst && (
         <div className="spinner-container">
           <Spinner animation="border" />
