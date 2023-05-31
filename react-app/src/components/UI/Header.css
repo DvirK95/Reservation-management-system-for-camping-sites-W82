@@ -121,6 +121,10 @@ a#basic-nav-dropdown.dropdown-toggle.show.nav-link{
   color: #212529;
 }
 
+div.dropdown-menu.show{
+  width: 100%;
+}
+
 .dropdown-toggle:focus {
   background-color: #bce9cc;
   color: #212529 !important;
