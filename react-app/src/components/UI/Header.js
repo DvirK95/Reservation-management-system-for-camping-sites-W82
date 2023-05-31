@@ -29,7 +29,7 @@ function Header() {
         onToggle={(isOpen) => setIsCollapseOpen(isOpen)}
       >
         <Container fluid className="d-flex">
-          <Navbar.Brand href="#home" className="ms-auto">
+          <Navbar.Brand href="/" className="ms-auto">
             <img
               className="custom-logo-link"
               src={logo}
