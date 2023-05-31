@@ -101,4 +101,10 @@ strong {
 
 .position{
   margin-top: 5px;
+  width: 11.5rem;
+
+}
+
+.travlers-part{
+  text-align: right;
 }
