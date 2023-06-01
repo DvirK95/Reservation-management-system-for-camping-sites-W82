@@ -64,7 +64,7 @@ function Place({ placeObj, onClick, active }) {
                 bottom: '-5px',
               }}
             >
-              {'הוספה לסל'}
+              {'הוספה לסל'} &nbsp;
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
           </div>

@@ -45,7 +45,7 @@
 } */
 
 .list-item .text {
-    font-family: Calibri;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: right;
     font-size: 15px;
     color: gray;

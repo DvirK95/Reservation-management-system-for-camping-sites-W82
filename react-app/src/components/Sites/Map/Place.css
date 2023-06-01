@@ -196,6 +196,9 @@
   color: var(--second-color);
 }
 
+button.primary-button.add-cart {
+  left: 40%;
+}
 @media screen and (max-width: 768px) {
   .place {
     font-size: 9px;
