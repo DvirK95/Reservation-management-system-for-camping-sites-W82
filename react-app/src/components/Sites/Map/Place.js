@@ -50,11 +50,17 @@ function Place({ placeObj, onClick, active }) {
           </span>
         ) : (
           <div style={{ margin: 'auto', width: '50%' }}>
-            <button style={{ display: 'contents' }}>
+            <button
+              className="primary-button add-cart"
+              style={{
+                padding: '2px 4px',
+                position: 'relative',
+                bottom: '-5px',
+              }}
+            >
+              {'הוספה לסל'}
               <FontAwesomeIcon
-                className="add-cart"
                 icon={faCartPlus}
-                size="2xl"
                 onClick={() =>
                   handleAddItem({
                     id: placeObj._id,
