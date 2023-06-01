@@ -51,6 +51,7 @@ const updateBookingPayment = async (req, res) => {
       },
       data: {
         status_id: status,
+        notify: true,
         set_paid: 1,
       },
     };
