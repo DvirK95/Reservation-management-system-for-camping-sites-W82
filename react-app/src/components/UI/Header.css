@@ -27,9 +27,9 @@
   background-color: #bce9cc;
 }
 
-/* .custom-logo-link {
-  height: 60px;
-} */
+.custom-logo-link {
+  height: 3.5rem;
+}
 
 #count {
   display: block;
