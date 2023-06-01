@@ -31,6 +31,13 @@
   height: 3.5rem;
 }
 
+@media only screen and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  .custom-logo-link {
+    height: 60px;
+  }
+}
+
+
 #count {
   display: block;
   height: 20px;
