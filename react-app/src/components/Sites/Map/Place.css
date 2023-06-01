@@ -199,9 +199,18 @@
 button.primary-button.add-cart {
   left: 40%;
 }
+
 @media screen and (max-width: 768px) {
   .place {
     font-size: 9px;
+  }
+  
+  .place.up-husha {
+    font-size: 9px;
+  }
+
+  .place.circle {
+    font-size: 8px;
   }
 }
 
@@ -209,4 +218,17 @@ button.primary-button.add-cart {
   .place {
     font-size: 5px;
   }
+
+  .place.pitch {
+    font-size: 4px;
+  }
+
+  .place.circle {
+    font-size: 5px;
+  }
+
+  .place.up-husha {
+    font-size: 6px;
+  }
+
 }
