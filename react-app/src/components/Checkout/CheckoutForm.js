@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import FormFields from './FormFields';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
 
 const requiredFieldMessage = 'שדה חובה';
 const schema = yup.object().shape({
@@ -33,6 +35,7 @@ const schema = yup.object().shape({
 function CheckoutForm({ bookingId, setBookingId }) {
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -138,9 +141,18 @@ function CheckoutForm({ bookingId, setBookingId }) {
         });
 
       setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
+      dispatch(cartActions.resetCounter());
       navigate(`/checkout/confirm/${bookingId}`);
     }
-  }, [stripe, elements, bookingId, setMessage, customerDetails, navigate]);
+  }, [
+    stripe,
+    elements,
+    bookingId,
+    setMessage,
+    customerDetails,
+    navigate,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (bookingId !== null && isProcessing) {
@@ -169,7 +181,7 @@ function CheckoutForm({ bookingId, setBookingId }) {
           />
         </Card.Body>
       </Card>
-      <br/>
+      <br />
       <button
         className="primary-button button-hover-white"
         disabled={isProcessing || !stripe || !elements}

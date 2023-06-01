@@ -48,6 +48,9 @@ const cartSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
       state.packages = action.payload.packages;
     },
+    resetCounter(state) {
+      state.counter = 0;
+    },
   },
 });
 
