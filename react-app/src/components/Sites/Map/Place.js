@@ -50,18 +50,22 @@ function Place({ placeObj, onClick, active }) {
           </span>
         ) : (
           <div style={{ margin: 'auto', width: '50%' }}>
-            <button style={{ display: 'contents' }}>
-              <FontAwesomeIcon
-                className="add-cart"
-                icon={faCartPlus}
-                size="2xl"
-                onClick={() =>
-                  handleAddItem({
-                    id: placeObj._id,
-                    slip: placeObj.slip,
-                  })
-                }
-              />
+            <button
+              onClick={() =>
+                handleAddItem({
+                  id: placeObj._id,
+                  slip: placeObj.slip,
+                })
+              }
+              className="primary-button add-cart"
+              style={{
+                padding: '2px 4px',
+                position: 'relative',
+                bottom: '-5px',
+              }}
+            >
+              {'הוספה לסל'}
+              <FontAwesomeIcon icon={faCartPlus} />
             </button>
           </div>
         )}
