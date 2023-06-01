@@ -58,7 +58,7 @@ function MiniCart() {
         {cart.items.length < 1 ? (
           emptyCart
         ) : (
-          <>
+          <div className='scroll-list'>
             {cart.items.map((placeObj) => (
               <div key={placeObj.item_id} className="mini-card">
                 <Row>
@@ -107,7 +107,7 @@ function MiniCart() {
                 <Spinner animation="border" />
               </div>
             )}
-          </>
+          </div>
         )}
         <Row>
           <Col>

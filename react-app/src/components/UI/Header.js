@@ -29,7 +29,7 @@ function Header() {
         onToggle={(isOpen) => setIsCollapseOpen(isOpen)}
       >
         <Container fluid className="d-flex">
-          <Navbar.Brand href="#home" className="ms-auto">
+          <Navbar.Brand href="/" className="ms-auto">
             <img
               className="custom-logo-link"
               src={logo}
@@ -41,12 +41,11 @@ function Header() {
             <Nav>
               <Nav.Link href="#info"> אודות </Nav.Link>
               <NavDropdown title="אתרי קמפינג " id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">חניון לילה אכזיב</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.1">חניון לילה מעיין חרוד</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.1">חניון לילה נחל עמוד</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.1">חניון לילה מצדה</NavDropdown.Item>
+                <NavDropdown.Item href="חניון-לילה-גן-לאומי-אכזיב-וחוף-אכזיב/2">חניון לילה אכזיב</NavDropdown.Item>
+                <NavDropdown.Item href="/חניון-לילה-גן-לאומי-מעיין-חרוד/3">חניון לילה מעיין חרוד</NavDropdown.Item>
+                <NavDropdown.Item href="/חניון-לילה-שמורת-טבע-נחל-עמוד/6">חניון לילה נחל עמוד</NavDropdown.Item>
+                {/* <NavDropdown.Item href="#action/3.1">חניון לילה מצדה</NavDropdown.Item> */}
               </NavDropdown>
-              {/* <Nav.Link href="#campingSites"> אתרי קמפינג </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
           <Link

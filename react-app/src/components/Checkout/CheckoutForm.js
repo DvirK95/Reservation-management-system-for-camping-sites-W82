@@ -11,11 +11,17 @@ import { useNavigate } from 'react-router-dom';
 
 const requiredFieldMessage = 'שדה חובה';
 const schema = yup.object().shape({
-  firstName: yup.string().required(requiredFieldMessage),
-  lastName: yup.string().required(requiredFieldMessage),
+  firstName: yup
+    .string()
+    .matches(/^[\u0590-\u05FF ,.'-]+$/i, 'השם לא תקין')
+    .required(requiredFieldMessage),
+  lastName: yup
+    .string()
+    .matches(/^[\u0590-\u05FF ,.'-]+$/i, 'שם המשפחה לא תקין')
+    .required(requiredFieldMessage),
   email: yup
     .string()
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'האמייל לא תקין')
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'אימייל לא תקין')
     .email('האמייל לא תקין')
     .required(requiredFieldMessage),
   phoneNumber: yup
@@ -163,8 +169,9 @@ function CheckoutForm({ bookingId, setBookingId }) {
           />
         </Card.Body>
       </Card>
+      <br/>
       <button
-        className="custom-button"
+        className="primary-button button-hover-white"
         disabled={isProcessing || !stripe || !elements}
         id="submit"
       >

@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import { getBookingDetails } from '../../utils/useBookingApi';
 import { useNavigate } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import ProcessStep from '../Sites/ProcessStep';
 
 function Confirm() {
   const [isFirst, setIsFirst] = useState(true);
@@ -10,7 +14,7 @@ function Confirm() {
   const [bookingDetails, setBookingDetails] = useState({});
   const navigate = useNavigate();
 
-  const getDetils = useCallback(async () => {
+  const getDetails = useCallback(async () => {
     const dataDetails = await getBookingDetails(bookingId);
     if (dataDetails) {
       setBookingDetails(dataDetails);
@@ -21,24 +25,34 @@ function Confirm() {
 
   useEffect(() => {
     if (isFirst) {
-      getDetils();
+      getDetails();
       setIsFirst(false);
     }
-  }, [getDetils, isFirst]);
+  }, [getDetails, isFirst]);
 
-  console.log('print it');
+  // console.log('print it');
 
   return (
-    <Container className="cart-wrapper">
+    <Container className="cart-wrapper text-center">
+      <ProcessStep currentStep={"3"} />
       {isFirst && (
         <div className="spinner-container">
           <Spinner animation="border" />
         </div>
       )}
-      <h3>הזמנתך {bookingDetails.id} התקבלה ואושרה בהצלחה!</h3>
+      <br/>
+      <h3 style={{fontWeight: "500"}}> 
+        היי {bookingDetails.customer_name},
+        הזמנתך התקבלה בהצלחה!
+      </h3>
+      <FontAwesomeIcon icon={faCircleCheck} bounce size="2xl" style={{color: "#b3dd4f",}} />
       <p>
-        היי {bookingDetails.customer_name}, קבלה נשלחת למייל{' '}
-        {bookingDetails.customer_email} ברגעים אלה
+        <br/>
+        מזהה הזמנה: {bookingDetails.id}
+      </p>
+      <p>
+        קבלה נשלחת למייל{' '}
+        {bookingDetails.customer_email} ברגעים אלו
       </p>
       <p>
         לצפייה בפרטי ההזמנה{' '}
@@ -50,6 +64,14 @@ function Confirm() {
           {'לחץ כאן'}
         </a>
       </p>
+      <br/>
+      <p>
+        תודה שהזמנת אצלנו 😊
+      </p>
+      <br/>
+      <Link to="/" className="primary-button button-hover-white">
+        <b> חזרה לדף הראשי</b>
+      </Link>
     </Container>
   );
 }

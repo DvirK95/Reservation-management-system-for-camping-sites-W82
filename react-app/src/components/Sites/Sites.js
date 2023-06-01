@@ -8,6 +8,7 @@ import fetchPlacesApi from '../../utils/fetchPlacesApi';
 import { useParams, useSearchParams } from 'react-router-dom';
 import useSiteDetails from '../../utils/useSitesApi';
 import MiniCartMobile from '../Cart/MiniCartMobile';
+import ProcessStep from './ProcessStep';
 
 function Sites() {
   const [searchParams] = useSearchParams();
@@ -31,6 +32,7 @@ function Sites() {
 
   return (
     <div className="sites">
+      <ProcessStep currentStep={"0"} />
       <div
         id="siteImg"
         style={{

@@ -4,7 +4,7 @@ import {
   faFacebook,
   faTwitter,
   faInstagram,
-  faGithub,
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import logo from './logo_mobile.png';
 import './Footer.css';
@@ -20,7 +20,7 @@ function Footer() {
         <section className="mb-4">
           <a
             className="btn btn-outline-light btn-floating m-1"
-            href="#!"
+            href="https://www.facebook.com/IsraelNaturParks/?locale=he_IL"
             role="button"
           >
             <FontAwesomeIcon icon={faFacebook} />
@@ -28,7 +28,7 @@ function Footer() {
 
           <a
             className="btn btn-outline-light btn-floating m-1"
-            href="#!"
+            href="https://twitter.com/rashut_hateva"
             role="button"
           >
             <FontAwesomeIcon icon={faTwitter} />
@@ -36,7 +36,7 @@ function Footer() {
 
           <a
             className="btn btn-outline-light btn-floating m-1"
-            href="#!"
+            href="https://www.instagram.com/parks_il/?hl=he"
             role="button"
           >
             <FontAwesomeIcon icon={faInstagram} />
@@ -44,10 +44,10 @@ function Footer() {
 
           <a
             className="btn btn-outline-light btn-floating m-1"
-            href="#!"
+            href="https://www.youtube.com/c/parksorgil"
             role="button"
           >
-            <FontAwesomeIcon icon={faGithub} />
+            <FontAwesomeIcon icon={faYoutube} />
           </a>
         </section>
       </div>

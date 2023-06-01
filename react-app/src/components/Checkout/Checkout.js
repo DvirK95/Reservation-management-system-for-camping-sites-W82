@@ -6,6 +6,7 @@ import CheckoutForm from './CheckoutForm';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Checkout.css';
+import ProcessStep from '../Sites/ProcessStep';
 
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
@@ -61,14 +62,15 @@ function Checkout() {
 
   return (
     <Container className="cart-wrapper">
+      <ProcessStep currentStep={"2"} />
       {isLoading ? (
         <div className="spinner-container">
           <Spinner animation="border" />
         </div>
       ) : (
-        <Row>
+        <Row >
           <Col md={8}>
-            <Col md={6}>
+            <Col md={6} className='center'>
               {clientSecret && (
                 <Elements stripe={stripePromise} options={options}>
                   <CheckoutForm
@@ -81,18 +83,22 @@ function Checkout() {
           </Col>
           <Col md={4}>
             <h1>סיכום הזמנה</h1>
+            <p><b>פירוט:</b></p>
             {items.map((placeObj) => (
               <div key={placeObj.item_id}>
-                {'שם: '}
-                {placeObj.name}
+                  {placeObj.name}
+                <hr/>
               </div>
-            ))}
+            ))} <br/>
             {!totalPrice ? (
               <div className="spinner">
                 <Spinner animation="border" />
               </div>
             ) : (
-              <p>₪{totalPrice}</p>
+              <p>
+                <b> סה"כ: </b>
+                ₪{totalPrice}
+              </p>
             )}
           </Col>
         </Row>

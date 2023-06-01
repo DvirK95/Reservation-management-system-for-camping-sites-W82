@@ -7,6 +7,7 @@ import CartSum from './CartSum';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartData } from '../../store/cart-actions';
 import PackageCard from './PackageCard';
+import ProcessStep from '../Sites/ProcessStep';
 
 let isInitial = true;
 
@@ -42,6 +43,7 @@ function Cart() {
   }
   return (
     <Container className="cart-wrapper">
+      <ProcessStep currentStep={"1"} />
       {isLoading && (
         <div className="spinner-container">
           <Spinner animation="border" />

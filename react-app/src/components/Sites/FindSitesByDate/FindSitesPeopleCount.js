@@ -39,6 +39,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
 
   return (
     <DropdownButton
+      className='position'
       variant="Warning"
       autoClose="outside"
       as={ButtonGroup}
@@ -47,7 +48,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
       drop="down-centered"
     >
       <div className="travlers-part">
-        <span className="mx-2">מבוגר</span>
+        <span className="mx-2" style={{padding:"3px"}}>מבוגר</span>
         <Button variant="outline-secondary" onClick={decrementAdults}>
           -
         </Button>
@@ -58,7 +59,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
       </div>
       <Dropdown.Divider />
       <div className="travlers-part">
-        <span className="mx-2">ילד</span>
+        <span className="mx-2" style={{padding:"10px"}}> ילד </span>
         <Button variant="outline-secondary" onClick={decrementChildren}>
           -
         </Button>
@@ -69,7 +70,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
       </div>
       <Dropdown.Divider />
       <div className="travlers-part">
-        <span className="mx-2">פעוט</span>
+        <span className="mx-2" style={{padding:"6.5px"}}>פעוט</span>
         <Button variant="outline-secondary" onClick={decrementToddlers}>
           -
         </Button>
@@ -78,6 +79,7 @@ const FindSitesPeopleCount = ({ peoplesProps }) => {
           +
         </Button>
       </div>
+      
     </DropdownButton>
   );
 };

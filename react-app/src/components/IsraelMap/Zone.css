@@ -30,19 +30,19 @@
 }
   
 .list-item:hover {
-    background-color: #e7d2d2;
+    background-color: #d1cec8;
 }
 
-.list-item a {
+/* .list-item a {
     color: var(--main-dark-color);
-    text-decoration: none; /* Remove the underline */
-    display: block; /* Make the link fill the entire list item */
-    padding: 0px 10px; /* Add padding to create space between link and list item borders */
-}
+    text-decoration: none; 
+    display: block; 
+    padding: 0px 10px; 
+} */
 
-.active, .list-item:hover {
-    background-color: #f0eeed;
-}
+/* .active, .list-item:hover {
+    background-color: #bacab2;
+} */
 
 .list-item .text {
     font-family: Calibri;
