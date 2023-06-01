@@ -1,11 +1,5 @@
 .footer{
     background-color: var(--main-dark-color);
-    /* position: -webkit-sticky;
-    position: sticky;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center; */
     margin-top: 1%;
 }
 

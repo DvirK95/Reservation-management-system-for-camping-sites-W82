@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Sites from './components/Sites/Sites';
 import FloatingButton from './components/Accessibility/FloatingButton';
 import NotFound from './pages/NotFound';
+import Info from './pages/Info';
 import Cart from './components/Cart/Cart';
 import Home from './components/UI/Home';
 import Header from './components/UI/Header';
@@ -24,6 +25,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="Info" element={<Info />} />
           <Route
             path="/:campingName/:siteId"
             element={

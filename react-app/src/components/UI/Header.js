@@ -39,7 +39,7 @@ function Header() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
-              <Nav.Link href="#info"> אודות </Nav.Link>
+              <Nav.Link href="/Info"> אודות </Nav.Link>
               <NavDropdown title="אתרי קמפינג " id="basic-nav-dropdown">
                 <NavDropdown.Item href="/חניון-לילה-גן-לאומי-אכזיב-וחוף-אכזיב/2">חניון לילה אכזיב</NavDropdown.Item>
                 <NavDropdown.Item href="/חניון-לילה-גן-לאומי-מעיין-חרוד/3">חניון לילה מעיין חרוד</NavDropdown.Item>

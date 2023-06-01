@@ -8,6 +8,7 @@ function NotFound() {
   const searchParams = new URLSearchParams(location.search);
   const res = searchParams.get("res");
   console.log(res);
+  
   return (
     <div style={{ textAlign: "center", marginTop: "3rem", marginBottom: "25rem" }}>
       <h1 style={{ marginBottom: "3rem" }}>

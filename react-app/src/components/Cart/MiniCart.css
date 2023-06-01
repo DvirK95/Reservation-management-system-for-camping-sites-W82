@@ -98,6 +98,7 @@ div.row a {
   .cart-box.open {
     display: none;
   }
+
   .mini-cart-mobile-wrapper {
     background-color: red /*changecolor from root*/;
     position: fixed;
@@ -112,22 +113,22 @@ div.row a {
   }
 }
 
-.scroll-list{
-  max-height: 500px;
+.scroll-list-cart{
+  max-height: 300px;
   overflow-y: scroll;
 }
 
 /* customize scrollbar */
-.scroll-list::-webkit-scrollbar {
+.scroll-list-cart::-webkit-scrollbar {
   width: 15px; 
 }
 
-.scroll-list::-webkit-scrollbar-track {
+.scroll-list-cart::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
 }
 
-.scroll-list::-webkit-scrollbar-thumb {
+.scroll-list-cart::-webkit-scrollbar-thumb {
   background: rgb(150, 182, 160); 
   border-radius: 10px;
 }
