@@ -14,6 +14,10 @@ const apiCartSession = async (body = null) => {
         }),
       }
     );
+    if (response.status === 501) {
+      const errorData = await response.json();
+      throw new Error(`Error 501: ${errorData.message}`);
+    }
     const data = await response.json();
     const newSession_id = data.session.id;
     // set session from checkfront if its not valid
@@ -25,6 +29,7 @@ const apiCartSession = async (body = null) => {
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
@@ -116,8 +121,41 @@ export function changePackageOption(key, opt) {
   };
 }
 
-/*export function reset(key, opt) {
+export function changePeopleAmount({
+  key,
+  placeId,
+  startDate,
+  endDate,
+  adult,
+  child,
+  toddler,
+}) {
   return async function (dispatch) {
-    dispatch(cartActions.)
-  }}
-  */
+    dispatch(cartActions.changePeopleAmount({ key, adult, child, toddler }));
+    try {
+      const data = await apiCartSession({
+        key,
+        modify: { placeId, startDate, endDate, adult, child, toddler },
+      });
+      dispatch(
+        cartActions.replaceCart({
+          items: data.session.items || [],
+          packages: data.session.package || [],
+          totalPrice: data.session.total,
+        })
+      );
+    } catch (error) {
+      if (error.message.startsWith('Error 501:')) {
+        dispatch(
+          cartActions.setErrorMessage({
+            errorMessage: error.message.replace('Error 501: ', ''),
+            key,
+          })
+        );
+      } else {
+        console.error(error);
+        // Consider setting a general error message here.
+      }
+    }
+  };
+}

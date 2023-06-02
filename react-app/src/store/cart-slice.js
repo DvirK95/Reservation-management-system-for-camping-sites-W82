@@ -9,6 +9,7 @@ const cartSlice = createSlice({
     isDataLoad: false,
     showCart: false,
     counter: 0,
+    errorMessage: '',
   },
 
   reducers: {
@@ -50,6 +51,26 @@ const cartSlice = createSlice({
     },
     resetCounter(state) {
       state.counter = 0;
+    },
+    setErrorMessage(state, action) {
+      for (let item of state.items) {
+        if (item.key === action.payload.key) {
+          item.errorMessage = action.payload.errorMessage;
+        }
+      }
+    },
+    changePeopleAmount(state, action) {
+      let typeChange = 'toddler';
+      for (let item of state.items) {
+        if (item.key === action.payload.key) {
+          if (item.adults !== action.payload.adult) {
+            typeChange = 'adults';
+          } else if (item.children !== action.payload.child) {
+            typeChange = 'children';
+          }
+          item[[typeChange]] = '...';
+        }
+      }
     },
   },
 });
