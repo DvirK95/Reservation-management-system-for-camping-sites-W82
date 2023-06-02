@@ -138,6 +138,12 @@ body {
   color: var(--maincolor);
 }
 
+.add-people {
+  padding: 0px 5px !important;
+  font-size: inherit !important;
+  margin: 2px;
+}
+
 @media screen and (max-width: 768px) {
   #title {
     margin-top: 2rem;
