@@ -6,9 +6,13 @@ const app = express();
 
 app.use(express.json());
 
-// change it on production
+const allowedDomains = process.env.ALLOWED_DOMAINS.split(',');
+
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (allowedDomains.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
