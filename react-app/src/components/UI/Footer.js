@@ -63,7 +63,7 @@ function Footer() {
         </a>
         <a
           className="text-white"
-          href="https://www.linkedin.com/in/dvir-karl-a59547140/"
+          href="https://dvirk95.github.io/protfolio_Dvir/"
         >
           {' '}
           דביר &{' '}
