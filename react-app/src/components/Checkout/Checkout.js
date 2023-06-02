@@ -17,6 +17,7 @@ function Checkout() {
   const items = useSelector((state) => state.cart.items);
   const isLoading = useSelector((state) => state.isDataLoad);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const isFinish = useSelector((state) => state.cart.finishOrder);
 
   const navigate = useNavigate();
 
@@ -56,10 +57,10 @@ function Checkout() {
   };
 
   useEffect(() => {
-    if (!isLoading && items.length < 1 && bookingId !== null) {
+    if (!isLoading && items.length < 1 && bookingId !== null && !isFinish) {
       navigate('/cart');
     }
-  }, [items, navigate, isLoading, bookingId]);
+  }, [items, navigate, isLoading, bookingId, isFinish]);
 
   return (
     <Container className="cart-wrapper">

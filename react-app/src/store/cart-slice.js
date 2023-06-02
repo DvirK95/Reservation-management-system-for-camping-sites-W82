@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  items: [],
+  packages: [],
+  totalPrice: 0,
+  isDataLoad: false,
+  showCart: false,
+  counter: 0,
+  errorMessage: '',
+};
+
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    items: [],
-    packages: [],
-    totalPrice: 0,
-    isDataLoad: false,
-    showCart: false,
-    counter: 0,
-    errorMessage: '',
-  },
+  initialState,
 
   reducers: {
     replaceCart(state, action) {
@@ -49,9 +51,6 @@ const cartSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
       state.packages = action.payload.packages;
     },
-    resetCounter(state) {
-      state.counter = 0;
-    },
     setErrorMessage(state, action) {
       for (let item of state.items) {
         if (item.key === action.payload.key) {
@@ -72,6 +71,7 @@ const cartSlice = createSlice({
         }
       }
     },
+    resetCart: (state) => initialState,
   },
 });
 
