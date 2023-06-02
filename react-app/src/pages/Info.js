@@ -3,8 +3,7 @@ import "./Info.css";
 
 function Info() {
   return (
-    <div>
-      <div className='backgroung-img'></div>
+    <div className='background-img'>
       <div className='body-info'>
         <h1 className='h1-title'> ברוכים הבאים להזמנת אתרי קמפינג  של רשות הטבע והגנים!</h1>
         <div className='flex-container-info'>
