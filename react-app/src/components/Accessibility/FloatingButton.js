@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './FloatingButton.css';
 import { faWheelchair } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 const FloatingButton = () => {
   const [textSize, setTextSize] = useState(100);
   const [highContrast, setHighContrast] = useState(false);
-  const [theme, setTheme] = useState('default');
+  //const [theme, setTheme] = useState('default');
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -19,29 +19,34 @@ const FloatingButton = () => {
   const handleDecreaseTextSize = () => {
     setTextSize((prevSize) => Math.max(prevSize - 10, 50));
   };
-
-  const handleThemeChange = (event) => {
-    setTheme(event.target.value);
+  const handleResetTextSize = () => {
+    setTextSize(100);
   };
 
+  /*const handleThemeChange = (event) => {
+    setTheme(event.target.value);
+  };
+*/
   const toggleHighContrast = () => {
     setHighContrast((prev) => !prev);
   };
 
   // Update the styles based on the selected options
-  React.useEffect(() => {
+  useEffect(() => {
     const root = document.documentElement;
     root.style.setProperty('--text-size', `${textSize}%`);
 
     if (highContrast) {
-      root.style.setProperty('--text-color', 'white');
-      root.style.setProperty('--background-color', 'black');
+      root.style.setProperty('--text-color', 'rgb(240, 240, 240)');
+      root.style.setProperty('--background-color', 'rgb(50, 50, 50)');
+      root.style.setProperty('--third-color', 'rgb(0, 0, 0)');
     } else {
       root.style.setProperty('--text-color', '');
       root.style.setProperty('--background-color', '');
+      root.style.setProperty('--third-color', '');
     }
 
-    if (theme === 'light') {
+    /*if (theme === 'light') {
       root.style.setProperty('--theme-text-color', 'black');
       root.style.setProperty('--theme-background-color', 'white');
     } else if (theme === 'dark') {
@@ -50,8 +55,8 @@ const FloatingButton = () => {
     } else {
       root.style.setProperty('--theme-text-color', '');
       root.style.setProperty('--theme-background-color', '');
-    }
-  }, [textSize, highContrast, theme]);
+    }*/
+  }, [textSize, highContrast /*theme*/]);
 
   return (
     <div className="floating-button-container">
@@ -79,12 +84,16 @@ const FloatingButton = () => {
               <button onClick={handleDecreaseTextSize}>הקטן גודל טקסט</button>
             </p>
             <p>
+              <button onClick={handleResetTextSize}>אפס גודל טקסט</button>
+            </p>
+            {/*
+            <p>
               <select value={theme} onChange={handleThemeChange}>
                 <option value="default">מצב רגיל</option>
                 <option value="light">ניגודיות בהירה</option>
                 <option value="dark">ניגודיות כהה</option>
               </select>
-            </p>
+            </p>*/}
             <label>
               <input
                 type="checkbox"
