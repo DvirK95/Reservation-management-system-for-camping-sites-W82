@@ -59,6 +59,19 @@ const cartSlice = createSlice({
         }
       }
     },
+    changePeopleAmount(state, action) {
+      let typeChange = 'toddler';
+      for (let item of state.items) {
+        if (item.key === action.payload.key) {
+          if (item.adults !== action.payload.adult) {
+            typeChange = 'adults';
+          } else if (item.children !== action.payload.child) {
+            typeChange = 'children';
+          }
+          item[[typeChange]] = '...';
+        }
+      }
+    },
   },
 });
 

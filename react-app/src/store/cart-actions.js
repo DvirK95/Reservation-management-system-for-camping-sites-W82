@@ -131,7 +131,7 @@ export function changePeopleAmount({
   toddler,
 }) {
   return async function (dispatch) {
-    // todo: add reduce in cartslice
+    dispatch(cartActions.changePeopleAmount({ key, adult, child, toddler }));
     try {
       const data = await apiCartSession({
         key,
