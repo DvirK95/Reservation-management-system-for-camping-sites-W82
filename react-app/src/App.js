@@ -4,6 +4,8 @@ import Sites from './components/Sites/Sites';
 import FloatingButton from './components/Accessibility/FloatingButton';
 import NotFound from './pages/NotFound';
 import Info from './pages/Info';
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsUse from "./pages/TermsUse";
 import Cart from './components/Cart/Cart';
 import Home from './components/UI/Home';
 import Header from './components/UI/Header';
@@ -26,6 +28,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="Info" element={<Info />} />
+          <Route path="PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="TermsUse" element={<TermsUse />} />
           <Route
             path="/:campingName/:siteId"
             element={

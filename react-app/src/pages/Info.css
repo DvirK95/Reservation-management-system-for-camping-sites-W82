@@ -1,6 +1,6 @@
 .backgroung-img{
     background-image: url("img-info-page.png");
-    filter: opacity(50%);
+    filter: opacity(50%)  brightness(40%);
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
@@ -32,16 +32,36 @@
 .h1-title{
     width: 65%;
     margin: auto;
+    color: var(--main-dark-color);
+    font-weight: bold;
 }
 
-.section{
+.section-info{
     text-align: right !important;
     font-weight: 500;
+    padding-bottom: 5rem;
 }
 
 @media screen and (max-width: 990px) {
-    .body{
+    .body-info{
         width: 90%;
     }
 
+    .backgroung-img{
+        height: 70rem;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .backgroung-img{
+        height: 100rem;
+    }
+
+}
+
+.section-privacy{
+    text-align: right !important;
+    font-weight: 400;
+    padding-bottom: 5rem;
 }

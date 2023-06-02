@@ -45,6 +45,8 @@ function Header() {
                 <NavDropdown.Item href="/חניון-לילה-גן-לאומי-מעיין-חרוד/3">חניון לילה מעיין חרוד</NavDropdown.Item>
                 <NavDropdown.Item href="/חניון-לילה-שמורת-טבע-נחל-עמוד/6">חניון לילה נחל עמוד</NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link href="/PrivacyPolicy"> מדיניות פרטיות </Nav.Link>
+              <Nav.Link href="/TermsUse"> תנאי שימוש </Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Link

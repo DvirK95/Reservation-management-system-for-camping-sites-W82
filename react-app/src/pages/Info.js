@@ -9,7 +9,7 @@ function Info() {
         <h1 className='h1-title'> ברוכים הבאים להזמנת אתרי קמפינג  של רשות הטבע והגנים!</h1>
         <div className='flex-container-info'>
           <br/>
-          <section className='section'>
+          <section className='section-info'>
             <p>
             אנו ברשות הטבע והגנים מאמינים בכוחו של הטבע לחדש ולעורר השראה.
             המשימה שלנו היא לשמר ולהגן על אוצרות הטבע של ארצנו היפה,
