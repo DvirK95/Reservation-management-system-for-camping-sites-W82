@@ -4,10 +4,6 @@
   --thirdcolor: var(--second-color);
 }
 
-body {
-  /*background-color: rgb(240, 240, 240) !important;*/
-}
-
 .Card {
   position: relative;
   width: 100%;
@@ -30,6 +26,7 @@ body {
 
 #availability {
   color: var(--thirdcolor);
+  font-size: 95%;
 }
 
 .bubble {
