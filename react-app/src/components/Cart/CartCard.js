@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { removeItemFromCart } from '../../store/cart-actions';
 import ItemImages from './ItemImages';
+import PeopleAmount from './PeopleAmount';
 
 function CartCard({ placeObj }) {
   const [modalShow, setModalShow] = useState(false);
@@ -45,6 +46,7 @@ function CartCard({ placeObj }) {
           {placeObj.nights === 1 ? `לילה 1` : `${placeObj.nights} לילות`}
         </p>
         <div dangerouslySetInnerHTML={{ __html: placeObj.summary }}></div>
+        <span style={{ color: 'red' }}>{placeObj.errorMessage}</span>
       </Col>
       <Col md={2}>
         <Row className="justify-content-md-center">
@@ -64,9 +66,7 @@ function CartCard({ placeObj }) {
             </button>
           </Col>
           <Col>
-            <span className="peoples-text">בוגר: {placeObj.adults}</span>
-            <span className="peoples-text">ילד: {placeObj.children}</span>
-            <span className="peoples-text">פעוט: {placeObj.toddler}</span>
+            <PeopleAmount placeObj={placeObj} />
           </Col>
           <Col md={12} sm={4}>
             <p id="availability">
