@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import FormFields from './FormFields';
-import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
@@ -159,18 +158,17 @@ function CheckoutForm({ bookingId, setBookingId }) {
       execute();
     }
   }, [execute, bookingId, isProcessing]);
-
+  const innerCardStyle = { padding: '1rem' };
   return (
     <form id="checkout-form" onSubmit={handleSubmit(onSubmit)}>
-      <Card bg="light">
-        <Card.Body>
+      <div className="card-item">
+        <div style={innerCardStyle}>
           <h2>פרטיים אישיים</h2>
           <FormFields register={register} errors={errors} />
-        </Card.Body>
-      </Card>
-      <br />
-      <Card bg="light">
-        <Card.Body>
+        </div>
+      </div>
+      <div className="card-item">
+        <div style={innerCardStyle}>
           <h2>תשלום</h2>
           <PaymentElement
             id="payment-element"
@@ -179,19 +177,28 @@ function CheckoutForm({ bookingId, setBookingId }) {
               paymentMethodOrder: ['apple_pay', 'google_pay', 'card'],
             }}
           />
-        </Card.Body>
-      </Card>
-      <br />
-      <button
-        className="primary-button button-hover-white"
-        disabled={isProcessing || !stripe || !elements}
-        id="submit"
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        <span id="button-text">
-          {isProcessing ? 'מבצע תשלום... ' : 'שלם עכשיו'}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
+        <button
+          style={{
+            width: '100%',
+          }}
+          className="primary-button button-hover-white"
+          disabled={isProcessing || !stripe || !elements}
+          id="submit"
+        >
+          <span id="button-text">
+            {isProcessing ? 'מבצע תשלום... ' : 'שלם עכשיו'}
+          </span>
+        </button>
+      </div>
       {message && <div id="payment-message">{message}</div>}
     </form>
   );
