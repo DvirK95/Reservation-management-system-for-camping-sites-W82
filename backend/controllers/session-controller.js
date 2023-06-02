@@ -116,7 +116,7 @@ async function getExtraDataItem(slip) {
 
 const createBookingSession = async (req, res) => {
   try {
-    const { remove, key, opt, ...restData } = req.body;
+    const { remove, key, opt, modify, ...restData } = req.body;
     let data = { ...restData };
     if (remove) {
       const key = await getBookingItemKey(restData.session_id, remove);
@@ -135,6 +135,22 @@ const createBookingSession = async (req, res) => {
           [key]: opt,
         },
       };
+    }
+
+    // modify = {placeId, startDate, endDate, adult, child, toddler}
+    if (modify) {
+      const newSlip = await getNewSlip(modify);
+      if (newSlip.slip) {
+        data = {
+          ...data,
+          line_id: key,
+          slip: newSlip.slip,
+        };
+      } else if (newSlip.error) {
+        return res.status(501).json({ message: newSlip.error });
+      } else {
+        res.status(500);
+      }
     }
 
     const config = {
@@ -178,6 +194,43 @@ const createBookingSession = async (req, res) => {
     res.json(response.data.booking);
   } catch (error) {
     res.status(500).json({ message: 'Error creating booking session', error });
+  }
+};
+
+const getNewSlip = async ({
+  placeId,
+  startDate,
+  endDate,
+  adult,
+  child = 0,
+  toddler = 0,
+}) => {
+  try {
+    // Step1 check if we can add/reduce
+    const isAvailableResponse = await axios.get(
+      `${process.env.API_DIR}/item/${placeId}`,
+      {
+        params: {
+          start_date: startDate,
+          end_date: endDate,
+          'param[adult]': adult,
+          'param[child]': child,
+          'param[toddler]': toddler,
+        },
+        headers: {
+          Accept: 'application/json',
+          Authorization: `${process.env.API_TOKEN}`,
+        },
+      }
+    );
+
+    if (isAvailableResponse.data.item.rate.status === 'AVAILABLE') {
+      return { slip: isAvailableResponse.data.item.rate.slip };
+    } else {
+      return { error: isAvailableResponse.data.item.rate.error.title };
+    }
+  } catch {
+    return false;
   }
 };
 
