@@ -100,11 +100,20 @@ div.row a {
   }
 
   .mini-cart-mobile-wrapper {
-    background-color: red /*changecolor from root*/;
+    background-color: rgb(155, 201, 172) /*changecolor from root*/;
     position: fixed;
     bottom: 0;
     z-index: 999;
+    padding-bottom: 10px;
+    border-top: 5px solid var(--second-color);
+    padding-top: 1rem;
   }
+
+  /* .mini-cart-mobile-wrapper.open {
+    display: none;
+    position: fixed;
+    width: auto;
+  } */
 }
 
 @media screen and (min-width: 768px) {
@@ -116,6 +125,11 @@ div.row a {
 .scroll-list-cart{
   max-height: 300px;
   overflow-y: scroll;
+}
+
+.scroll-list-cart.mobile{
+  max-height: 150px;
+  overflow-x: hidden;
 }
 
 /* customize scrollbar */
