@@ -1,14 +1,8 @@
-.backgroung-img{
-    background-image: url("img-info-page.png");
-    filter: opacity(50%)  brightness(40%);
-    background-repeat: no-repeat;
+.background-img{
+    background: url(img-info-page.png);
     background-size: cover;
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    padding: 2px 0px 2px 0px;
+    margin-bottom: -1rem;
 }
 
 .body-info {
@@ -25,7 +19,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* margin: auto; */
     min-height: 19rem;
 }
 
@@ -47,18 +40,13 @@
         width: 90%;
     }
 
-    .backgroung-img{
-        height: 70rem;
-    }
-
 }
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .backgroung-img{
         height: 100rem;
     }
-
-}
+} */
 
 .section-privacy{
     text-align: right !important;
