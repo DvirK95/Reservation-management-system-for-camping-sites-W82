@@ -7,8 +7,11 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import ProcessStep from '../Sites/ProcessStep';
+import { cartActions } from '../../store/cart-slice';
+import { useDispatch } from 'react-redux';
 
 function Confirm() {
+  const dispatch = useDispatch();
   const [isFirst, setIsFirst] = useState(true);
   let { bookingId } = useParams();
   const [bookingDetails, setBookingDetails] = useState({});
@@ -26,34 +29,36 @@ function Confirm() {
   useEffect(() => {
     if (isFirst) {
       getDetails();
+      dispatch(cartActions.resetCart());
       setIsFirst(false);
     }
-  }, [getDetails, isFirst]);
+  }, [getDetails, isFirst, dispatch]);
 
   // console.log('print it');
 
   return (
     <Container className="cart-wrapper text-center">
-      <ProcessStep currentStep={"3"} />
+      <ProcessStep currentStep={'3'} />
       {isFirst && (
         <div className="spinner-container">
           <Spinner animation="border" />
         </div>
       )}
-      <br/>
-      <h3 style={{fontWeight: "500"}}> 
-        היי {bookingDetails.customer_name},
-        הזמנתך התקבלה בהצלחה!
+      <br />
+      <h3 style={{ fontWeight: '500' }}>
+        היי {bookingDetails.customer_name}, הזמנתך התקבלה בהצלחה!
       </h3>
-      <FontAwesomeIcon icon={faCircleCheck} bounce size="2xl" style={{color: "#b3dd4f",}} />
+      <FontAwesomeIcon
+        icon={faCircleCheck}
+        bounce
+        size="2xl"
+        style={{ color: '#b3dd4f' }}
+      />
       <p>
-        <br/>
+        <br />
         מזהה הזמנה: {bookingDetails.id}
       </p>
-      <p>
-        קבלה נשלחת למייל{' '}
-        {bookingDetails.customer_email} ברגעים אלו
-      </p>
+      <p>קבלה נשלחת למייל {bookingDetails.customer_email} ברגעים אלו</p>
       <p>
         לצפייה בפרטי ההזמנה{' '}
         <a
@@ -64,11 +69,9 @@ function Confirm() {
           {'לחץ כאן'}
         </a>
       </p>
-      <br/>
-      <p>
-        תודה שהזמנת אצלנו 😊
-      </p>
-      <br/>
+      <br />
+      <p>תודה שהזמנת אצלנו 😊</p>
+      <br />
       <Link to="/" className="primary-button button-hover-white">
         <b> חזרה לדף הראשי</b>
       </Link>
