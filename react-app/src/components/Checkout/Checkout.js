@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Checkout.css';
 import ProcessStep from '../Sites/ProcessStep';
+import CheckoutFormPlaceHolder from './CheckoutFormPlaceHolder';
 
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
@@ -71,13 +72,15 @@ function Checkout() {
         <Row>
           <Col md={8}>
             <Col md={6} className="center">
-              {clientSecret && (
+              {clientSecret ? (
                 <Elements stripe={stripePromise} options={options}>
                   <CheckoutForm
                     bookingId={bookingId}
                     setBookingId={setBookingId}
                   />
                 </Elements>
+              ) : (
+                <CheckoutFormPlaceHolder />
               )}
             </Col>
           </Col>

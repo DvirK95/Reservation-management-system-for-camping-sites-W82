@@ -159,6 +159,7 @@ function CheckoutForm({ bookingId, setBookingId }) {
     }
   }, [execute, bookingId, isProcessing]);
   const innerCardStyle = { padding: '1rem' };
+
   return (
     <form id="checkout-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="card-item">
