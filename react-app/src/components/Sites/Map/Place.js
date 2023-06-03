@@ -5,12 +5,20 @@ import { Col, Row } from 'react-bootstrap';
 import { translateErrorStatus } from '../../../utils/hebrew';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemCart } from '../../../store/cart-actions';
 import { cartActions } from '../../../store/cart-slice';
 
 function Place({ placeObj, onClick, active }) {
   const dispatch = useDispatch();
+
+  const items = useSelector((state) => state.cart.items);
+  let isExistCart = false;
+  for(let item of items){
+    if(item.slip === placeObj.slip){
+      isExistCart = true;
+    }
+  }
 
   const handleAddItem = (item) => {
     dispatch(addItemCart(item.id, item.slip));
@@ -21,7 +29,7 @@ function Place({ placeObj, onClick, active }) {
     'place',
     placeObj.status !== 'AVAILABLE' ? 'unavailable' : '',
     placeObj.shape,
-    active ? 'active' : '',
+    isExistCart ? 'active' : '',
   ]
     .join(' ')
     .trim();
@@ -37,6 +45,10 @@ function Place({ placeObj, onClick, active }) {
             </h6>
             <p>
               &rlm;{placeObj.price.title}
+              {isExistCart && 
+              <div style={{color: "red", fontSize:"12px"}}>
+                הפריט נוסף לסל הקניות 
+              </div>}
               {/*` ללילה`*/}
             </p>
           </Col>
