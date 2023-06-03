@@ -4,13 +4,14 @@ import { Spinner } from 'react-bootstrap';
 import './MiniCart.css';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
 import { removeItemFromCart, fetchCartData } from '../../store/cart-actions';
 import { useEffect } from 'react';
 
 function MiniCart() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -18,6 +19,7 @@ function MiniCart() {
     dispatch(fetchCartData());
   }, [dispatch]);
 
+  // boxes handler
   const handleMouseEnter = () => {
     dispatch(cartActions.showCart(true));
   };
@@ -28,6 +30,19 @@ function MiniCart() {
 
   const handleRemoveItem = (id) => {
     dispatch(removeItemFromCart(id));
+  };
+
+  // buttons handler
+  const isDisable = cart.items.length < 1;
+  const handleClickToCheckout = () => {
+    if (!isDisable) {
+      navigate('/checkout');
+    }
+  };
+  const handleClickToCart = () => {
+    if (!isDisable) {
+      navigate('/cart');
+    }
   };
 
   const emptyCart = (
@@ -55,10 +70,10 @@ function MiniCart() {
           <h4 id="box-title">סל הקניות שלי </h4>
         </div>
 
-        {cart.items.length < 1 ? (
+        {isDisable ? (
           emptyCart
         ) : (
-          <div className='scroll-list-cart'>
+          <div className="scroll-list-cart">
             {cart.items.map((placeObj) => (
               <div key={placeObj.item_id} className="mini-card">
                 <Row>
@@ -124,12 +139,20 @@ function MiniCart() {
           </Col>
         </Row>
         <Row>
-          <Link to="/checkout" className="primary-button button-hover-white">
+          <button
+            onClick={handleClickToCheckout}
+            className="primary-button button-hover-white"
+            disabled={isDisable}
+          >
             המשך לתשלום
-          </Link>
-          <Link to="/cart" className="secondary-button button-hover-white">
+          </button>
+          <button
+            onClick={handleClickToCart}
+            className="secondary-button button-hover-white"
+            disabled={isDisable}
+          >
             לסל הקניות
-          </Link>
+          </button>
         </Row>
       </div>
     </div>

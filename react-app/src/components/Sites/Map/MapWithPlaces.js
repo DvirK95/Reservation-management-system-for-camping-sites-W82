@@ -2,6 +2,7 @@ import { PanZoom } from 'react-easy-panzoom';
 import Place from './Place';
 import { useState, useRef } from 'react';
 import MapControllers from './MapControllers';
+import { Helmet } from 'react-helmet';
 
 function MapWithPlaces({ placesData, mapName }) {
   const mapPath = `../../maps/${mapName}.png`;
@@ -21,9 +22,15 @@ function MapWithPlaces({ placesData, mapName }) {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+      </Helmet>
       <MapControllers scale={scale} panZoomRef={panZoomRef} />
       <PanZoom
-        style={{ overflow: 'hidden' }}
+        style={{ overflow: 'hidden', touchAction: 'none' }}
         ref={panZoomRef}
         enableBoundingBox
         zoomSpeed={2}
