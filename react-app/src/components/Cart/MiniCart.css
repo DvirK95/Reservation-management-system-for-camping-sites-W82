@@ -84,12 +84,24 @@ div.row a {
   margin-bottom: 0.5rem;
 }
 
+.button-hover-white {
+  margin: 0.25rem 0 !important;
+}
+
 .button-hover-white:hover {
   background-color: var(--maincolor);
   color: var(--seccolor);
   border-color: var(--seccolor);
 }
 
+.button-hover-white:disabled,
+.button-hover-white:disabled,
+.secondary-button:hover:disabled {
+  background-color: gray !important;
+  cursor: not-allowed !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
 /*###########################*/
 @media screen and (max-width: 768px) {
   .cart-box {
@@ -109,11 +121,9 @@ div.row a {
     padding-top: 1rem;
   }
 
-  /* .mini-cart-mobile-wrapper.open {
+  .mini-cart-mobile-wrapper.close {
     display: none;
-    position: fixed;
-    width: auto;
-  } */
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -122,27 +132,27 @@ div.row a {
   }
 }
 
-.scroll-list-cart{
+.scroll-list-cart {
   max-height: 300px;
   overflow-y: scroll;
 }
 
-.scroll-list-cart.mobile{
+.scroll-list-cart.mobile {
   max-height: 150px;
   overflow-x: hidden;
 }
 
 /* customize scrollbar */
 .scroll-list-cart::-webkit-scrollbar {
-  width: 15px; 
+  width: 15px;
 }
 
 .scroll-list-cart::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
 .scroll-list-cart::-webkit-scrollbar-thumb {
-  background: rgb(150, 182, 160); 
+  background: rgb(150, 182, 160);
   border-radius: 10px;
 }
