@@ -5,7 +5,7 @@ import './MiniCart.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
-import { fetchCartData } from '../../store/cart-actions';
+import { removeItemFromCart, fetchCartData } from '../../store/cart-actions';
 import { useEffect } from 'react';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,6 +20,10 @@ function MiniCartMobile() {
 
   const handleMouseLeave = () => {
     dispatch(cartActions.showCart(false));
+  };
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItemFromCart(id));
   };
 
   if (cart.items.length > 0) {
@@ -42,7 +46,13 @@ function MiniCartMobile() {
                 <Col xs={8}>{placeObj.name}</Col>
                 <Col xs={3}>₪{placeObj.rate.total}</Col>
                 <Col xs={1}>
-                  <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                    <button
+                      style={{ display: 'contents' }}
+                      onClick={() => handleRemoveItem(placeObj.item_id)}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                    </button>
+                  {/* <FontAwesomeIcon icon={faTrashAlt} className="icon" /> */}
                 </Col>
               </Row>
               <hr />
