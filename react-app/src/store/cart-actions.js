@@ -131,7 +131,15 @@ export function changePeopleAmount({
   toddler,
 }) {
   return async function (dispatch) {
-    dispatch(cartActions.changePeopleAmount({ key, adult, child, toddler }));
+    dispatch(
+      cartActions.changePeopleAmount({
+        key,
+        adults: adult,
+        children: child,
+        toddler,
+        flag: false,
+      })
+    );
     try {
       const data = await apiCartSession({
         key,
@@ -152,9 +160,17 @@ export function changePeopleAmount({
             key,
           })
         );
+        dispatch(
+          cartActions.changePeopleAmount({
+            key,
+            adults: adult,
+            children: child,
+            toddler,
+            flag: true,
+          })
+        );
       } else {
         console.error(error);
-        // Consider setting a general error message here.
       }
     }
   };

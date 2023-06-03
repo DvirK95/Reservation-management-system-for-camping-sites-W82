@@ -7,7 +7,6 @@ const initialState = {
   isDataLoad: false,
   showCart: false,
   counter: 0,
-  errorMessage: '',
 };
 
 const cartSlice = createSlice({
@@ -59,15 +58,20 @@ const cartSlice = createSlice({
       }
     },
     changePeopleAmount(state, action) {
+      const isErrorFlag = action.payload.flag;
       let typeChange = 'toddler';
       for (let item of state.items) {
         if (item.key === action.payload.key) {
-          if (item.adults !== action.payload.adult) {
+          if (item.adults !== action.payload.adults) {
             typeChange = 'adults';
-          } else if (item.children !== action.payload.child) {
+          } else if (item.children !== action.payload.children) {
             typeChange = 'children';
           }
-          item[[typeChange]] = '...';
+          if (!isErrorFlag) {
+            item[[typeChange]] = '...';
+          } else {
+            item[[typeChange]] = action.payload[[typeChange]] - 1;
+          }
         }
       }
     },
