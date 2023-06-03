@@ -39,6 +39,7 @@ function Place({ placeObj, onClick, active }) {
       <Popover.Body>
         <Row>
           <Col className="col" sm={7}>
+            <h6 style={{textAlign:"center", fontWeight:"bold"}}> {placeObj.title}</h6>
             <h6 style={{ color: placeObj.available === 0 ? 'red' : '' }}>
               &rlm; {placeObj.available}
               {` מקומות פנויים`}
