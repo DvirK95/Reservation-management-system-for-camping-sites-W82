@@ -1,6 +1,10 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import marker from './marker.jpg';
@@ -20,16 +24,19 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
   const markersRef = useRef([]);
 
   useImperativeHandle(ref, () => {
-    return{
-      zoomIn:(x, y, id) => {
-        const marker = markersRef.current.find(marker => marker.getLatLng().lat === x && marker.getLatLng().lng === y);
+    return {
+      zoomIn: (x, y, id) => {
+        const marker = markersRef.current.find(
+          (marker) =>
+            marker.getLatLng().lat === x && marker.getLatLng().lng === y
+        );
         if (marker) {
           marker.on('popupopen', () => {
             const popupButton = document.getElementById(id);
             if (popupButton) {
               popupButton.addEventListener('click', (event) => {
                 event.stopPropagation();
-                const foundSite = sites.find(site => site._id === id);
+                const foundSite = sites.find((site) => site._id === id);
                 if (foundSite) {
                   navigate(`${foundSite.title.replace(/ /g, '-')}/${id}`);
                 } else {
@@ -38,19 +45,20 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
               });
             }
           });
-  
+
           marker.openPopup();
           mapRef.current.flyTo([x, y], 12);
         }
-      }
-    }
+      },
+    };
   });
 
   useEffect(() => {
     if (!isLoading) {
       // Create the map instance and set the view
       mapRef.current = L.map(mapViewRef.current).setView(
-        [31.811249938383863, 34.771514472163865], 8
+        [31.811249938383863, 34.771514472163865],
+        8
       );
 
       // Add the OpenStreetMap tile layer
@@ -70,11 +78,8 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
             renderToStaticMarkup(
               <div className="title">
                 {site.name} <br />
-                <button 
-                  id={site._id} 
-                  className='detail-button'
-                > 
-                פרטים נוספים
+                <button id={site._id} className="detail-button">
+                  פרטים נוספים
                 </button>
               </div>
             ),
@@ -83,7 +88,7 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
               closeButton: false,
             }
           )
-          .on("click", () => {
+          .on('click', () => {
             mapRef.current.flyTo([site.xAxis, site.yAxis], 12);
 
             // Add click event listener to button in popup
@@ -94,7 +99,6 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
                 navigate(`${site.title.replace(/ /g, '-')}/${site._id}`);
               });
             }
-
           });
 
         // markersRef.push(marker);
@@ -121,6 +125,5 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
   }, [isLoading, sites, navigate]);
 
   return <div ref={mapViewRef} className="mapStyles-width" />;
-}
-)
+});
 export default IsraelMap;

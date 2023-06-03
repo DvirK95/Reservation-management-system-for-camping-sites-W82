@@ -1,6 +1,5 @@
 import { useCallback, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import IsraelMap from '../IsraelMap/IsraelMap';
@@ -46,18 +45,10 @@ function Home() {
         להזמנת לינה בחניוני הלילה - <b>לחצו על חניון הלילה המבוקש 👇🏼 </b>
       </h3>
 
-      {isLoading ? (
-        <div className="flex-container">
-          <div className="spinner">
-            <Spinner animation="border" />
-          </div>
-        </div>
-      ) : (
-        <div className="flex-container">
-          <Legend sites={sites} onClick={clickHandler} />
-          <IsraelMap sites={sites} isLoading={isLoading} ref={mapRef} />
-        </div>
-      )}
+      <div className="flex-container">
+        <Legend sites={sites} onClick={clickHandler} isLoading={isLoading} />
+        <IsraelMap sites={sites} isLoading={isLoading} ref={mapRef} />
+      </div>
     </div>
   );
 }
