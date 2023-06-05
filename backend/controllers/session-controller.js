@@ -148,7 +148,7 @@ const createBookingSession = async (req, res) => {
       slip
     }*/
     if (modify) {
-      let slip;
+      let slip = '';
       // is package?
       if (String(key).includes('.')) {
         slip = modify.slip.replace(/(guest\.)(.+)/, '$1' + modify.guest);
@@ -246,7 +246,7 @@ const getNewSlip = async ({
       }
     );
     if (isAvailableResponse.data.item.rate.status === 'AVAILABLE') {
-      return { slip: isAvailableResponse.data.item.rate.slip };
+      return isAvailableResponse.data.item.rate.slip;
     } else {
       return { error: isAvailableResponse.data.item.rate.error.title };
     }
