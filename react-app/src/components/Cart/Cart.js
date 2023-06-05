@@ -62,17 +62,16 @@ function Cart() {
                       borderBottom: '1px solid',
                       width: '90%',
                       textAlign: 'center',
+                      paddingRight: '5%',
                     }}
                   />
                 </Row>
                 <Row>
-                  <Col xs={3}>
+                  <Col xs={3} style={{ paddingRight: '5%' }}>
                     <h6 className="table-titles">{'חבילה'}</h6>
                   </Col>
+                  <Col className="table-titles">{'מחיר ליחידה'}</Col>
                   <Col className="table-titles">{'כמות'}</Col>
-                  <Col className="table-titles">{'מחיר'}</Col>
-                  <Col className="table-titles"></Col>
-
                   <Col className="table-titles">{'סה"כ '}</Col>
                 </Row>
                 {packages &&
