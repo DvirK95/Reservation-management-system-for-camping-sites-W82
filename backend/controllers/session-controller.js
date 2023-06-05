@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function extractValues(str) {
   const matches = str.match(
-    /^(\d+)\.(\d+)X(\d+)(?:-qty\.(\d+))?(?:-adult\.(\d+))?(?:-child\.(\d+))?(?:-toddler\.(\d+))?$/
+    /^(\d+)\.(\d+)X(\d+)(?:-qty\.(\d+))?(?:-adult\.(\d+))?(?:-child\.(\d+))?(?:-toddler\.(\d+))?(?:-guest\.(\d+))?$/
   );
   if (matches === null) {
     // If the string doesn't match the expected pattern, return null or throw an error
@@ -17,6 +17,7 @@ async function extractValues(str) {
     adults,
     children,
     toddler,
+    guest,
   ] = matches;
   const startDate = new Date(
     startDateStr.substring(0, 4),
@@ -35,7 +36,8 @@ async function extractValues(str) {
     qty: qty ? parseInt(qty) : 0,
     adults: adults ? parseInt(adults) : 0,
     children: children ? parseInt(children) : 0,
-    toddler: toddler ? parseInt(toddler) : 0,
+    toddler: toddler ? parseInt(toddler) : null,
+    guest: guest ? parseInt(guest) : null,
     nights: parseInt(durationStr),
   };
 }
@@ -64,6 +66,9 @@ async function getBookingItemKey(sessionId, itemId) {
 
 async function getExtraDataItem(slip) {
   const slipValues = await extractValues(slip);
+  if (!slipValues) {
+    return;
+  }
   try {
     const response = await axios.get(
       `${process.env.API_DIR}/item/${slipValues.id}`,
@@ -137,17 +142,28 @@ const createBookingSession = async (req, res) => {
       };
     }
 
-    // modify = {placeId, startDate, endDate, adult, child, toddler}
+    /* modify = {
+      placeId, startDate, endDate,
+      adult, child, toddler, guest,
+      slip
+    }*/
     if (modify) {
-      const newSlip = await getNewSlip(modify);
-      if (newSlip.slip) {
+      let slip;
+      // is package?
+      if (String(key).includes('.')) {
+        slip = modify.slip.replace(/(guest\.)(.+)/, '$1' + modify.guest);
+      } else {
+        // regular item
+        slip = await getNewSlip(modify);
+      }
+      if (slip) {
         data = {
           ...data,
           line_id: key,
-          slip: newSlip.slip,
+          slip: slip,
         };
-      } else if (newSlip.error) {
-        return res.status(501).json({ message: newSlip.error });
+      } else if (slip.error) {
+        return res.status(501).json({ message: slip.error });
       } else {
         res.status(500);
       }
@@ -180,6 +196,12 @@ const createBookingSession = async (req, res) => {
       };
 
       if (key.includes('.')) {
+        // add unit price to package
+        itemObj.rate.price = (itemObj.rate.total / itemObj.rate.qty).toFixed(2);
+        if (itemObj.opt === 'out') {
+          itemObj.guest = 0;
+          itemObj.rate.total = '0.00';
+        }
         result.package.push(itemObj);
       } else {
         result.items.push(itemObj);
@@ -201,7 +223,7 @@ const getNewSlip = async ({
   placeId,
   startDate,
   endDate,
-  adult,
+  adult = 0,
   child = 0,
   toddler = 0,
 }) => {
@@ -223,7 +245,6 @@ const getNewSlip = async ({
         },
       }
     );
-
     if (isAvailableResponse.data.item.rate.status === 'AVAILABLE') {
       return { slip: isAvailableResponse.data.item.rate.slip };
     } else {

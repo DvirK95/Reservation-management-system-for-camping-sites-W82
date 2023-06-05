@@ -14,8 +14,8 @@ function Place({ placeObj, onClick, active }) {
 
   const items = useSelector((state) => state.cart.items);
   let isExistCart = false;
-  for(let item of items){
-    if(item.slip === placeObj.slip){
+  for (let item of items) {
+    if (item.slip === placeObj.slip) {
       isExistCart = true;
     }
   }
@@ -39,19 +39,23 @@ function Place({ placeObj, onClick, active }) {
       <Popover.Body>
         <Row>
           <Col className="col" sm={7}>
-            <h6 style={{textAlign:"center", fontWeight:"bold"}}> {placeObj.title}</h6>
+            <h6 style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              {' '}
+              {placeObj.title}
+            </h6>
             <h6 style={{ color: placeObj.available === 0 ? 'red' : '' }}>
               &rlm; {placeObj.available}
               {` מקומות פנויים`}
             </h6>
-            <p>
+            <div>
               &rlm;{placeObj.price.title}
-              {isExistCart && 
-              <div style={{color: "red", fontSize:"12px"}}>
-                הפריט נוסף לסל הקניות 
-              </div>}
+              {isExistCart && (
+                <div style={{ color: 'green', fontSize: '12px' }}>
+                  הפריט נוסף לסל הקניות
+                </div>
+              )}
               {/*` ללילה`*/}
-            </p>
+            </div>
           </Col>
           <Col className="col" sm={5}>
             <img src={placeObj.smallImg} alt="small" />

@@ -102,7 +102,9 @@ function MiniCart() {
                         ילד: {placeObj.children}
                       </span>
                       <span className="peoples-text">
-                        פעוט: {placeObj.toddler}
+                        {placeObj.toddler !== null
+                          ? `פעוט: ${placeObj.toddler}`
+                          : ''}
                       </span>
                     </Row>
                   </Col>

@@ -10,7 +10,6 @@ function PeopleAmount({ placeObj }) {
   };
 
   const buttonClassName = 'third-button add-people';
-
   return (
     <table className="peoples-text">
       <tbody>
@@ -94,46 +93,48 @@ function PeopleAmount({ placeObj }) {
             </button>
           </td>
         </tr>
-        <tr>
-          <td>פעוט:</td>
-          <td>
-            <button
-              className={buttonClassName}
-              onClick={() => {
-                handleChangePeople({
-                  key: placeObj.key,
-                  placeId: placeObj.item_id,
-                  startDate: placeObj.date.start_date,
-                  endDate: placeObj.date.end_date,
-                  adult: placeObj.adults,
-                  child: placeObj.children,
-                  toddler: placeObj.toddler + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-          <td>{placeObj.toddler}</td>
-          <td>
-            <button
-              className={buttonClassName}
-              onClick={() => {
-                handleChangePeople({
-                  key: placeObj.key,
-                  placeId: placeObj.item_id,
-                  startDate: placeObj.date.start_date,
-                  endDate: placeObj.date.end_date,
-                  adult: placeObj.adults,
-                  child: placeObj.children,
-                  toddler: placeObj.toddler - 1,
-                });
-              }}
-            >
-              -
-            </button>
-          </td>
-        </tr>
+        {placeObj.toddler !== null && (
+          <tr>
+            <td>פעוט:</td>
+            <td>
+              <button
+                className={buttonClassName}
+                onClick={() => {
+                  handleChangePeople({
+                    key: placeObj.key,
+                    placeId: placeObj.item_id,
+                    startDate: placeObj.date.start_date,
+                    endDate: placeObj.date.end_date,
+                    adult: placeObj.adults,
+                    child: placeObj.children,
+                    toddler: placeObj.toddler + 1,
+                  });
+                }}
+              >
+                +
+              </button>
+            </td>
+            <td>{placeObj.toddler}</td>
+            <td>
+              <button
+                className={buttonClassName}
+                onClick={() => {
+                  handleChangePeople({
+                    key: placeObj.key,
+                    placeId: placeObj.item_id,
+                    startDate: placeObj.date.start_date,
+                    endDate: placeObj.date.end_date,
+                    adult: placeObj.adults,
+                    child: placeObj.children,
+                    toddler: placeObj.toddler - 1,
+                  });
+                }}
+              >
+                -
+              </button>
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

@@ -16,6 +16,7 @@ react-app/build
 react-app/.DS_Store
 react-app/.env.local
 react-app/.env.development.local
+react-app/.env.development
 react-app/.env.test.local
 react-app/.env.production.local
 backend/.env.production

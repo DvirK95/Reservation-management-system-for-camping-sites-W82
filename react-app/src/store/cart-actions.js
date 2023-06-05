@@ -108,13 +108,7 @@ export function changePackageOption(key, opt) {
   return async function (dispatch) {
     dispatch(cartActions.changePackageOption({ key, opt }));
     try {
-      const data = await apiCartSession({ key, opt });
-      dispatch(
-        cartActions.replacePackages({
-          packages: data.session.package || [],
-          totalPrice: data.session.total,
-        })
-      );
+      await apiCartSession({ key, opt });
     } catch (error) {
       console.error(error);
     }
@@ -172,6 +166,42 @@ export function changePeopleAmount({
       } else {
         console.error(error);
       }
+    }
+  };
+}
+
+export function changePackageAmount({ key, slip, guest }) {
+  return async function (dispatch) {
+    dispatch(
+      cartActions.changePackageAmount({
+        key,
+        guest,
+      })
+    );
+    try {
+      await apiCartSession({
+        key,
+        modify: { slip, guest },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function changePackageOptionOld(key, opt) {
+  return async function (dispatch) {
+    dispatch(cartActions.changePackageOptionOld({ key, opt }));
+    try {
+      const data = await apiCartSession({ key, opt });
+      dispatch(
+        cartActions.replacePackages({
+          packages: data.session.package || [],
+          totalPrice: data.session.total,
+        })
+      );
+    } catch (error) {
+      console.error(error);
     }
   };
 }

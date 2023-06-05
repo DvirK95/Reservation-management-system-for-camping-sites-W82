@@ -38,24 +38,22 @@ function MiniCartMobile() {
         </button>
         <div className="scroll-list-cart mobile">
           {cart.items.map((placeObj) => (
-            <div>
-              <Row
-                key={placeObj.item_id}
-                style={{ width: '90%', position: 'relative', left: '-1rem' }}
-              >
-                <Col xs={8}>{placeObj.name}</Col>
-                <Col xs={3}>₪{placeObj.rate.total}</Col>
-                <Col xs={1}>
-                    <button
-                      style={{ display: 'contents' }}
-                      onClick={() => handleRemoveItem(placeObj.item_id)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                    </button>
-                </Col>
-              </Row>
-              <hr />
-            </div>
+            <Row
+              key={placeObj.item_id}
+              style={{ width: '90%', position: 'relative', left: '-1rem' }}
+            >
+              <Col xs={8}>{placeObj.name}</Col>
+              <Col xs={3}>₪{placeObj.rate.total}</Col>
+              <Col xs={1}>
+                <button
+                  style={{ display: 'contents' }}
+                  onClick={() => handleRemoveItem(placeObj.item_id)}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                </button>
+                {/* <FontAwesomeIcon icon={faTrashAlt} className="icon" /> */}
+              </Col>
+            </Row>
           ))}
         </div>
 
