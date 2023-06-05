@@ -12,11 +12,11 @@ const requiredFieldMessage = 'שדה חובה';
 const schema = yup.object().shape({
   firstName: yup
     .string()
-    .matches(/^[A-Za-z\u0590-\u05FF]+$/i , 'השם לא תקין')
+    .matches(/^[A-Za-z\u0590-\u05FF]+$/i, 'השם לא תקין')
     .required(requiredFieldMessage),
   lastName: yup
     .string()
-    .matches(/^[A-Za-z\u0590-\u05FF]+$/i , 'שם המשפחה לא תקין')
+    .matches(/^[A-Za-z\u0590-\u05FF]+$/i, 'שם המשפחה לא תקין')
     .required(requiredFieldMessage),
   email: yup
     .string()
@@ -95,8 +95,6 @@ function CheckoutForm({ bookingId, setBookingId }) {
     const response = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        //return_url: `${window.location.origin}/invoice/${bookingId}`,
-
         payment_method_data: {
           billing_details: {
             name: `${customerDetails.firstName} ${customerDetails.lastName}`,
@@ -128,13 +126,9 @@ function CheckoutForm({ bookingId, setBookingId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ paymentIntentId: response.paymentIntent.id }),
-      })
-        /*.then(async (result) => {
-          const response = await result.json();
-        })*/
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+      }).catch((error) => {
+        console.error('Error:', error);
+      });
 
       setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
 
