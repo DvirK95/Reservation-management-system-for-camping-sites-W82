@@ -9,9 +9,9 @@ function PackageCard({ packageObj }) {
   const dispatch = useDispatch();
 
   const handleChangeAmount = (obj) => {
-    if (obj.guest === 0) {
+    if (obj.guest === 0 || obj.opt === 'optout') {
       dispatch(changePackageOption(obj.key, 'optout'));
-    } else if (obj.guest > 0) {
+    } else if (obj.guest > 0 || obj.opt === 'optin') {
       dispatch(changePackageAmount(obj));
     }
   };
@@ -22,7 +22,23 @@ function PackageCard({ packageObj }) {
         <h6 className="item-title">{packageObj.name}</h6>
       </Col>
       {packageObj.sku.includes('electricity-water') ? (
-        <Col></Col>
+        <Col>
+          <button
+            className={
+              packageObj.opt === 'out' ? 'third-button' : 'fourth-button'
+            }
+            style={{ padding: '2px 4px' }}
+            onClick={() => {
+              handleChangeAmount({
+                key: packageObj.key,
+                slip: packageObj.slip,
+                opt: packageObj.opt === 'out' ? 'optin' : 'optout',
+              });
+            }}
+          >
+            {packageObj.opt === 'out' ? 'הוסף' : 'הסר'}
+          </button>
+        </Col>
       ) : (
         <Col>
           <button
