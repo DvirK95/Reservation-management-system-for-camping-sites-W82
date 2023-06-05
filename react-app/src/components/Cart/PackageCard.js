@@ -36,7 +36,7 @@ function PackageCard({ packageObj }) {
               });
             }}
           >
-            {packageObj.opt === 'out' ? 'הוסף' : 'הסר'}
+            {packageObj.guest === 0 ? 'הוסף' : 'הסר'}
           </button>
         </Col>
       ) : (
