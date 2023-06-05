@@ -49,8 +49,9 @@ table {
 
 @media (max-width: 500px) {
   .control {
-    top: 75%;
-    left: 12%;
+    /* top: 75%;
+    left: 12%; */
+    display: none;
   }
 }
 
