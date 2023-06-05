@@ -196,6 +196,12 @@ const createBookingSession = async (req, res) => {
       };
 
       if (key.includes('.')) {
+        // add unit price to package
+        itemObj.rate.price = (itemObj.rate.total / itemObj.rate.qty).toFixed(2);
+        if (itemObj.opt === 'out') {
+          itemObj.guest = 0;
+          itemObj.rate.total = '0.00';
+        }
         result.package.push(itemObj);
       } else {
         result.items.push(itemObj);

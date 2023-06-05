@@ -43,7 +43,7 @@ function Cart() {
   }
   return (
     <Container className="cart-wrapper">
-      <ProcessStep currentStep={"1"} />
+      <ProcessStep currentStep={'1'} />
       {isLoading && (
         <div className="spinner-container">
           <Spinner animation="border" />
@@ -66,11 +66,14 @@ function Cart() {
                   />
                 </Row>
                 <Row>
-                  <Col>
+                  <Col xs={3}>
                     <h6 className="table-titles">{'חבילה'}</h6>
                   </Col>
+                  <Col className="table-titles">{'כמות'}</Col>
                   <Col className="table-titles">{'מחיר'}</Col>
-                  <Col></Col>
+                  <Col className="table-titles"></Col>
+
+                  <Col className="table-titles">{'סה"כ '}</Col>
                 </Row>
                 {packages &&
                   packages.map(
