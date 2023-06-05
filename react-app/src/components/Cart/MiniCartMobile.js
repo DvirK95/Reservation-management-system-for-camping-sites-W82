@@ -52,7 +52,6 @@ function MiniCartMobile() {
                     >
                       <FontAwesomeIcon icon={faTrashAlt} className="icon" />
                     </button>
-                  {/* <FontAwesomeIcon icon={faTrashAlt} className="icon" /> */}
                 </Col>
               </Row>
               <hr />
