@@ -51,12 +51,12 @@ function Zone(props) {
                 <Placeholder as="div" animation="glow">
                   <Placeholder xs={8} />
                 </Placeholder>
-                <p className="text">
+                <div className="text">
                   <Placeholder as="p" animation="glow">
                     <Placeholder xs={12} />
                     <Placeholder xs={5} />
                   </Placeholder>
-                </p>
+                </div>
               </div>
             </div>
           ))}
