@@ -24,7 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// toRemove in production
 app.use('/post', require('./routes/postData'));
 
 app.use('/places', require('./routes/places-routes'));
