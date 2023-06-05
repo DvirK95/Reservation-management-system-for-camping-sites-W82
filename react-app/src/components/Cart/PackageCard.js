@@ -2,6 +2,7 @@ import { Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import {
   changePackageOption,
+  changePackageOptionOld,
   changePackageAmount,
 } from '../../store/cart-actions';
 
@@ -13,6 +14,14 @@ function PackageCard({ packageObj }) {
       dispatch(changePackageOption(obj.key, 'optout'));
     } else if (obj.guest > 0 || obj.opt === 'optin') {
       dispatch(changePackageAmount(obj));
+    }
+  };
+
+  const handleChangePacakge = (key, opt) => {
+    if (opt === 'out') {
+      dispatch(changePackageOptionOld(key, 'optin'));
+    } else {
+      dispatch(changePackageOptionOld(key, 'optout'));
     }
   };
 
@@ -29,14 +38,10 @@ function PackageCard({ packageObj }) {
             }
             style={{ padding: '2px 4px' }}
             onClick={() => {
-              handleChangeAmount({
-                key: packageObj.key,
-                slip: packageObj.slip,
-                opt: packageObj.opt === 'out' ? 'optin' : 'optout',
-              });
+              handleChangePacakge(packageObj.key, packageObj.opt);
             }}
           >
-            {packageObj.guest === 0 ? 'הוסף' : 'הסר'}
+            {packageObj.opt === 'out' ? 'הוסף' : 'הסר'}
           </button>
         </Col>
       ) : (

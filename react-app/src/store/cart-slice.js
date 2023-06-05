@@ -94,6 +94,14 @@ const cartSlice = createSlice({
         }
       }
     },
+    changePackageOptionOld(state, action) {
+      state.totalPrice = 'loading price';
+      for (let packageObj of state.packages) {
+        if (packageObj.key === action.payload.key) {
+          packageObj.opt = action.payload.opt;
+        }
+      }
+    },
     resetCart: (state) => initialState,
   },
 });

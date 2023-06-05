@@ -188,3 +188,20 @@ export function changePackageAmount({ key, slip, guest }) {
     }
   };
 }
+
+export function changePackageOptionOld(key, opt) {
+  return async function (dispatch) {
+    dispatch(cartActions.changePackageOptionOld({ key, opt }));
+    try {
+      const data = await apiCartSession({ key, opt });
+      dispatch(
+        cartActions.replacePackages({
+          packages: data.session.package || [],
+          totalPrice: data.session.total,
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
