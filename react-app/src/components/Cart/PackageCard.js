@@ -27,8 +27,11 @@ function PackageCard({ packageObj }) {
 
   return (
     <Row style={{ marginBottom: '1rem' }}>
-      <Col xs={3}>
+      <Col xs={3} style={{ paddingRight: '5%' }}>
         <h6 className="item-title">{packageObj.name}</h6>
+      </Col>
+      <Col>
+        <span>₪{packageObj.rate.price}</span>
       </Col>
       {packageObj.sku.includes('electricity-water') ? (
         <Col>
@@ -75,12 +78,6 @@ function PackageCard({ packageObj }) {
         </Col>
       )}
 
-      <Col>
-        <span>₪{packageObj.rate.price}</span>
-      </Col>
-      <Col>
-        <span>x</span>
-      </Col>
       <Col>
         <span>₪{packageObj.rate.total}</span>
       </Col>
