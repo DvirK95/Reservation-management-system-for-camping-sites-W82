@@ -35,7 +35,7 @@ function MapWithPlaces({ placesData, mapName }) {
         enableBoundingBox
         zoomSpeed={2}
         minZoom={1}
-        maxZoom={2}
+        maxZoom={5}
         boundaryRatioVertical={0.8}
         boundaryRatioHorizontal={0.8}
         preventPan={preventPanCondition}
