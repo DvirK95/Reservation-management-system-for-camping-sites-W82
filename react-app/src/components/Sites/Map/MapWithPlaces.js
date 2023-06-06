@@ -33,7 +33,7 @@ function MapWithPlaces({ placesData, mapName }) {
         style={{ overflow: 'hidden', touchAction: 'none' }}
         ref={panZoomRef}
         enableBoundingBox
-        zoomSpeed={2}
+        zoomSpeed={1.3}
         minZoom={1}
         maxZoom={5}
         boundaryRatioVertical={0.8}
