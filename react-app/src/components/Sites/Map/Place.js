@@ -47,7 +47,7 @@ function Place({ placeObj, onClick, active }) {
               &rlm; {placeObj.available}
               {` מקומות פנויים`}
             </h6>
-            <div>
+            <div style={{textAlign:"center"}}>
               &rlm;{placeObj.price.title}
               {isExistCart && (
                 <div style={{ color: 'green', fontSize: '12px' }}>
