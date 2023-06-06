@@ -16,15 +16,20 @@ function Zone(props) {
               onClick(item.xAxis, item.yAxis, item._id);
             }}
           >
-            <div>
-              <div className="item-image">
-                <img src={item.image_url} alt={item.map} />
+            <a
+              href="#israelmap"
+              style={{ display: 'contents', color: 'black' }}
+            >
+              <div>
+                <div className="item-image">
+                  <img src={item.image_url} alt={item.map} />
+                </div>
               </div>
-            </div>
-            <div className="item-details">
-              {item.title}
-              <p className="text">{item.description}</p>
-            </div>
+              <div className="item-details">
+                {item.title}
+                <p className="text">{item.description}</p>
+              </div>
+            </a>
           </div>
         ))
       ) : (

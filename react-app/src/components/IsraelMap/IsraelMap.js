@@ -124,6 +124,6 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
     }
   }, [isLoading, sites, navigate]);
 
-  return <div ref={mapViewRef} className="mapStyles-width" />;
+  return <div id="israelmap" ref={mapViewRef} className="mapStyles-width" />;
 });
 export default IsraelMap;
