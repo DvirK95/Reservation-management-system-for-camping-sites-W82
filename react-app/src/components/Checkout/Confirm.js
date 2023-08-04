@@ -6,7 +6,7 @@ import { Container, Spinner } from 'react-bootstrap';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import ProcessStep from '../Sites/ProcessStep';
+import ProcessStep from '../ProcessStep/ProcessStep';
 import { cartActions } from '../../store/cart-slice';
 import { useDispatch } from 'react-redux';
 

@@ -6,7 +6,7 @@ import CheckoutForm from './CheckoutForm';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Checkout.css';
-import ProcessStep from '../Sites/ProcessStep';
+import ProcessStep from '../ProcessStep/ProcessStep';
 import CheckoutFormPlaceHolder from './CheckoutFormPlaceHolder';
 
 function Checkout() {
