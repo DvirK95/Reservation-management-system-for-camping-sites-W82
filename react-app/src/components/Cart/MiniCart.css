@@ -12,7 +12,7 @@
   background-color: var(--maincolor);
   border: 1px solid #ccc;
   padding: 20px;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .mini-card {
@@ -28,7 +28,7 @@
 .cart-box.open {
   display: block;
   position: fixed;
-  width: auto;
+  width: 25rem;
 }
 
 .close-button {

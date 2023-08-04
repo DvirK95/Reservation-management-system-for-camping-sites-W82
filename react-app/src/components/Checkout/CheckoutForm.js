@@ -29,13 +29,12 @@ const schema = yup.object().shape({
     .required(requiredFieldMessage),
 });
 
-function CheckoutForm({ bookingId, setBookingId }) {
+function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [customerDetails, setCustomerDetails] = useState({});
 
   const navigate = useNavigate();
 
@@ -68,7 +67,7 @@ function CheckoutForm({ bookingId, setBookingId }) {
           break;
       }
     });
-  }, [stripe, bookingId]);
+  }, [stripe]);
 
   const {
     register,
@@ -80,67 +79,63 @@ function CheckoutForm({ bookingId, setBookingId }) {
   });
 
   const onSubmit = async (data) => {
-    setBookingId(null);
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       return;
     }
+
     setIsProcessing(true);
-    const bookingIdApi = await createBooking(data);
-    setBookingId(bookingIdApi);
-    setCustomerDetails(data);
+    execute(data);
   };
 
-  const execute = useCallback(async () => {
-    const response = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        payment_method_data: {
-          billing_details: {
-            name: `${customerDetails.firstName} ${customerDetails.lastName}`,
-            email: `${customerDetails.email}`,
-            phone: `${customerDetails.phoneNumber}`,
-          },
-          metadata: {
-            booking_id: bookingId,
+  const execute = useCallback(
+    async (data) => {
+      const response = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: `${data.firstName} ${data.lastName}`,
+              email: `${data.email}`,
+              phone: `${data.phoneNumber}`,
+            },
+            /*metadata: {
+              booking_id: bookingId,
+            },*/
           },
         },
-      },
-      redirect: 'if_required',
-    });
-    if (response.error) {
-      if (
-        response.error.type === 'card_error' ||
-        response.error.type === 'validation_error'
-      ) {
-        setMessage(response.error.message);
-      } else {
-        setMessage('An unexpected error occurred.');
-      }
-    } else {
-      await updateBooking(bookingId, 'PAID');
-
-      await fetch(`${process.env.REACT_APP_API_URL}/payment/${bookingId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ paymentIntentId: response.paymentIntent.id }),
-      }).catch((error) => {
-        console.error('Error:', error);
+        redirect: 'if_required',
       });
+      if (response.error) {
+        if (
+          response.error.type === 'card_error' ||
+          response.error.type === 'validation_error'
+        ) {
+          setMessage(response.error.message);
+        } else {
+          setMessage('שגיאה לא צפויה');
+        }
+        setIsProcessing(false);
+      } else {
+        createBooking(data).then(async (bookingId) => {
+          await updateBooking(bookingId, 'PAID');
+          await fetch(`${process.env.REACT_APP_API_URL}/payment/${bookingId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              paymentIntentId: response.paymentIntent.id,
+            }),
+          });
+          setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
+          navigate(`/checkout/confirm/${bookingId}`);
+        });
+      }
+    },
+    [stripe, elements, setMessage, navigate]
+  );
 
-      setMessage(`Payment Succeeded: ${response.paymentIntent.id}`);
-
-      navigate(`/checkout/confirm/${bookingId}`);
-    }
-  }, [stripe, elements, bookingId, setMessage, customerDetails, navigate]);
-
-  useEffect(() => {
-    if (bookingId !== null && isProcessing) {
-      execute();
-    }
-  }, [execute, bookingId, isProcessing]);
   const innerCardStyle = { padding: '1rem' };
 
   return (
