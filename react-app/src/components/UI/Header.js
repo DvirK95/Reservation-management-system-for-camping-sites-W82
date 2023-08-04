@@ -83,7 +83,7 @@ function Header() {
           >
             {isCollapseOpen ? null : (
               <>
-                <span id="count">{counter}</span>
+                {counter > 0 && <span id="count">{counter}</span>}
                 {cartIcon}
               </>
             )}

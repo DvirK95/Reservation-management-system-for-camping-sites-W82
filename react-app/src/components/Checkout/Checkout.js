@@ -12,7 +12,6 @@ import CheckoutFormPlaceHolder from './CheckoutFormPlaceHolder';
 function Checkout() {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState('');
-  const [bookingId, setBookingId] = useState(null);
 
   const items = useSelector((state) => state.cart.items);
   const isLoading = useSelector((state) => state.isDataLoad);
@@ -56,10 +55,10 @@ function Checkout() {
   };
 
   useEffect(() => {
-    if (!isLoading && items.length < 1 /*&& bookingId !== null*/) {
+    if (!isLoading && items.length < 1) {
       navigate('/cart');
     }
-  }, [items, navigate, isLoading, bookingId]);
+  }, [items, navigate, isLoading]);
 
   return (
     <Container className="cart-wrapper">
@@ -74,10 +73,7 @@ function Checkout() {
             <Col md={6} className="center">
               {clientSecret ? (
                 <Elements stripe={stripePromise} options={options}>
-                  <CheckoutForm
-                    bookingId={bookingId}
-                    setBookingId={setBookingId}
-                  />
+                  <CheckoutForm />
                 </Elements>
               ) : (
                 <CheckoutFormPlaceHolder />
@@ -96,7 +92,6 @@ function Checkout() {
                   <hr />
                 </div>
               ))}{' '}
-              <br />
               {!totalPrice ? (
                 <div className="spinner">
                   <Spinner animation="border" />
