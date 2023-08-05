@@ -35,7 +35,7 @@ function IsraelMapItems({ filteredList, onClick, isLoading }) {
             <div key={index} className="list-item">
               <div>
                 <div className="item-image">
-                  <Placeholder as="image" animation="glow">
+                  <Placeholder animation="glow">
                     <Placeholder
                       xs={8}
                       style={{
