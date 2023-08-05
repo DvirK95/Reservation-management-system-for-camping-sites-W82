@@ -24,7 +24,6 @@ const apiCartSession = async (body = null) => {
     if (sessionId !== newSession_id) {
       localStorage.setItem('SessionId', newSession_id);
     }
-    console.log(`session id: ${localStorage.getItem('SessionId')}`);
     // map the current items session
     return data;
   } catch (error) {
@@ -47,7 +46,6 @@ export function fetchCartData() {
         })
       );
     } catch (error) {
-      //todo
       console.log(error);
     } finally {
       dispatch(cartActions.setIsLoad());
@@ -97,9 +95,6 @@ export function addItemCart(id, slip) {
       } finally {
         dispatch(cartActions.setIsLoad());
       }
-    } else {
-      // Handle the case where the item is already in the cart
-      console.log('Item already exists in the cart.');
     }
   };
 }

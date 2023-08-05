@@ -4,7 +4,7 @@ import MapWithPlaces from '../../components/CampingSite/Map/MapWithPlaces';
 import { Spinner } from 'react-bootstrap';
 import MiniCartMobile from '../../components/Cart/MiniCart/MiniCartMobile';
 import ProcessStep from '../../components/ProcessStep/ProcessStep';
-import useCampSite from './useCampSite';
+import useCampSite from './Hooks/useCampSite';
 
 function CampingSite() {
   const {

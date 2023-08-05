@@ -113,3 +113,7 @@ body {
   color: var(--third-color);
   border-color: var(--third-color);
 }
+
+#bufferHeader {
+  height: 4.2rem;
+}

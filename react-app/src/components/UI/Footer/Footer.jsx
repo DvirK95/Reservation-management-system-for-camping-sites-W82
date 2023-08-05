@@ -6,7 +6,7 @@ import {
   faInstagram,
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
-import logo from './logo_mobile.png';
+import logo from '../../../Assets/images/logo_mobile.png';
 import './Footer.css';
 
 function Footer() {

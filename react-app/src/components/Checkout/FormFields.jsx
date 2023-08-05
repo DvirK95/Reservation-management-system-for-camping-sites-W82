@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 
-const FormFields = ({ register, errors }) => {
+function FormFields({ register, errors }) {
   const mustStar = <span style={{ color: 'red' }}>*</span>;
 
   return (
@@ -76,6 +76,6 @@ const FormFields = ({ register, errors }) => {
       </Form.Group>
     </>
   );
-};
+}
 
 export default FormFields;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { calculateTommorowDate, pullTodayDate } from '../../utils/dateUtils';
-import fetchPlacesApi from '../../utils/fetchPlacesApi';
+import { calculateTommorowDate, pullTodayDate } from '../../../utils/dateUtils';
+import usePlacesData from './usePlacesData';
 import { useParams, useSearchParams } from 'react-router-dom';
-import useSiteDetails from '../../utils/useSitesApi';
+import useSiteDetails from './useSitesApi';
 
 function useCampSite() {
   const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ function useCampSite() {
     toddlers: Number(searchParams.get('toddlers')) || 0,
   });
 
-  const { placesData, isLoading } = fetchPlacesApi(siteId, dates, peoples);
+  const { placesData, isLoading } = usePlacesData(siteId, dates, peoples);
   return {
     siteDetails,
     setDates,

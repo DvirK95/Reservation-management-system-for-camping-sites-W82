@@ -104,8 +104,6 @@ const IsraelMap = forwardRef(function IsraelMap(props, ref) {
         markersRef.current.push(marker);
       });
 
-      // console.log(markers);
-
       // Add click event listener to popup content elements
       const popupContentElements = document.querySelectorAll(
         '.leaflet-popup-content'

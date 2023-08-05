@@ -1,14 +1,11 @@
 import React from 'react';
 
-import "./ProcessStep.css";
-
+import './ProcessStep.css';
 
 const ProcessStep = ({ currentStep }) => {
-  console.log('currentStep:', currentStep);
-
   const steps = [
     { num: '1', label: 'בחירה ' },
-    { num: '2', label: 'הזמנה '},
+    { num: '2', label: 'הזמנה ' },
     { num: '3', label: 'תשלום' },
     { num: '4', label: 'אישור ' },
   ];
@@ -20,7 +17,9 @@ const ProcessStep = ({ currentStep }) => {
         const stepNum = parseInt(step.num);
         const isActiveStep = index === currentStepNum;
         const isNextStep = currentStepNum + 1 === stepNum;
-        const stepClass = `test step ${isActiveStep && isNextStep ? 'step-active' : ''} `;
+        const stepClass = `test step ${
+          isActiveStep && isNextStep ? 'step-active' : ''
+        } `;
         const numClass = `step-num ${isActiveStep ? 'num-active' : ''}`;
 
         return (

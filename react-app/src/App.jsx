@@ -8,18 +8,17 @@ import PrivacyPolicy from './Pages/PrivacyPolicy/PrivacyPolicy';
 import TermsUse from './Pages/TermsUse/TermsUse';
 import Cart from './Pages/Cart/Cart';
 import Home from './Pages/Home/Home';
-import Header from './components/UI/Header';
-import Footer from './components/UI/Footer';
-import Checkout from './components/Checkout/Checkout';
-import Confirm from './components/Checkout/Confirm';
+import Header from './components/UI/Header/Header';
+import Footer from './components/UI/Footer/Footer';
+import Checkout from './Pages/Checkout/Checkout';
+import Confirm from './Pages/Confirm/Confirm';
 import MiniCart from './components/Cart/MiniCart/MiniCart';
 import React from 'react';
 
 function App() {
   return (
     <>
-      <div style={{ height: '4.2rem' }}></div>
-
+      <div id="bufferHeader"></div>
       <Header />
       <FloatingButton />
       <MiniCart />
