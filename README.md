@@ -3,9 +3,8 @@
 <p>
  <b> # Camping Site Reservation System </b> <br>
   Welcome to the Camping Site Reservation System developed for the Israel Nature and Parks Authority. This system aims to simplify and enhance the camping experience for   users. By collaborating with the authority, we have created an intuitive platform that streamlines the booking process while meeting the unique needs of the camping sites. <br>
-<b> Visit the website by clicking here: https://workshop82.onrender.com/ </b> <br>
-[פוסטר - ניהול הזמנות לאתרי קמפינג - 20232W82.pdf](https://github.com/DvirK95/Reservation-management-system-for-camping-sites-W82/files/12280094/-.-.20232W82.pdf)
- 
+<b> Visit the website by clicking here: https://workshop82.onrender.com/ </b>
+
 ## Features
 - Real-time availability of camping sites.
 - User-friendly interface for smooth navigation.
@@ -29,5 +28,8 @@ https://www.youtube.com/watch?v=L_dcYnCu_4Y
 ## Authors
 - Dvir Karl - [@DvirK95](https://github.com/DvirK95)
 - Lee Shmueli Cohen - [@LeeShmueliCohen](https://github.com/LeeShmueliCohen)
+
+##
+<img width="1536" alt="Inkodo-07082023_131253" src="https://github.com/DvirK95/Reservation-management-system-for-camping-sites-W82/assets/128243533/6d2e6fe8-9e8c-4fe7-8943-b5c18464d86d">
 
 </p>
